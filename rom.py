@@ -152,13 +152,18 @@ def write_tokens(world: WL4World, patch: WL4ProcedurePatch):
     )
     set_difficulty_level(patch, world.options.difficulty)
 
-    # TODO: Maybe make it stay open so it looks cleaner
     if (world.options.portal == Portal.option_open):
-        patch_instructions(patch, 0x02AC56, 0x46C0)  # nop  ; EntityAI_Tmain_docodoor_uzu_small()
-        patch_instructions(patch, 0x02ACB2, 0x46C0)  # nop  ; EntityAI_Tmain_docodoor_uzu_small()
-        patch_instructions(patch, 0x02AE56, 0x46C0)  # nop  ; EntityAI_Tmain_docodoor_uzu_mid()
-        patch_instructions(patch, 0x02B052, 0x46C0)  # nop  ; EntityAI_Tmain_docodoor_uzu_big()
-        patch_instructions(patch, 0x02B0BE, 0x46C0)  # nop  ; EntityAI_Tmain_docodoor_uzu_big()
+        # SpriteAI_Vortex()
+        patch_instructions(patch, 0x02ABA6, 0x2080)  # mov r0, #0x80  ; Pose 0 - Wait 128 frames
+        patch_instructions(patch, 0x02AC1A, 0x2014)  # mov r0, #0x14  ; Pose 0x11 - Transition to pose 0x14
+        patch_instructions(patch, 0x02AC56, 0x46C0)  # nop  ; Pose 1 - Start large when reloaded
+        patch_instructions(patch, 0x02ACC8, 0x3227)  # mov r2, #0x27  ; Pose 0x14 - Use work0 instead of work2
+        # SpriteAI_VortexPartMedium()
+        patch_instructions(patch, 0x02AE56, 0x46C0)  # nop  ; Pose 1 - Start large when reloaded
+        patch_instructions(patch, 0x02AE90, 0x2010)  # mov r0, #0x10  ; Pose 0 - Don't shrink
+        # SpriteAI_VortexPartLarge()
+        patch_instructions(patch, 0x02B052, 0x46C0)  # nop  ; Pose 1 - Start large when reloaded
+        patch_instructions(patch, 0x02B08C, 0x2010)  # mov r0, #0x10  ; Pose 0 - Don't shrink
 
     # Break hard blocks without stopping
     if (world.options.smash_through_hard_blocks == SmashThroughHardBlocks.option_true):
