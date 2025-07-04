@@ -438,8 +438,10 @@ level_table = {
                 [
                     LocationData("Looping Room Box"),
                     LocationData("Maze Room Box"),
-                    LocationData("Snowman Puzzle Lower Box"),
-                    LocationData("Snowman Puzzle Upper Box"),
+                    LocationData("Snowman Puzzle Lower Left Box", difficulties=[normal]),
+                    LocationData("Snowman Puzzle Upper Left Box", difficulties=[hard, s_hard]),
+                    LocationData("Snowman Puzzle Upper Right Box", difficulties=[normal]),
+                    LocationData("Snowman Puzzle Lower Right Box", difficulties=[hard, s_hard]),
                     LocationData("CD Box", access_rule=has("Head Smash")),
                     LocationData("Keyzer", event=True),
                     LocationData("Frog Switch", event=True),

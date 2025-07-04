@@ -311,14 +311,16 @@ class TestNormal(WL4TestBase):
             ["40 Below Fridge - Maze Room Box", True,
              ["Progressive Ground Pound", "Progressive Ground Pound"]],
 
-            ["40 Below Fridge - Snowman Puzzle Upper Box", False, []],
-            ["40 Below Fridge - Snowman Puzzle Upper Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
-            ["40 Below Fridge - Snowman Puzzle Upper Box", True,
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", True,
              ["Progressive Ground Pound", "Progressive Ground Pound"]],
 
-            ["40 Below Fridge - Snowman Puzzle Lower Box", False, []],
-            ["40 Below Fridge - Snowman Puzzle Lower Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
-            ["40 Below Fridge - Snowman Puzzle Lower Box", True,
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", True,
              ["Progressive Ground Pound", "Progressive Ground Pound"]],
 
             ["40 Below Fridge - CD Box", False, []],

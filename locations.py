@@ -161,8 +161,10 @@ location_table = {
     # 40 Below Fridge
     "40 Below Fridge - Looping Room Box":                       LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NE,      _ALL),
     "40 Below Fridge - Maze Room Box":                          LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_SE,      _ALL),
-    "40 Below Fridge - Snowman Puzzle Lower Box":               LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_SW,      _ALL),
-    "40 Below Fridge - Snowman Puzzle Upper Box":               LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NW,      _ALL),
+    "40 Below Fridge - Snowman Puzzle Lower Left Box":          LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_SW,      _NORMAL),
+    "40 Below Fridge - Snowman Puzzle Upper Left Box":          LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_SW,      _HARDER),
+    "40 Below Fridge - Snowman Puzzle Upper Right Box":         LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NW,      _NORMAL),
+    "40 Below Fridge - Snowman Puzzle Lower Right Box":         LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NW,      _HARDER),
     "40 Below Fridge - CD Box":                                 LocationData(Passage.RUBY,     2, ItemFlag.CD,            _ALL),
     "40 Below Fridge - Conveyor Room Diamond":                  LocationData(Passage.RUBY,     2, ItemFlag.DIAMOND_1,     _ALL),
     "40 Below Fridge - Maze Cage Diamond":                      LocationData(Passage.RUBY,     2, ItemFlag.DIAMOND_2,     _NORMAL),
