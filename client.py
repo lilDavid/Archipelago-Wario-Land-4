@@ -193,7 +193,10 @@ class WL4Client(BizHawkClient):
 
         # Remove WL4 commands in case this returns false after validating before
         for cmd_name in wl4_client_commands.keys():
-            del client_ctx.command_processor.commands[cmd_name]
+            try:
+                del client_ctx.command_processor.commands[cmd_name]
+            except KeyError:
+                pass
 
         bizhawk_ctx = client_ctx.bizhawk_ctx
         try:
