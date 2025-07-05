@@ -5,6 +5,7 @@ from typing import NamedTuple
 from .data import Passage
 from .options import Difficulty, Goal
 from .rules import Requirement, has, has_all, has_any, has_treasures, option, difficulty, not_difficulty, advanced_logic
+from .tricks import trick
 
 
 normal = Difficulty.option_normal
@@ -394,7 +395,8 @@ level_table = {
                     LocationData("Trash Sprint Diamond"),
                     LocationData(
                         "Transformation Puzzle Lower Diamond",
-                        access_rule=has("Swim") & (advanced_logic() | has("Heavy Grab"))
+                        access_rule=has("Swim")
+                            & (has("Heavy Grab") | trick("TTL transformation puzzle without heavy grab"))
                     ),
                     LocationData("Rock Throwing Diamond", access_rule=has("Grab")),
                 ]
@@ -457,7 +459,7 @@ level_table = {
                     LocationData("Snowman Puzzle Right Diamond"),
                     LocationData(
                         "Glass Ball Puzzle Diamond",
-                        access_rule=has("Grab") | advanced_logic() & has_all(["Stomp Jump", "Ground Pound"])
+                        access_rule=has("Grab") | trick("40BF glass ball stomp jump")
                     ),
                     LocationData("Yeti Puzzle Diamond", access_rule=has("Heavy Grab")),
                 ]
@@ -475,7 +477,7 @@ level_table = {
             RegionData(
                 "Early Rooms",
                 [
-                    ExitData("Jungle Room", has("Ground Pound") | advanced_logic()),
+                    ExitData("Jungle Room", has("Ground Pound") | trick("PZ fruit room without ground pound")),
                 ],
                 [
                     LocationData("Rolling Room Box", difficulties=[normal, hard]),
@@ -490,7 +492,7 @@ level_table = {
             RegionData(
                 "Jungle Room",
                 [
-                    ExitData("Late Rooms", has("Ground Pound") | advanced_logic() & has("Heavy Grab")),
+                    ExitData("Late Rooms", has("Ground Pound") | trick("PZ jungle room with Fat Wario")),
                 ],
                 [
                     LocationData("Jungle Room Box"),
@@ -627,10 +629,7 @@ level_table = {
                 [
                     ExitData("Blue Circle Room", has("Stomp Jump")),
                     ExitData("Pink Circle Room", has("Ground Pound")),
-                    ExitData(
-                        "Gray Square Room",
-                        has("Ground Pound") | not_difficulty(normal) & advanced_logic() & has("Grab")
-                    ),
+                    ExitData("Gray Square Room", has("Ground Pound") | trick("DW gray square room with grab")),
                 ],
                 [
                     LocationData("Box Behind Wall", difficulties=[normal]),
@@ -684,7 +683,10 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData("Lake Entrance", has("Ground Pound") | advanced_logic() & has_any(["Head Smash", "Grab"])),
+                    ExitData(
+                        "Lake Entrance",
+                        has("Ground Pound") | trick("DR escape with head smash") | trick("DR escape with grab")
+                    ),
                 ],
                 [
                     LocationData("Racing Box"),
@@ -792,7 +794,7 @@ level_table = {
                 [
                     ExitData(
                         "Onomi Room Bottom",
-                        has_any(["Ground Pound", "Head Smash"]) | advanced_logic() & has("Grab")
+                        has_any(["Ground Pound", "Head Smash"]) | trick("AN Onomi room with grab")
                     ),
                     ExitData("Flying Carpet Dash Attack Puzzle", has("Dash Attack")),
                     ExitData("Kool-Aid Man", has("Dash Attack")),
@@ -911,11 +913,7 @@ level_table = {
                 [
                     ExitData(
                         "Switch Room",
-                        access_rule=(
-                            has("Heavy Grab")
-                            | difficulty(hard) & advanced_logic() & has_all(["Grab", "Stomp Jump", "Super Ground Pound"])
-                            | difficulty(s_hard)
-                        )
+                        access_rule=has("Heavy Grab") | trick("HH escape minion jump") | difficulty(s_hard)
                     ),
                 ],
                 [
@@ -956,7 +954,7 @@ level_table = {
                 "Entrance",
                 [
                     ExitData("Current Puzzle", has("Swim")),
-                    ExitData("Passage", advanced_logic()),
+                    ExitData("Passage", trick("GP current room skip")),
                 ],
                 [
                     LocationData("Frog Switch", event=True),
@@ -981,9 +979,7 @@ level_table = {
             RegionData(
                 "Passage",
                 [
-                    # Trick undocumented due to being currently not doable in practice: Reaching Golden Passage always
-                    # requires Ground Pound because of Cractus and Catbat
-                    ExitData("Scienstein Area", has("Ground Pound") | advanced_logic() & has("Grab")),
+                    ExitData("Scienstein Area", has("Ground Pound") | trick("GP Keyzer puzzle without ground pound")),
                 ],
                 [
                     LocationData("River Box"),
@@ -1032,7 +1028,7 @@ passage_boss_table = {
     Passage.TOPAZ: BossData("Aerodent", has("Grab")),
     Passage.SAPPHIRE: BossData(
         "Catbat",
-        has("Ground Pound") & (has("Stomp Jump") | advanced_logic()),
+        has("Ground Pound") & (has("Stomp Jump") | trick("Catbat without stomp jump")),
         has("Stomp Jump") | advanced_logic() & not_difficulty(s_hard)
     ),
 }
