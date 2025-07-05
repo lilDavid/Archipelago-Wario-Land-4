@@ -262,27 +262,17 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData("Fat Plummet Extra Area", access_rule=has("Ground Pound")),
                     ExitData("Deeps", access_rule=has("Ground Pound")),
                 ],
                 [
-                    LocationData("Fat Plummet Box", difficulties=[normal]),
+                    LocationData("Fat Plummet Box"),
                     LocationData("CD Box", access_rule=has("Ground Pound")),
                     LocationData("Full Health Item Box", access_rule=has("Swim")),
                 ],
                 diamonds=[
+                    LocationData("Fat Plummet Diamond", difficulties=[normal]),
                     LocationData("Archer Pink Room Diamond"),
                     LocationData("Rock Catching Diamond", access_rule=has("Grab")),
-                ]
-            ),
-            RegionData(
-                "Fat Plummet Extra Area",
-                [],
-                [
-                    LocationData("Fat Plummet Box", difficulties=[hard, s_hard]),
-                ],
-                diamonds=[
-                    LocationData("Fat Plummet Diamond", difficulties=[normal]),
                 ]
             ),
             RegionData(
@@ -444,7 +434,7 @@ level_table = {
                     LocationData("Snowman Puzzle Upper Left Box", difficulties=[hard, s_hard]),
                     LocationData("Snowman Puzzle Upper Right Box", difficulties=[normal]),
                     LocationData("Snowman Puzzle Lower Right Box", difficulties=[hard, s_hard]),
-                    LocationData("CD Box", access_rule=has("Head Smash")),
+                    LocationData("CD Box", access_rule=has("Head Smash") | trick("40BF CD box with heavy grab")),
                     LocationData("Keyzer", event=True),
                     LocationData("Frog Switch", event=True),
                 ],

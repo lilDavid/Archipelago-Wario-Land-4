@@ -322,9 +322,7 @@ class TestHardOpenPortal(TestHard):
             ["Monsoon Jungle - Escape Climb Box", False, [], ["Progressive Ground Pound"]],
             ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Ground Pound"]],
 
-            ["Monsoon Jungle - Fat Plummet Box", False, []],
-            ["Monsoon Jungle - Fat Plummet Box", False, [], ["Progressive Ground Pound"]],
-            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, []],
 
             ["Monsoon Jungle - Puffy Hallway Box", False, []],
             ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],
@@ -579,9 +577,7 @@ class TestSHardOpenPortal(TestSHard):
             ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound"]],
             ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Ground Pound"]],
 
-            ["Monsoon Jungle - Fat Plummet Box", False, []],
-            ["Monsoon Jungle - Fat Plummet Box", False, [], ["Progressive Ground Pound"]],
-            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, []],
 
             ["Monsoon Jungle - Puffy Hallway Box", False, []],
             ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],

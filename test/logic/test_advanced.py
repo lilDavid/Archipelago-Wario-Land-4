@@ -6,6 +6,39 @@ from .test_s_hard import TestSHard
 class TestAdvancedNormal(TestNormal):
     options = {"difficulty": 0, "logic": 1}
 
+    def _test_40_below_fridge(self):
+        self.run_location_tests([
+            ["40 Below Fridge - Looping Room Box", False, []],
+            ["40 Below Fridge - Looping Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Looping Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Maze Room Box", False, []],
+            ["40 Below Fridge - Maze Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Maze Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Lower Left Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Upper Right Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - CD Box", False, []],
+            ["40 Below Fridge - CD Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - CD Box", False, ["Progressive Grab"], ["Head Smash", "Progressive Grab"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
+        ])
+
     def _test_doodle_woods(self):
         self.run_location_tests([
             ["Doodle Woods - Box Behind Wall", True, []],
@@ -82,6 +115,39 @@ class TestAdvancedNormal(TestNormal):
 
 class TestAdvancedHard(TestHard):
     options = {"difficulty": 1, "logic": 1}
+
+    def _test_40_below_fridge(self):
+        self.run_location_tests([
+            ["40 Below Fridge - Looping Room Box", False, []],
+            ["40 Below Fridge - Looping Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Looping Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Maze Room Box", False, []],
+            ["40 Below Fridge - Maze Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Maze Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - CD Box", False, []],
+            ["40 Below Fridge - CD Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - CD Box", False, ["Progressive Grab"], ["Head Smash", "Progressive Grab"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
+        ])
 
     def _test_doodle_woods(self):
         self.run_location_tests([
@@ -252,6 +318,39 @@ class TestAdvancedHard(TestHard):
 
 class TestAdvancedSHard(TestSHard):
     options = {"difficulty": 2, "logic": 1}
+
+    def _test_40_below_fridge(self):
+        self.run_location_tests([
+            ["40 Below Fridge - Looping Room Box", False, []],
+            ["40 Below Fridge - Looping Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Looping Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Maze Room Box", False, []],
+            ["40 Below Fridge - Maze Room Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Maze Room Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Upper Left Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", False, []],
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", False,
+             ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - Snowman Puzzle Lower Right Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound"]],
+
+            ["40 Below Fridge - CD Box", False, []],
+            ["40 Below Fridge - CD Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["40 Below Fridge - CD Box", False, ["Progressive Grab"], ["Head Smash", "Progressive Grab"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
+            ["40 Below Fridge - CD Box", True,
+             ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
+        ])
 
     def _test_doodle_woods(self):
         self.run_location_tests([

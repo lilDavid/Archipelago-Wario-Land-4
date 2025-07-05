@@ -20,6 +20,9 @@ def trick(name: str):
 
 
 trick_table = {
+    # Throw the Yeti at the block.
+    "40BF CD box with heavy grab": TrickData(has("Heavy Grab")),
+
     # Ground pound the switches in the maze puzzle room by getting a running start and stomp jumping on the glass ball
     # right after the glass bird spits it out.
     "40BF glass ball stomp jump": TrickData(has_all(["Stomp Jump", "Ground Pound"])),
