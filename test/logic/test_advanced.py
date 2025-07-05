@@ -75,7 +75,9 @@ class TestAdvancedNormal(TestNormal):
 
             ["Golden Passage - Bat Room Box", True, []],
 
+            ["Golden Passage - Mad Scienstein Box", False, []],
             ["Golden Passage - Mad Scienstein Box", True, ["Progressive Ground Pound"]],
+            ["Golden Passage - Mad Scienstein Box", True, ["Progressive Grab"]],
         ])
 
 class TestAdvancedHard(TestHard):
@@ -243,7 +245,9 @@ class TestAdvancedHard(TestHard):
 
             ["Golden Passage - Bat Room Box", True, []],
 
+            ["Golden Passage - Mad Scienstein Box", False, []],
             ["Golden Passage - Mad Scienstein Box", True, ["Progressive Ground Pound"]],
+            ["Golden Passage - Mad Scienstein Box", True, ["Progressive Grab"]],
         ])
 
 class TestAdvancedSHard(TestSHard):
@@ -354,7 +358,6 @@ class TestAdvancedSHard(TestSHard):
             ["Golden Passage - Bat Room Box", True, []],
 
             ["Golden Passage - Mad Scienstein Box", False, []],
-            ["Golden Passage - Mad Scienstein Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
             ["Golden Passage - Mad Scienstein Box", True, ["Progressive Ground Pound"]],
             ["Golden Passage - Mad Scienstein Box", True, ["Progressive Grab"]],
         ])
