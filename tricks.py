@@ -39,11 +39,8 @@ trick_table = {
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
 
-    # Break the blocks by throwing a Toy Car.
-    "DR escape with grab": TrickData(has("Grab")),
-
-    # Break the blocks using head smash on the way up.
-    "DR escape with head smash": TrickData(has("Head Smash")),
+    # Break the blocks with shoulder bashes, using invulnerability frames to hit the second one through the spikes.
+    "DR escape with only swim": TrickData(None),
 
     # Break the wooden boxes by throwing the mummy enemies.
     "AN Onomi room with grab": TrickData(has("Grab")),

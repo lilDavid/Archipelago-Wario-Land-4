@@ -673,10 +673,7 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData(
-                        "Lake Entrance",
-                        has("Ground Pound") | trick("DR escape with head smash") | trick("DR escape with grab")
-                    ),
+                    ExitData("Lake Entrance", has("Ground Pound") | trick("DR escape with only swim")),
                 ],
                 [
                     LocationData("Racing Box"),

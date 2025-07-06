@@ -50,11 +50,7 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Detour Box", False, []],
             ["Domino Row - Swimming Detour Box", False, [], ["Swim"]],
@@ -68,11 +64,7 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
 
@@ -123,11 +115,7 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Detour Box", False, []],
             ["Domino Row - Swimming Detour Box", False, [], ["Swim"]],
@@ -141,11 +129,7 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
     def _test_arabian_night(self):
@@ -251,11 +235,7 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Room Escape Box", False, []],
             ["Domino Row - Swimming Room Escape Box", False, [], ["Swim"]],
@@ -269,11 +249,7 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
     def _test_arabian_night(self):

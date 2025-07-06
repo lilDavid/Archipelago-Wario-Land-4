@@ -58,19 +58,11 @@ class TestAdvancedNormal(TestNormal):
         self.run_location_tests([
             ["Domino Row - Racing Box", False, []],
             ["Domino Row - Racing Box", False, [], ["Swim"]],
-            ["Domino Row - Racing Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Racing Box", True, ["Swim"]],
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Detour Box", False, []],
             ["Domino Row - Swimming Detour Box", False, [], ["Swim"]],
@@ -84,11 +76,7 @@ class TestAdvancedNormal(TestNormal):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
     def _test_catbat(self):
@@ -174,19 +162,11 @@ class TestAdvancedHard(TestHard):
         self.run_location_tests([
             ["Domino Row - Racing Box", False, []],
             ["Domino Row - Racing Box", False, [], ["Swim"]],
-            ["Domino Row - Racing Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Racing Box", True, ["Swim"]],
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Detour Box", False, []],
             ["Domino Row - Swimming Detour Box", False, [], ["Swim"]],
@@ -200,11 +180,7 @@ class TestAdvancedHard(TestHard):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
     def _test_arabian_night(self):
@@ -377,19 +353,11 @@ class TestAdvancedSHard(TestSHard):
         self.run_location_tests([
             ["Domino Row - Racing Box", False, []],
             ["Domino Row - Racing Box", False, [], ["Swim"]],
-            ["Domino Row - Racing Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Racing Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Racing Box", True, ["Swim"]],
 
             ["Domino Row - Rolling Box", False, []],
             ["Domino Row - Rolling Box", False, [], ["Swim"]],
-            ["Domino Row - Rolling Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - Rolling Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - Rolling Box", True, ["Swim"]],
 
             ["Domino Row - Swimming Room Escape Box", False, []],
             ["Domino Row - Swimming Room Escape Box", False, [], ["Swim"]],
@@ -403,11 +371,7 @@ class TestAdvancedSHard(TestSHard):
 
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
-            ["Domino Row - CD Box", False, [],
-             ["Progressive Ground Pound", "Head Smash", "Progressive Grab"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Ground Pound"]],
-            ["Domino Row - CD Box", True, ["Swim", "Head Smash"]],
-            ["Domino Row - CD Box", True, ["Swim", "Progressive Grab"]],
+            ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
     def _test_arabian_night(self):

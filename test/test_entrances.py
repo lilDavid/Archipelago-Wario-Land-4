@@ -159,11 +159,7 @@ class TestEntrancesAdvanced(TestEntrances):
 
             ["Topaz Passage Boss Door", False, []],
             ["Topaz Passage Boss Door", False, [], ["Swim"]],
-            ["Topaz Passage Boss Door", False, [], ["Progressive Ground Pound", "Head Smash",
-                                            "Progressive Grab"]],
-            ["Topaz Passage Boss Door", True, ["Swim", "Progressive Ground Pound"]],
-            ["Topaz Passage Boss Door", True, ["Swim", "Head Smash"]],
-            ["Topaz Passage Boss Door", True, ["Swim", "Progressive Grab"]],
+            ["Topaz Passage Boss Door", True, ["Swim"]],
         ])
 
 
