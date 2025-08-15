@@ -181,7 +181,7 @@ class WL4Client(BizHawkClient):
 
     def __init__(self):
         super().__init__()
-        self.local_checked_locations = []
+        self.local_checked_locations = set()
         self.local_hinted_locations = set()
         self.local_set_events = {}
         self.local_room = TRACKER_ROOM_NONE
@@ -299,7 +299,7 @@ class WL4Client(BizHawkClient):
                 read32(collected_items_address),
             ],
             [
-                guard16(main_game_mode_address, GAMEMODE_INGAME),
+                *self.guard_game_mode((GAMEMODE_INGAME, INGAME_WARIOCONTROL)),
                 guard8(multiworld_send_address, SEND_IMMEDIATELY),
             ]
         )
