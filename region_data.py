@@ -19,14 +19,14 @@ class LevelData(NamedTuple):
 
 
 class RegionData(NamedTuple):
-    name: str
+    name: str | None
     exits: list[ExitData]
     locations: list[LocationData] = []
     diamonds: list[LocationData] = []
 
 
 class ExitData(NamedTuple):
-    destination: str
+    destination: str | None
     access_rule: Requirement | None = None  # Forward and reverse
 
 
@@ -687,7 +687,7 @@ level_table = {
                 diamonds=[
                     LocationData(
                         "Toy Car Tower Diamond",
-                        access_rule=has_all(["Grab", "Stomp Jump"]),
+                        access_rule=has_all(["Grab", "Stomp Jump"]) | trick("DR toy car tower diamond damage boost"),
                         difficulties=[normal, hard]
                     ),
                 ]

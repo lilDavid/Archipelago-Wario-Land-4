@@ -39,6 +39,9 @@ trick_table = {
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
 
+    # Go up the left path, take damage from the spikes, break the leftmost block, then collect the diamond from above.
+    "DR toy car tower diamond damage boost": TrickData(None),
+
     # Break the blocks with shoulder bashes, using invulnerability frames to hit the second one through the spikes.
     "DR escape with only swim": TrickData(None),
 
