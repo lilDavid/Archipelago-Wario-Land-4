@@ -5,7 +5,7 @@ from typing import Callable, Iterable, NamedTuple, TYPE_CHECKING
 
 from BaseClasses import CollectionState
 
-from .items import ItemType, filter_item_names
+from .items import golden_treasure_table
 from .options import Logic
 
 if TYPE_CHECKING:
@@ -69,11 +69,9 @@ def has_any(items: Iterable[RequiredItem]) -> Requirement:
     resolved_items = [resolve_helper(item) for item in items]
     return Requirement(lambda w, s: _has_any(resolved_items, s, w.player))
 
-treasures = list(filter_item_names(type=ItemType.TREASURE))
-
 def treasure_count(state: CollectionState, player: int):
     count = 0
-    for treasure in treasures:
+    for treasure in golden_treasure_table:
         if state.has(treasure, player):
             count += 1
     return count

@@ -1,4 +1,4 @@
-from typing import NamedTuple
+from typing import NamedTuple, Sequence
 
 from BaseClasses import Location, Region
 
@@ -10,7 +10,7 @@ class LocationData(NamedTuple):
     passage: Passage
     level: int
     flag: ItemFlag
-    difficulties: list[int]
+    difficulties: Sequence[int]
 
     def level_id(self):
         return (self.passage, self.level)
@@ -358,29 +358,35 @@ location_table = {
 location_name_to_id = {name: data.to_ap_id() for name, data in location_table.items()}
 
 
-class WL4Location(Location):
+class WL4LocationBase(Location):
     game: str = "Wario Land 4"
-    passage: int | None
-    level: int | None
-    flag: int | None
-    difficulty: list[int]
+
+
+class WL4Location(WL4LocationBase):
+    passage: int
+    level: int
+    flag: int
+    difficulty: Sequence[int]
 
     def __init__(self, player: int, name: str, parent: Region | None = None):
-        super().__init__(player, name, location_name_to_id.get(name, None), parent)
+        super(WL4Location, self).__init__(player, name, location_name_to_id[name], parent)
         self.passage, self.level, self.flag, self.difficulty = location_table[name]
 
     def entry_offset(self):
-        if self.is_event:
-            return None
         return self.flag.bit_length() - (1 if self.flag < ItemFlag.KEYZER else 2)
 
     def level_offset(self):
-        if self.is_event:
-            return None
         return (self.passage * 5 + self.level) * (len(ItemFlag) - 1)
+
+
+class WL4EventLocation(WL4LocationBase):
+    def __init__(self, player: int, name: str, parent: Region | None = None):
+        super(WL4EventLocation, self).__init__(player, name, None, parent)
+
 
 def get_level_locations(passage: Passage, level: int):
     return map(lambda l: l[0], get_level_location_data(passage, level))
+
 
 def get_level_location_data(passage: Passage, level: int):
     return filter(lambda l: l[1].level_id() == (passage, level), location_table.items())

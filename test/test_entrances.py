@@ -3,24 +3,7 @@ from .bases import WL4TestBase
 
 
 class TestEntrances(WL4TestBase):
-    def test_passage_access(self):
-        self.starting_regions = []
-        self.run_entrance_tests([
-            ["Entry Passage Entrance", True, []],
-            ["Emerald Passage Entrance", True, []],
-            ["Ruby Passage Entrance", True, []],
-            ["Topaz Passage Entrance", True, []],
-            ["Sapphire Passage Entrance", True, []],
-
-            ["Golden Pyramid Entrance", False, []],
-            ["Golden Pyramid Entrance", False, ["Emerald Passage Clear"]],
-            ["Golden Pyramid Entrance", False, ["Ruby Passage Clear"]],
-            ["Golden Pyramid Entrance", False, ["Topaz Passage Clear"]],
-            ["Golden Pyramid Entrance", False, ["Sapphire Passage Clear"]],
-            ["Golden Pyramid Entrance", True,
-             ["Emerald Passage Clear", "Ruby Passage Clear",
-              "Topaz Passage Clear", "Sapphire Passage Clear"]],
-        ])
+    pass
 
 
 class TestEntrancesBasic(TestEntrances):

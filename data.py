@@ -64,7 +64,9 @@ class Domain(Enum):
 
 
 def data_path(file_name: str):
-    return pkgutil.get_data(__name__, f"data/{file_name}")
+    data = pkgutil.get_data(__name__, f"data/{file_name}")
+    assert data is not None
+    return data
 
 
 def _get_symbols() -> dict[str, int]:

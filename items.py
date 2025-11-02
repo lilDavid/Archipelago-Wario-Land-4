@@ -5,7 +5,7 @@ from typing import Iterable, NamedTuple
 
 from BaseClasses import Item, ItemClassification as IC
 
-from .data import ap_id_offset, ItemFlag, Passage
+from .data import ap_id_offset, Passage
 
 
 # Items are encoded as 8-bit numbers as follows:
@@ -57,190 +57,168 @@ class Box(IntEnum):
     FULL_HEALTH = 5
 
 
-class ItemType(IntEnum):
-    JEWEL = 0
-    CD = 1
-    ITEM = 2
-    ABILITY = 4
-    TREASURE = 5
+class JewelPieceItemData(NamedTuple):
+    passage: Passage
+    box: Box
+    classification: IC
+
+    def item_id(self):
+        return (self.passage << 2) | self.box
+
+    def flag(self):
+        return 1 << self.box
 
 
-def ap_id_from_wl4_data(data: ItemData) -> int:
-    cat, itemid, _ = data
-    if cat == ItemType.JEWEL:
-        passage, quad = itemid
-        item = (passage << 2) | quad
-    elif cat == ItemType.CD:
-        passage, level = itemid
-        item = (1 << 5) | (passage << 2) | level
-    elif cat == ItemType.ABILITY:
-        item = (1 << 6) | itemid
-    elif cat == ItemType.ITEM:
-        item = (1 << 7) | itemid
-    elif cat == ItemType.TREASURE:
-        item = 0x70 | itemid
-    else:
-        raise ValueError(f"Unexpected WL4 item type: {cat}")
-    return ap_id_offset + item
+class CdItemData(NamedTuple):
+    passage: Passage
+    level: int
+    classification: IC
+
+    def item_id(self):
+        return (1 << 5) | (self.passage << 2) | self.level
+
+    @staticmethod
+    def flag():
+        return 1 << Box.CD
 
 
-def wl4_data_from_ap_id(ap_id: int) -> tuple[str, ItemData]:
-    val = ap_id - ap_id_offset
-    if val >> 6 == 0:
-        passage = (val & 0x1C) >> 2
-        if val >> 5 == 0:
-            quad = val & 3
-            candidates = tuple(filter(lambda d: d[1][0] == ItemType.JEWEL and
-                                                d[1][1][0] == passage and
-                                                d[1][1][1] == quad,
-                                      item_table.items()))
-        else:
-            level = val & 3
-            candidates = tuple(filter(lambda d: d[1][0] == ItemType.CD and
-                                                d[1][1] == (passage, level),
-                                      item_table.items()))
-    elif val >> 3 == 8:
-        candidates = tuple(filter(lambda d: d[1][0] == ItemType.ABILITY and
-                                            d[1][1] == val,
-                                  item_table.items()))
-    elif val >> 4 == 7:
-        candidates = tuple(filter(lambda d: d[1][0] == ItemType.TREASURE and
-                                            d[1][1] == val,
-                                  item_table.items()))
-    elif val >> 4 == 8:
-        candidates = tuple(filter(lambda d: d[1][0] == ItemType.ITEM and
-                                            d[1][1] == val,
-                                  item_table.items()))
-    else:
-        candidates = ()
+class AbilityItemData(NamedTuple):
+    ability: int
+    classification: IC
 
-    if not candidates:
-        raise ValueError(f"Could not find WL4 item ID: {ap_id}")
-    return candidates[0]
+    def item_id(self):
+        return (1 << 6) | self.ability
 
 
-class WL4Item(Item):
-    game: str = "Wario Land 4"
-    type: ItemType | None
-    passage: Passage | None
-    level: int | None
-    flag: ItemFlag | None
+class GoldenTreasureItemData(NamedTuple):
+    treasure: int
+    classification: IC
 
-    def __init__(self, name: str, player: int, force_non_progression: bool = False):
-        if name in item_table:
-            data = item_table[name]
-            self.type, id, prog = data
-            code = ap_id_from_wl4_data(data)
-        else:
-            self.type = code = None
-            prog = IC.progression
-        super(WL4Item, self).__init__(name, IC.filler if force_non_progression else prog, code, player)
-        if self.type == ItemType.JEWEL:
-            self.passage = id[0]
-            self.level = None
-            self.flag = 1 << id[1]
-        elif self.type == ItemType.CD:
-            self.passage, self.level = id
-            self.flag = ItemFlag.CD
-        else:
-            self.passage = self.level = self.flag = None
+    def item_id(self):
+        return 0x70 | self.treasure
+
+    def passage(self):
+        return Passage(self.treasure // 3 + Passage.EMERALD)
 
 
-class ItemData(NamedTuple):
-    type: ItemType
-    id: tuple[Passage, Box] | tuple[Passage, int] | int
-    prog: IC
+class OtherItemData(NamedTuple):
+    item: int
+    classification: IC
 
-    def passage(self) -> Passage | None:
-        if not isinstance(self.id, tuple):
-            return None
-        return self.id[0]
-
-    def box(self) -> Box | None:
-        if self.type == ItemType.JEWEL:
-            return self.id[1]
-        if self.type == ItemType.CD:
-            return Box.CD
-        return None
+    def item_id(self):
+        return (1 << 7) | self.item
 
 
-item_table = {
-    # Item name                                  Item type          ID                                 Progression
-    "Top Right Entry Jewel Piece":      ItemData(ItemType.JEWEL,    (Passage.ENTRY,    Box.JEWEL_NE),  IC.filler),
-    "Top Right Emerald Piece":          ItemData(ItemType.JEWEL,    (Passage.EMERALD,  Box.JEWEL_NE),  IC.progression_skip_balancing),
-    "Top Right Ruby Piece":             ItemData(ItemType.JEWEL,    (Passage.RUBY,     Box.JEWEL_NE),  IC.progression_skip_balancing),
-    "Top Right Topaz Piece":            ItemData(ItemType.JEWEL,    (Passage.TOPAZ,    Box.JEWEL_NE),  IC.progression_skip_balancing),
-    "Top Right Sapphire Piece":         ItemData(ItemType.JEWEL,    (Passage.SAPPHIRE, Box.JEWEL_NE),  IC.progression_skip_balancing),
-    "Top Right Golden Jewel Piece":     ItemData(ItemType.JEWEL,    (Passage.GOLDEN,   Box.JEWEL_NE),  IC.progression_skip_balancing),
-    "Bottom Right Entry Jewel Piece":   ItemData(ItemType.JEWEL,    (Passage.ENTRY,    Box.JEWEL_SE),  IC.filler),
-    "Bottom Right Emerald Piece":       ItemData(ItemType.JEWEL,    (Passage.EMERALD,  Box.JEWEL_SE),  IC.progression_skip_balancing),
-    "Bottom Right Ruby Piece":          ItemData(ItemType.JEWEL,    (Passage.RUBY,     Box.JEWEL_SE),  IC.progression_skip_balancing),
-    "Bottom Right Topaz Piece":         ItemData(ItemType.JEWEL,    (Passage.TOPAZ,    Box.JEWEL_SE),  IC.progression_skip_balancing),
-    "Bottom Right Sapphire Piece":      ItemData(ItemType.JEWEL,    (Passage.SAPPHIRE, Box.JEWEL_SE),  IC.progression_skip_balancing),
-    "Bottom Right Golden Jewel Piece":  ItemData(ItemType.JEWEL,    (Passage.GOLDEN,   Box.JEWEL_SE),  IC.progression_skip_balancing),
-    "Bottom Left Entry Jewel Piece":    ItemData(ItemType.JEWEL,    (Passage.ENTRY,    Box.JEWEL_SW),  IC.filler),
-    "Bottom Left Emerald Piece":        ItemData(ItemType.JEWEL,    (Passage.EMERALD,  Box.JEWEL_SW),  IC.progression_skip_balancing),
-    "Bottom Left Ruby Piece":           ItemData(ItemType.JEWEL,    (Passage.RUBY,     Box.JEWEL_SW),  IC.progression_skip_balancing),
-    "Bottom Left Topaz Piece":          ItemData(ItemType.JEWEL,    (Passage.TOPAZ,    Box.JEWEL_SW),  IC.progression_skip_balancing),
-    "Bottom Left Sapphire Piece":       ItemData(ItemType.JEWEL,    (Passage.SAPPHIRE, Box.JEWEL_SW),  IC.progression_skip_balancing),
-    "Bottom Left Golden Jewel Piece":   ItemData(ItemType.JEWEL,    (Passage.GOLDEN,   Box.JEWEL_SW),  IC.progression_skip_balancing),
-    "Top Left Entry Jewel Piece":       ItemData(ItemType.JEWEL,    (Passage.ENTRY,    Box.JEWEL_NW),  IC.filler),
-    "Top Left Emerald Piece":           ItemData(ItemType.JEWEL,    (Passage.EMERALD,  Box.JEWEL_NW),  IC.progression_skip_balancing),
-    "Top Left Ruby Piece":              ItemData(ItemType.JEWEL,    (Passage.RUBY,     Box.JEWEL_NW),  IC.progression_skip_balancing),
-    "Top Left Topaz Piece":             ItemData(ItemType.JEWEL,    (Passage.TOPAZ,    Box.JEWEL_NW),  IC.progression_skip_balancing),
-    "Top Left Sapphire Piece":          ItemData(ItemType.JEWEL,    (Passage.SAPPHIRE, Box.JEWEL_NW),  IC.progression_skip_balancing),
-    "Top Left Golden Jewel Piece":      ItemData(ItemType.JEWEL,    (Passage.GOLDEN,   Box.JEWEL_NW),  IC.progression_skip_balancing),
-    "About that Shepherd CD":           ItemData(ItemType.CD,       (Passage.EMERALD,  0),             IC.filler),
-    "Things that Never Change CD":      ItemData(ItemType.CD,       (Passage.EMERALD,  1),             IC.filler),
-    "Tomorrow's Blood Pressure CD":     ItemData(ItemType.CD,       (Passage.EMERALD,  2),             IC.filler),
-    "Beyond the Headrush CD":           ItemData(ItemType.CD,       (Passage.EMERALD,  3),             IC.filler),
-    "Driftwood & the Island Dog CD":    ItemData(ItemType.CD,       (Passage.RUBY,     0),             IC.filler),
-    "The Judge's Feet CD":              ItemData(ItemType.CD,       (Passage.RUBY,     1),             IC.filler),
-    "The Moon's Lamppost CD":           ItemData(ItemType.CD,       (Passage.RUBY,     2),             IC.filler),
-    "Soft Shell CD":                    ItemData(ItemType.CD,       (Passage.RUBY,     3),             IC.filler),
-    "So Sleepy CD":                     ItemData(ItemType.CD,       (Passage.TOPAZ,    0),             IC.filler),
-    "The Short Futon CD":               ItemData(ItemType.CD,       (Passage.TOPAZ,    1),             IC.filler),
-    "Avocado Song CD":                  ItemData(ItemType.CD,       (Passage.TOPAZ,    2),             IC.filler),
-    "Mr. Fly CD":                       ItemData(ItemType.CD,       (Passage.TOPAZ,    3),             IC.filler),
-    "Yesterday's Words CD":             ItemData(ItemType.CD,       (Passage.SAPPHIRE, 0),             IC.filler),
-    "The Errand CD":                    ItemData(ItemType.CD,       (Passage.SAPPHIRE, 1),             IC.filler),
-    "You and Your Shoes CD":            ItemData(ItemType.CD,       (Passage.SAPPHIRE, 2),             IC.filler),
-    "Mr. Ether & Planaria CD":          ItemData(ItemType.CD,       (Passage.SAPPHIRE, 3),             IC.filler),
-    "Progressive Ground Pound":         ItemData(ItemType.ABILITY,  0x40,                              IC.progression),
-    "Swim":                             ItemData(ItemType.ABILITY,  0x41,                              IC.progression),
-    "Head Smash":                       ItemData(ItemType.ABILITY,  0x42,                              IC.progression),
-    "Progressive Grab":                 ItemData(ItemType.ABILITY,  0x43,                              IC.progression),
-    "Dash Attack":                      ItemData(ItemType.ABILITY,  0x44,                              IC.progression),
-    "Stomp Jump":                       ItemData(ItemType.ABILITY,  0x45,                              IC.progression),
-    "Golden Tree Pot":                  ItemData(ItemType.TREASURE, 0x70,                              IC.progression_skip_balancing),
-    "Golden Apple":                     ItemData(ItemType.TREASURE, 0x71,                              IC.progression_skip_balancing),
-    "Golden Fish":                      ItemData(ItemType.TREASURE, 0x72,                              IC.progression_skip_balancing),
-    "Golden Candle Holder":             ItemData(ItemType.TREASURE, 0x73,                              IC.progression_skip_balancing),
-    "Golden Lamp":                      ItemData(ItemType.TREASURE, 0x74,                              IC.progression_skip_balancing),
-    "Golden Crescent Moon Bed":         ItemData(ItemType.TREASURE, 0x75,                              IC.progression_skip_balancing),
-    "Golden Teddy Bear":                ItemData(ItemType.TREASURE, 0x76,                              IC.progression_skip_balancing),
-    "Golden Lollipop":                  ItemData(ItemType.TREASURE, 0x77,                              IC.progression_skip_balancing),
-    "Golden Game Boy Advance":          ItemData(ItemType.TREASURE, 0x78,                              IC.progression_skip_balancing),
-    "Golden Robot":                     ItemData(ItemType.TREASURE, 0x79,                              IC.progression_skip_balancing),
-    "Golden Rocket":                    ItemData(ItemType.TREASURE, 0x7A,                              IC.progression_skip_balancing),
-    "Golden Rocking Horse":             ItemData(ItemType.TREASURE, 0x7B,                              IC.progression_skip_balancing),
-    "Full Health Item":                 ItemData(ItemType.ITEM,     0x80,                              IC.useful),
-    "Wario Form Trap":                  ItemData(ItemType.ITEM,     0x81,                              IC.trap),
-    "Heart":                            ItemData(ItemType.ITEM,     0x82,                              IC.filler),
-    "Lightning Trap":                   ItemData(ItemType.ITEM,     0x83,                              IC.trap),
-    "Minigame Medal":                   ItemData(ItemType.ITEM,     0x84,                              IC.filler),
-    "Diamond":                          ItemData(ItemType.ITEM,     0x85,                              IC.filler),
+ItemData = JewelPieceItemData | CdItemData | AbilityItemData | GoldenTreasureItemData | OtherItemData
+
+
+jewel_piece_table = {
+    "Top Right Entry Jewel Piece":      JewelPieceItemData(Passage.ENTRY,    Box.JEWEL_NE, IC.filler),
+    "Top Right Emerald Piece":          JewelPieceItemData(Passage.EMERALD,  Box.JEWEL_NE, IC.progression_skip_balancing),
+    "Top Right Ruby Piece":             JewelPieceItemData(Passage.RUBY,     Box.JEWEL_NE, IC.progression_skip_balancing),
+    "Top Right Topaz Piece":            JewelPieceItemData(Passage.TOPAZ,    Box.JEWEL_NE, IC.progression_skip_balancing),
+    "Top Right Sapphire Piece":         JewelPieceItemData(Passage.SAPPHIRE, Box.JEWEL_NE, IC.progression_skip_balancing),
+    "Top Right Golden Jewel Piece":     JewelPieceItemData(Passage.GOLDEN,   Box.JEWEL_NE, IC.progression_skip_balancing),
+    "Bottom Right Entry Jewel Piece":   JewelPieceItemData(Passage.ENTRY,    Box.JEWEL_SE, IC.filler),
+    "Bottom Right Emerald Piece":       JewelPieceItemData(Passage.EMERALD,  Box.JEWEL_SE, IC.progression_skip_balancing),
+    "Bottom Right Ruby Piece":          JewelPieceItemData(Passage.RUBY,     Box.JEWEL_SE, IC.progression_skip_balancing),
+    "Bottom Right Topaz Piece":         JewelPieceItemData(Passage.TOPAZ,    Box.JEWEL_SE, IC.progression_skip_balancing),
+    "Bottom Right Sapphire Piece":      JewelPieceItemData(Passage.SAPPHIRE, Box.JEWEL_SE, IC.progression_skip_balancing),
+    "Bottom Right Golden Jewel Piece":  JewelPieceItemData(Passage.GOLDEN,   Box.JEWEL_SE, IC.progression_skip_balancing),
+    "Bottom Left Entry Jewel Piece":    JewelPieceItemData(Passage.ENTRY,    Box.JEWEL_SW, IC.filler),
+    "Bottom Left Emerald Piece":        JewelPieceItemData(Passage.EMERALD,  Box.JEWEL_SW, IC.progression_skip_balancing),
+    "Bottom Left Ruby Piece":           JewelPieceItemData(Passage.RUBY,     Box.JEWEL_SW, IC.progression_skip_balancing),
+    "Bottom Left Topaz Piece":          JewelPieceItemData(Passage.TOPAZ,    Box.JEWEL_SW, IC.progression_skip_balancing),
+    "Bottom Left Sapphire Piece":       JewelPieceItemData(Passage.SAPPHIRE, Box.JEWEL_SW, IC.progression_skip_balancing),
+    "Bottom Left Golden Jewel Piece":   JewelPieceItemData(Passage.GOLDEN,   Box.JEWEL_SW, IC.progression_skip_balancing),
+    "Top Left Entry Jewel Piece":       JewelPieceItemData(Passage.ENTRY,    Box.JEWEL_NW, IC.filler),
+    "Top Left Emerald Piece":           JewelPieceItemData(Passage.EMERALD,  Box.JEWEL_NW, IC.progression_skip_balancing),
+    "Top Left Ruby Piece":              JewelPieceItemData(Passage.RUBY,     Box.JEWEL_NW, IC.progression_skip_balancing),
+    "Top Left Topaz Piece":             JewelPieceItemData(Passage.TOPAZ,    Box.JEWEL_NW, IC.progression_skip_balancing),
+    "Top Left Sapphire Piece":          JewelPieceItemData(Passage.SAPPHIRE, Box.JEWEL_NW, IC.progression_skip_balancing),
+    "Top Left Golden Jewel Piece":      JewelPieceItemData(Passage.GOLDEN,   Box.JEWEL_NW, IC.progression_skip_balancing),
+}
+
+cd_table = {
+    "About that Shepherd CD":           CdItemData(Passage.EMERALD,  0, IC.filler),
+    "Things that Never Change CD":      CdItemData(Passage.EMERALD,  1, IC.filler),
+    "Tomorrow's Blood Pressure CD":     CdItemData(Passage.EMERALD,  2, IC.filler),
+    "Beyond the Headrush CD":           CdItemData(Passage.EMERALD,  3, IC.filler),
+    "Driftwood & the Island Dog CD":    CdItemData(Passage.RUBY,     0, IC.filler),
+    "The Judge's Feet CD":              CdItemData(Passage.RUBY,     1, IC.filler),
+    "The Moon's Lamppost CD":           CdItemData(Passage.RUBY,     2, IC.filler),
+    "Soft Shell CD":                    CdItemData(Passage.RUBY,     3, IC.filler),
+    "So Sleepy CD":                     CdItemData(Passage.TOPAZ,    0, IC.filler),
+    "The Short Futon CD":               CdItemData(Passage.TOPAZ,    1, IC.filler),
+    "Avocado Song CD":                  CdItemData(Passage.TOPAZ,    2, IC.filler),
+    "Mr. Fly CD":                       CdItemData(Passage.TOPAZ,    3, IC.filler),
+    "Yesterday's Words CD":             CdItemData(Passage.SAPPHIRE, 0, IC.filler),
+    "The Errand CD":                    CdItemData(Passage.SAPPHIRE, 1, IC.filler),
+    "You and Your Shoes CD":            CdItemData(Passage.SAPPHIRE, 2, IC.filler),
+    "Mr. Ether & Planaria CD":          CdItemData(Passage.SAPPHIRE, 3, IC.filler),
+}
+
+ability_table = {
+    "Progressive Ground Pound":         AbilityItemData(0, IC.progression),
+    "Swim":                             AbilityItemData(1, IC.progression),
+    "Head Smash":                       AbilityItemData(2, IC.progression),
+    "Progressive Grab":                 AbilityItemData(3, IC.progression),
+    "Dash Attack":                      AbilityItemData(4, IC.progression),
+    "Stomp Jump":                       AbilityItemData(5, IC.progression),
+}
+
+golden_treasure_table = {
+    "Golden Tree Pot":                  GoldenTreasureItemData( 0, IC.progression_skip_balancing),
+    "Golden Apple":                     GoldenTreasureItemData( 1, IC.progression_skip_balancing),
+    "Golden Fish":                      GoldenTreasureItemData( 2, IC.progression_skip_balancing),
+    "Golden Candle Holder":             GoldenTreasureItemData( 3, IC.progression_skip_balancing),
+    "Golden Lamp":                      GoldenTreasureItemData( 4, IC.progression_skip_balancing),
+    "Golden Crescent Moon Bed":         GoldenTreasureItemData( 5, IC.progression_skip_balancing),
+    "Golden Teddy Bear":                GoldenTreasureItemData( 6, IC.progression_skip_balancing),
+    "Golden Lollipop":                  GoldenTreasureItemData( 7, IC.progression_skip_balancing),
+    "Golden Game Boy Advance":          GoldenTreasureItemData( 8, IC.progression_skip_balancing),
+    "Golden Robot":                     GoldenTreasureItemData( 9, IC.progression_skip_balancing),
+    "Golden Rocket":                    GoldenTreasureItemData(10, IC.progression_skip_balancing),
+    "Golden Rocking Horse":             GoldenTreasureItemData(11, IC.progression_skip_balancing),
+}
+
+other_item_table = {
+    "Full Health Item":                 OtherItemData(0, IC.useful),
+    "Wario Form Trap":                  OtherItemData(1, IC.trap),
+    "Heart":                            OtherItemData(2, IC.filler),
+    "Lightning Trap":                   OtherItemData(3, IC.trap),
+    "Minigame Medal":                   OtherItemData(4, IC.filler),
+    "Diamond":                          OtherItemData(5, IC.filler),
+}
+
+item_table: dict[str, ItemData] = {
+    **jewel_piece_table,
+    **cd_table,
+    **ability_table,
+    **golden_treasure_table,
+    **other_item_table,
 }
 
 
-def filter_items(*, type: ItemType | None = None, passage: Passage | None = None) -> Iterable[tuple[str, ItemData]]:
-    items: Iterable[tuple[str, ItemData]] = item_table.items()
-    if type is not None:
-        items = filter(lambda i: i[1].type == type, items)
-    if passage is not None:
-        items = filter(lambda i: i[1].passage() == passage, items)
-    return items
+item_name_to_id = {item_name: ap_id_offset + data.item_id() for item_name, data in item_table.items()}
 
 
-def filter_item_names(*, type: ItemType | None = None, passage: Passage | None = None) -> Iterable[str]:
-    return map(lambda entry: entry[0], filter_items(type=type, passage=passage))
+def get_jewel_pieces_by_passage(passage: Passage) -> Iterable[str]:
+    return (name for name, data in jewel_piece_table.items() if data.passage == passage)
+
+
+class WL4ItemBase(Item):
+    game: str = "Wario Land 4"
+
+
+class WL4Item(WL4ItemBase):
+    data: ItemData
+
+    def __init__(self, name: str, player: int, force_non_progression: bool = False):
+        self.data = item_table[name]
+        super(WL4Item, self).__init__(name, IC.filler if force_non_progression else self.data.classification, item_name_to_id[name], player)
+
+
+class WL4EventItem(WL4ItemBase):
+    def __init__(self, name: str, player: int):
+        super(WL4EventItem, self).__init__(name, IC.progression, None, player)

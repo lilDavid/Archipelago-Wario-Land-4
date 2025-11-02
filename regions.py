@@ -7,8 +7,8 @@ from worlds.generic.Rules import CollectionRule, add_rule, add_item_rule
 from BaseClasses import Item, Location, Region, Entrance
 
 from .data import Passage
-from .items import ItemType, WL4Item, filter_item_names, wl4_data_from_ap_id
-from .locations import WL4Location
+from .items import JewelPieceItemData, WL4EventItem, WL4Item, get_jewel_pieces_by_passage
+from .locations import WL4EventLocation, WL4Location
 from .region_data import LocationData, passage_levels, level_table, passage_boss_table, golden_diva
 from .rules import Requirement, has, has_all, has_treasures
 from .options import OpenDoors, Portal
@@ -33,32 +33,32 @@ def get_level_entrance_name(level: str):
     return f"{level} - Entrance" if level in level_table and level_table[level].use_entrance_region else level
 
 
-def create_event(region: Region, location_name: str, item_name: str = None):
+def create_event(region: Region, location_name: str, item_name: str | None = None):
     if item_name is None:
         item_name = location_name
-    location = Location(region.player, location_name, None, region)
-    location.place_locked_item(WL4Item(item_name, region.player))
+    location = WL4EventLocation(region.player, location_name, region)
+    location.place_locked_item(WL4EventItem(item_name, region.player))
     location.show_in_spoiler = False
     return location
 
 
 def create_regions(world: WL4World):
-    def can_escape(level):
+    def can_escape(level) -> CollectionRule:
         return lambda state: state.can_reach_location(f"{level} - Frog Switch", world.player)
 
     def restrict_jewel_piece_on_boss(passage: Passage):
         def rule(item: Item):
             if item.player != world.player:
                 return True
-            _, item_data = wl4_data_from_ap_id(item.code)
-            return item_data.type != ItemType.JEWEL or item_data.passage() != passage
+            assert type(item) is WL4Item
+            return type(item.data) is not JewelPieceItemData or item.data.passage != passage
         return rule
 
     def restrict_jewel_piece_in_golden_passage(item: Item):
         if item.player != world.player:
             return True
-        _, item_data = wl4_data_from_ap_id(item.code)
-        return item_data.type != ItemType.JEWEL or item_data.passage() == Passage.GOLDEN
+        assert type(item) is WL4Item
+        return type(item.data) is not JewelPieceItemData or item.data.passage == Passage.GOLDEN
 
     regions = []
 
@@ -140,7 +140,7 @@ def create_regions(world: WL4World):
 
 
 def make_boss_access_rule(passage: Passage, jewels_needed: int):
-    jewel_list = [(name, jewels_needed) for name in filter_item_names(type=ItemType.JEWEL, passage=passage)]
+    jewel_list = [(name, jewels_needed) for name in get_jewel_pieces_by_passage(passage)]
     return has_all(jewel_list)
 
 

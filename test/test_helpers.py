@@ -2,7 +2,7 @@ import itertools
 from test.bases import TestBase
 
 from ..data import Passage
-from ..items import ItemType, ap_id_from_wl4_data, filter_items, filter_item_names, item_table, wl4_data_from_ap_id
+from ..items import get_jewel_pieces_by_passage
 from ..locations import get_level_locations, location_table
 from ..options import Difficulty
 from ..region_data import level_table
@@ -16,18 +16,9 @@ main_levels = ["Palm Tree Paradise", "Wildflower Fields", "Mystic Lake", "Monsoo
 class TestHelpers(TestBase):
     def test_item_filter(self):
         """Ensure item filters and item names match."""
-        with self.subTest("Jewel Pieces"):
-            pieces = filter_items(type=ItemType.JEWEL)
-            assert all(map(lambda p: p[0].endswith("Piece"), pieces))
-            assert all(map(lambda p: p[1].type == ItemType.JEWEL, pieces))
-
-        with self.subTest("CDs"):
-            cds = filter_item_names(type=ItemType.CD)
-            assert all(map(lambda c: c.endswith("CD"), cds))
-
         for passage in Passage:
             with self.subTest(passage.long_name()):
-                pieces = filter_item_names(type=ItemType.JEWEL, passage=passage)
+                pieces = get_jewel_pieces_by_passage(passage)
                 assert all(map(lambda p: passage.short_name() in p, pieces))
 
     def test_location_filter(self):
@@ -46,13 +37,6 @@ class TestHelpers(TestBase):
         with self.subTest("Golden Passage"):
             checks = get_level_locations(Passage.GOLDEN, 0)
             assert all(map(lambda l: l.startswith("Golden Passage"), checks))
-
-    def test_item_id_conversion(self):
-        """Test that item ID conversion works both ways"""
-        for name, data in item_table.items():
-            with self.subTest(name):
-                ap_id = ap_id_from_wl4_data(data)
-                self.assertEqual((name, data), wl4_data_from_ap_id(ap_id))
 
 
 class TestLocationExistence(TestBase):

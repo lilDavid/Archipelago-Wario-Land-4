@@ -4,13 +4,14 @@ import itertools
 import random
 from pathlib import Path
 import struct
-from typing import NamedTuple, TYPE_CHECKING
+from typing import Any, NamedTuple, TYPE_CHECKING, cast
 
 import Utils
 from worlds.Files import APPatchExtension, APProcedurePatch, APTokenMixin, APTokenTypes
 
 from .data import Passage, ap_id_offset, encode_str, get_symbol
-from .items import ItemType, WL4Item, filter_items
+from .items import AbilityItemData, CdItemData, GoldenTreasureItemData, ItemData, JewelPieceItemData, OtherItemData, WL4Item, jewel_piece_table
+from .locations import WL4Location
 from .options import Difficulty, Goal, MusicShuffle, OpenDoors, Portal, SmashThroughHardBlocks
 
 if TYPE_CHECKING:
@@ -94,6 +95,8 @@ class WL4ProcedurePatch(APProcedurePatch, APTokenMixin):
     game = "Wario Land 4"
     patch_file_ending = ".apwl4"
     result_file_ending = ".gba"
+
+    procedure: list[tuple[str, Any]]
 
     def __init__(self, *args, **kwargs):
         super(WL4ProcedurePatch, self).__init__(*args, **kwargs)
@@ -199,14 +202,16 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
     # Place item IDs and collect multiworld entries
     multiworld_items = {}
     for location in world.multiworld.get_locations(world.player):
-        itemid = location.item.code if location.item is not None else ...
-        locationid = location.address
-        playerid = location.item.player
-        if itemid is None or locationid is None:
+        assert location.item is not None
+        item_id = location.item.code
+        location_id = location.address
+        player_id = location.item.player
+        if item_id is None or location_id is None:
             continue
+        assert type(location) is WL4Location
 
         if location.native_item:
-            itemid = itemid - ap_id_offset
+            item_id -= ap_id_offset
         else:
             if location.item.trap:
                 classification = 3
@@ -216,19 +221,19 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
                 classification = 2
             else:
                 classification = 0
-            itemid = 0xF0 | classification
+            item_id = 0xF0 | classification
         itemname = location.item.name
 
-        if playerid == world.player:
+        if player_id == world.player:
             playername = None
         else:
-            playername = world.multiworld.player_name[playerid]
+            playername = world.multiworld.player_name[player_id]
 
         location_offset = location.level_offset() + location.entry_offset()
         patch.write_token(
             APTokenTypes.WRITE,
             get_rom_address("ItemLocationTable", location_offset),
-            itemid.to_bytes(1, "little")
+            item_id.to_bytes(1, "little")
         )
 
         multiworld_data_location = get_rom_address("MultiworldDataTable", 4 * location_offset)
@@ -253,16 +258,16 @@ class StartInventory:
         self.abilities = 0
         self.junk_counts = [0] * 6
 
-    def add(self, item: WL4Item):
-        if item.type == ItemType.JEWEL:
+    def add(self, item: ItemData):
+        if type(item) is JewelPieceItemData:
             for level in range(4):
-                if not self.level_table[item.passage][level] & item.flag:
-                    self.level_table[item.passage][level] |= item.flag
+                if not self.level_table[item.passage][level] & item.flag():
+                    self.level_table[item.passage][level] |= item.flag()
                     break
-        elif item.type == ItemType.CD:
-            self.level_table[item.passage][item.level] |= 1 << 4
-        elif item.type == ItemType.ABILITY:
-            ability = item.code - (ap_id_offset + 0x40)
+        elif type(item) is CdItemData:
+            self.level_table[item.passage][item.level] |= item.flag()
+        elif type(item) is AbilityItemData:
+            ability = item.ability
             flag = 1 << ability
             if ability in (1, 3) and self.abilities & flag:
                 if ability == 1:
@@ -271,13 +276,13 @@ class StartInventory:
                     ability = 7
                 flag = 1 << ability
             self.abilities |= flag
-        elif item.type == ItemType.ITEM:
-            junk_type = item.code - (ap_id_offset + 0x80)
-            self.junk_counts[junk_type] += 1
-        elif item.type == ItemType.TREASURE:
-            treasure_type = item.code - (ap_id_offset + 0x70)
-            flag = 1 << (treasure_type % 3)
-            self.level_table[treasure_type // 3 + 1][4] |= flag
+        elif type(item) is GoldenTreasureItemData:
+            flag = 1 << (item.treasure % 3)
+            self.level_table[item.passage()][4] |= flag
+        elif type(item) is OtherItemData:
+            self.junk_counts[item.item] += 1
+        else:
+            raise TypeError(type(item))
 
     def write(self, patch: WL4ProcedurePatch):
         patch.write_token(
@@ -314,19 +319,19 @@ def create_starting_inventory(world: WL4World, patch: WL4ProcedurePatch):
 
     # Precollected items
     for item in world.multiworld.precollected_items[world.player]:
-        start_inventory.add(item)
+        start_inventory.add(cast(WL4Item, item).data)
 
     # Removed gem pieces
     required_jewels = world.options.required_jewels.value
     required_jewels_entry = min(1, required_jewels)
-    for name, item in filter_items(type=ItemType.JEWEL):
-        if item.passage() in (Passage.ENTRY, Passage.GOLDEN):
+    for item in jewel_piece_table.values():
+        if item.passage in (Passage.ENTRY, Passage.GOLDEN):
             copies = 1 - required_jewels_entry
         else:
             copies = 4 - required_jewels
 
         for _ in range(copies):
-            start_inventory.add(WL4Item(name, world.player))
+            start_inventory.add(item)
 
     # Free Keyzer
     def set_keyzer(passage, level):
@@ -346,15 +351,17 @@ def create_starting_inventory(world: WL4World, patch: WL4ProcedurePatch):
 def create_strings(patch: WL4ProcedurePatch,
                    multiworld_items: dict[int, MultiworldData | None]
                    ) -> dict[str | None, int]:
-    receivers = set()
-    items = set()
+    receivers: set[str] = set()
+    items: set[str] = set()
     address = get_rom_address("MultiworldStringDump")
-    for item in filter(lambda i: i is not None, multiworld_items.values()):
+    for item in multiworld_items.values():
+        if item is None:
+            continue
         receivers.add(item.receiver)
         items.add(item.name)
         address += 8
 
-    strings = {None: 0}  # Map a string to its address in game
+    strings: dict[str | None, int] = {None: 0}  # Map a string to its address in game
     for string in itertools.chain(receivers, items):
         if string not in strings:
             strings[string] = address | 0x8000000

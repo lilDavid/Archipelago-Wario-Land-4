@@ -3,13 +3,13 @@ from pathlib import Path
 import settings
 from typing import Any, ClassVar
 
-from BaseClasses import Item, Tutorial
+from BaseClasses import Tutorial
 from Options import OptionError
 from worlds.AutoWorld import WebWorld, World
 
 from .client import WL4Client
 from .data import Passage, data_path
-from .items import ItemType, WL4Item, ap_id_from_wl4_data, filter_item_names, filter_items, item_table
+from .items import WL4Item, get_jewel_pieces_by_passage, jewel_piece_table, cd_table, ability_table, golden_treasure_table, item_name_to_id
 from .locations import get_level_locations, location_name_to_id
 from .options import Goal, WL4Options, wl4_option_groups
 from .regions import connect_regions, create_regions
@@ -56,22 +56,22 @@ class WL4World(World):
     options: WL4Options
     settings: ClassVar[WL4Settings]
 
-    item_name_to_id = {item_name: ap_id_from_wl4_data(data) for item_name, data in item_table.items()}
+    item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
     required_client_version = (0, 6, 0)
     origin_region_name = "Pyramid"
 
     item_name_groups = {
-        "Entry Jewel Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.ENTRY)),
-        "Emerald Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.EMERALD)),
-        "Ruby Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.RUBY)),
-        "Topaz Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.TOPAZ)),
-        "Sapphire Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.SAPPHIRE)),
-        "Golden Jewel Pieces": set(filter_item_names(type=ItemType.JEWEL, passage=Passage.GOLDEN)),
-        "CDs": set(filter_item_names(type=ItemType.CD)),
-        "Abilities": set(filter_item_names(type=ItemType.ABILITY)),
-        "Golden Treasure": set(filter_item_names(type=ItemType.TREASURE)),
+        "Entry Jewel Pieces": set(get_jewel_pieces_by_passage(Passage.ENTRY)),
+        "Emerald Pieces": set(get_jewel_pieces_by_passage(Passage.EMERALD)),
+        "Ruby Pieces": set(get_jewel_pieces_by_passage(Passage.RUBY)),
+        "Topaz Pieces": set(get_jewel_pieces_by_passage(Passage.TOPAZ)),
+        "Sapphire Pieces": set(get_jewel_pieces_by_passage(Passage.SAPPHIRE)),
+        "Golden Jewel Pieces": set(get_jewel_pieces_by_passage(Passage.GOLDEN)),
+        "CDs": set(cd_table.keys()),
+        "Abilities": set(ability_table.keys()),
+        "Golden Treasure": set(golden_treasure_table.keys()),
         "Traps": {"Wario Form Trap", "Lightning Trap"},
         "Junk": {"Heart", "Minigame Medal"},
         "Prizes": {"Full Health Item", "Diamond"},
@@ -112,10 +112,6 @@ class WL4World(World):
 
     web = WL4Web()
 
-    JEWEL_PIECES = tuple(filter_items(type=ItemType.JEWEL))
-    CDS = tuple(filter_item_names(type=ItemType.CD))
-    ABILITIES = tuple(filter_item_names(type=ItemType.ABILITY))
-    GOLDEN_TREASURES = tuple(filter_item_names(type=ItemType.TREASURE))
     PRIZES = ("Full Health Item", "Diamond")
     JUNK = ("Heart", "Minigame Medal")
     TRAPS = ("Wario Form Trap", "Lightning Trap")
@@ -173,11 +169,11 @@ class WL4World(World):
 
         required_jewels = self.options.required_jewels.value
         pool_jewels = self.options.pool_jewels.value
-        for name, item in self.JEWEL_PIECES:
+        for name, item in jewel_piece_table.items():
             force_non_progression = required_jewels == 0
-            if item.passage() == Passage.ENTRY:
+            if item.passage == Passage.ENTRY:
                 copies = min(pool_jewels, 1)
-            elif item.passage() == Passage.GOLDEN:
+            elif item.passage == Passage.GOLDEN:
                 copies = self.options.golden_jewels.value
                 if self.options.goal.is_treasure_hunt():
                     force_non_progression = True
@@ -186,9 +182,9 @@ class WL4World(World):
 
             itempool += [self.create_item(name, force_non_progression) for _ in range(copies)]
 
-        itempool += [self.create_item(name) for name in self.CDS]
+        itempool += [self.create_item(name) for name in cd_table]
 
-        for name in self.ABILITIES:
+        for name in ability_table:
             itempool.append(self.create_item(name))
             if name.startswith("Progressive"):
                 itempool.append(self.create_item(name))
@@ -209,7 +205,7 @@ class WL4World(World):
         itempool += [self.create_item("Full Health Item") for _ in range(full_health_items)]
 
         if treasure_hunt:
-            itempool += [self.create_item(name) for name in self.GOLDEN_TREASURES]
+            itempool += [self.create_item(name) for name in golden_treasure_table]
 
         if diamond_shuffle:
             itempool += [self.create_item("Diamond") for _ in range(diamonds)]
@@ -252,7 +248,7 @@ class WL4World(World):
         pool = self.random.choices((self.PRIZES, self.JUNK, self.TRAPS), self.filler_item_weights)[0]
         return self.random.choice(pool)
 
-    def create_item(self, name: str, force_non_progression=False) -> Item:
+    def create_item(self, name: str, force_non_progression=False):
         return WL4Item(name, self.player, force_non_progression)
 
     def set_rules(self):

@@ -259,7 +259,8 @@ class WL4Client(BizHawkClient):
                 read16(sub_game_mode_address),
             ]
         )
-        return tuple(map(get_int, read_result))
+        main, sub = map(get_int, read_result)
+        return main, sub
 
     @staticmethod
     def guard_game_mode(game_mode: tuple[int, int]):
@@ -269,7 +270,7 @@ class WL4Client(BizHawkClient):
         ]
 
     @staticmethod
-    def get_collected_locations(client_ctx: BizHawkClientContext, passage: int, level: int, collection: int):
+    def get_collected_locations(client_ctx: BizHawkClientContext, passage: Passage, level: int, collection: int):
         for location in get_level_locations(passage, level):
             location_id = location_name_to_id[location]
             if location_id not in client_ctx.server_locations:
@@ -323,7 +324,7 @@ class WL4Client(BizHawkClient):
         if collection_result is not None:
             passage, level, collection = map(get_int, collection_result)
             if level < BOSS_LEVEL:
-                locations.update(self.get_collected_locations(client_ctx, passage, level, collection))
+                locations.update(self.get_collected_locations(client_ctx, Passage(passage), level, collection))
 
         if self.local_checked_locations != locations:
             self.local_checked_locations = locations
@@ -370,7 +371,7 @@ class WL4Client(BizHawkClient):
             return
 
         passage, level, collection = map(get_int, read_result)
-        locations: set[int] = set(self.get_collected_locations(client_ctx, passage, level, collection))
+        locations: set[int] = set(self.get_collected_locations(client_ctx, Passage(passage), level, collection))
 
         locations.difference_update(self.local_checked_locations)
         locations.difference_update(self.local_hinted_locations)
@@ -530,7 +531,7 @@ class WL4Client(BizHawkClient):
 
     def on_package(self, ctx: BizHawkClientContext, cmd: str, args: dict) -> None:
         if cmd == "Connected":
-            self.local_checked_locations = []
+            self.local_checked_locations = set()
             self.local_hinted_locations = set()
             self.local_set_events = {}
             self.local_room = (1 << 24) - 1
