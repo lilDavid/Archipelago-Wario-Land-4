@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import functools
 import struct
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterable
 
 import Utils
-from NetUtils import ClientStatus
+from NetUtils import ClientStatus, NetworkItem
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
 
@@ -280,6 +280,18 @@ class WL4Client(BizHawkClient):
             if collection & bit:
                 yield location_id
 
+    @staticmethod
+    def get_or_scout_locations(client_ctx: BizHawkClientContext, locations: Iterable[int]):
+        checked_locations: list[NetworkItem] = []
+        pending_scouts: list[int] = []
+        for location in locations:
+            item = client_ctx.locations_info.get(location)
+            if item is None:
+                pending_scouts.append(location)
+            elif item.player != client_ctx.slot:
+                checked_locations.append(item)
+        return checked_locations, pending_scouts
+
     async def handle_inventory(self, client_ctx: BizHawkClientContext):
         bizhawk_ctx = client_ctx.bizhawk_ctx
 
@@ -311,6 +323,7 @@ class WL4Client(BizHawkClient):
 
         locations: set[int] = set()
         events: dict[str, bool] = {}
+        messages: list[dict] = []
 
         for passage, levels in zip(Passage, inventory, strict=True):
             for level, status_bits in enumerate(levels):
@@ -324,28 +337,38 @@ class WL4Client(BizHawkClient):
         if collection_result is not None:
             passage, level, collection = map(get_int, collection_result)
             if level < BOSS_LEVEL:
-                locations.update(self.get_collected_locations(client_ctx, Passage(passage), level, collection))
+                known, unknown = self.get_or_scout_locations(
+                    client_ctx, self.get_collected_locations(client_ctx, Passage(passage), level, collection))
+                locations.update(item.location for item in known if item.player == client_ctx.slot)
+                messages.append({
+                    "cmd": "LocationScouts",
+                    "locations": unknown,
+                    "create_as_hint": False,
+                })
 
         if self.local_checked_locations != locations:
             self.local_checked_locations = locations
-            await client_ctx.send_msgs([{
+            messages.append({
                 "cmd": "LocationChecks",
                 "locations": locations
-            }])
+            })
 
         if self.local_set_events != events and client_ctx.slot is not None:
             event_bitfield = 0
             for i, flag in enumerate(TRACKER_EVENT_FLAGS):
                 if events[flag]:
                     event_bitfield |= 1 << i
-            await client_ctx.send_msgs([{
+            messages.append({
                 "cmd": "Set",
                 "key": f"wl4_events_{client_ctx.team}_{client_ctx.slot}",
                 "default": 0,
                 "want_reply": False,
                 "operations": [{"operation": "or", "value": event_bitfield}]
-            }])
+            })
             self.local_set_events = events
+
+        if messages:
+            await client_ctx.send_msgs(messages)
 
     async def handle_hints(self, client_ctx: BizHawkClientContext):
         bizhawk_ctx = client_ctx.bizhawk_ctx
@@ -362,10 +385,7 @@ class WL4Client(BizHawkClient):
                 read8(level_address),
                 read32(collected_items_address),
             ],
-            [
-                *self.guard_game_mode(game_mode),
-                guard8(multiworld_send_address, False)
-            ]
+            self.guard_game_mode(game_mode)
         )
         if read_result is None:
             return
