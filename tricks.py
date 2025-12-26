@@ -39,8 +39,16 @@ trick_table = {
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
 
+    # Ground pound from the top of the room to knock down a toy car, then stomp-jump it for the diamond
+    # Superceded by the damage boost trick below
+    # "DR toy car tower diamond without grab": TrickData(has_all(["Super Ground Pound", "Head Smash"])),
+
     # Go up the left path, take damage from the spikes, break the leftmost block, then collect the diamond from above.
     "DR toy car tower diamond damage boost": TrickData(None),
+
+    # Break the blocks with a toy car or your head before starting the escape.
+    # Superceded by the escape with only swim trick below
+    # "DR escape without ground pound": TrickData(has_any(["Grab", "Head Smash"])),
 
     # Break the blocks with shoulder bashes, using invulnerability frames to hit the second one through the spikes.
     "DR escape with only swim": TrickData(None),
