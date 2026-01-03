@@ -190,6 +190,27 @@ def write_tokens(world: WL4World, patch: WL4ProcedurePatch):
         world.options.diamond_shuffle.value.to_bytes(1, "little")
     )
 
+    # Force English
+    # Annoyingly, setting the language byte in RAM accounts for most of the difference between the
+    # ROM versions because it shifts the rest of specifically this function, SramRead_All()
+    patch_instructions(
+        patch,
+        0x072E66,
+        0x4907,  # ldr r1, =gLanguage
+        0x2000,  # mov r0, #0
+        0x7008,  # strb r0, [r1]
+        0x4906,  # ldr r1, =gSramLoadedFlag
+        0x2001,  # mov r0, #1
+        0x7008,  # str r0, [r1]
+        0xB001,  # add sp, #4
+        0xBC18,  # pop {r3, r4}
+        0x4698,  # mov r8, r3
+        0x46A1,  # mov r9, r4
+        0xBCF0,  # pop {r4, r5, r6, r7}
+        0xBC01,  # pop {r0}
+        0x4700,  # bx r0
+    )
+
     patch.write_file("token_data.bin", patch.get_token_binary())
 
 
@@ -449,17 +470,17 @@ def set_difficulty_level(patch: WL4ProcedurePatch, difficulty: Difficulty):
     # Difficulty graphics tiles
     for i in range(3):
         english_addr = 0x742992 + 2 * i
-        japanese_addr = 0x742992 + 2 * (3 + i)
+        # japanese_addr = 0x742992 + 2 * (3 + i)
         patch.write_token(
             APTokenTypes.WRITE,
             english_addr,
             (0x2C0 + 5 * difficulty.value).to_bytes(2, "little")
         )
-        patch.write_token(
-            APTokenTypes.WRITE,
-            japanese_addr,
-            (0x2CF + 5 * difficulty.value).to_bytes(2, "little")
-        )
+        # patch.write_token(
+        #     APTokenTypes.WRITE,
+        #     japanese_addr,
+        #     (0x2CF + 5 * difficulty.value).to_bytes(2, "little")
+        # )
 
 
 class LocalRom():
