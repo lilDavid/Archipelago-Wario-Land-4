@@ -47,6 +47,7 @@
 03001940 wariolift
 030019F6 uswarstopflg
 030019F8 ucwaroffflg
+03002C60 slocalseq
 03003C08 ucselectvector
 03003C34 ucdoraflg
 03003C39 ucseldemoseq
@@ -83,6 +84,6 @@
 087904B9 goldentreasuresneeded
 087904BA trapbehavior
 087904BB diamondshuffle
-0879426C minigamecointiles
-08794744 multiworldstringdump
+08794310 minigamecointiles
+08795198 multiworldstringdump
 
