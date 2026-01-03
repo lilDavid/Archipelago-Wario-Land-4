@@ -73,7 +73,7 @@ class WL4PatchExtensions(APPatchExtension):
         return bytes(local_rom)
 
     @staticmethod
-    def copy_medal_gfx(caller: APProcedurePatch, rom: bytes) -> bytes:
+    def copy_medal_gfx(caller: APProcedurePatch, rom: bytes, address: int) -> bytes:
         local_rom = LocalRom(rom)
         top_tiles = local_rom.read_bytes(0x6E561C + 32 * 645, 32 * 2)
         bottom_tiles = local_rom.read_bytes(0x6E561C + 32 * 677, 32 * 2)
@@ -86,7 +86,7 @@ class WL4PatchExtensions(APPatchExtension):
             if lower != 0:
                 lower += 10
             tiles.append(upper | lower)
-        local_rom.write_bytes(get_rom_address("MinigameCoinTiles"), tiles)
+        local_rom.write_bytes(address, tiles)
         return bytes(local_rom)
 
 
@@ -96,7 +96,7 @@ class WL4ProcedurePatch(APProcedurePatch, APTokenMixin):
     patch_file_ending = ".apwl4"
     result_file_ending = ".gba"
 
-    procedure: list[tuple[str, Any]]
+    procedure: list[tuple[str, list[Any]]]
 
     def __init__(self, *args, **kwargs):
         super(WL4ProcedurePatch, self).__init__(*args, **kwargs)
@@ -104,7 +104,7 @@ class WL4ProcedurePatch(APProcedurePatch, APTokenMixin):
             ("apply_bsdiff4", ["basepatch.bsdiff"]),
             ("apply_tokens", ["token_data.bin"]),
             ("update_header", []),
-            ("copy_medal_gfx", []),
+            ("copy_medal_gfx", [get_rom_address("MinigameCoinTiles")]),
         ]
 
     @classmethod
