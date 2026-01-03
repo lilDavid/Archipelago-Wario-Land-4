@@ -79,13 +79,13 @@ def build_apworld():
 def generate_template():
     import Options
 
-    templates = (BUILD_PATH / "templates")
+    templates = BUILD_PATH / "templates"
     templates.mkdir(parents=True, exist_ok=True)
     Options.generate_yaml_templates(templates, generate_hidden=False)
     with open(WORLD_PATH / "archipelago.json", "r", encoding="utf-8") as file:
         game: str = json.load(file)["game"]
     template = templates / f"{game}.yaml"
-    template.rename(BUILD_PATH / f"{template.name.replace(" ", "_")}")
+    template.rename(BUILD_PATH / f"{template.name.replace(' ', '_')}")
     clean_build_path(templates)
 
 
