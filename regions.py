@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 import itertools
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from worlds.generic.Rules import CollectionRule, add_rule, add_item_rule
-from BaseClasses import Item, Location, Region, Entrance
+from BaseClasses import Item, Region, Entrance
 
 from .data import Passage
 from .items import JewelPieceItemData, WL4EventItem, WL4Item, get_jewel_pieces_by_passage
 from .locations import WL4EventLocation, WL4Location
-from .region_data import LocationData, passage_levels, level_table, passage_boss_table, golden_diva
+from .region_data import LocationData, LocationType, passage_levels, level_table, passage_boss_table, golden_diva
 from .rules import Requirement, has, has_all, has_treasures
 from .options import OpenDoors, Portal
 
@@ -23,6 +23,10 @@ AccessRule = CollectionRule | None
 class WL4Region(Region):
     def __init__(self, name: str, world: WL4World):
         super().__init__(name, world.player, world.multiworld)
+
+
+def filter_out_locations(locations: Iterable[LocationData], location_type: LocationType) -> Iterable[LocationData]:
+    return filter(lambda location: location.type != location_type, locations)
 
 
 def get_region_name(level: str, region: str | None):
@@ -60,6 +64,8 @@ def create_regions(world: WL4World):
         assert type(item) is WL4Item
         return type(item.data) is not JewelPieceItemData or item.data.passage == Passage.GOLDEN
 
+    difficulty = world.options.difficulty.value
+
     regions = []
 
     pyramid = WL4Region("Pyramid", world)
@@ -73,24 +79,21 @@ def create_regions(world: WL4World):
             region_name = get_region_name(level_name, region_data.name)
             region = WL4Region(region_name, world)
 
-            locations: list[LocationData] = []
-            locations.extend(region_data.locations)
-            if (world.options.diamond_shuffle.value):
-               locations.extend(region_data.diamonds)
+            locations = filter(lambda location: difficulty in location.difficulties, region_data.locations)
+            if not world.options.diamond_shuffle.value:
+                locations = filter_out_locations(locations, LocationType.DIAMOND)
+            if world.options.portal.value == Portal.option_open:
+                locations = filter_out_locations(locations, LocationType.SWITCH)
 
             for location_data in locations:
-                if world.options.difficulty.value not in location_data.difficulties:
-                    continue
-                if world.options.portal.value == Portal.option_open and location_data.name == "Frog Switch":
-                    continue
-                if location_data.name == "Keyzer" and world.options.open_doors.value != OpenDoors.option_off:
+                if location_data.type == LocationType.KEYZER and world.options.open_doors.value != OpenDoors.option_off:
                     if world.options.open_doors.value == OpenDoors.option_open:
                         continue
                     if level_name != "Golden Passage":
                         continue
 
                 location_name = f"{level_name} - {location_data.name}"
-                if location_data.event:
+                if location_data.type in (LocationType.KEYZER, LocationType.SWITCH):
                     item_name = f"{location_data.name} ({level_name})"
                     location = create_event(region, location_name, item_name)
                 else:
@@ -98,7 +101,7 @@ def create_regions(world: WL4World):
 
                 if location_data.access_rule is not None:
                     add_rule(location, location_data.access_rule.apply_world(world))
-                if world.options.portal.value == Portal.option_vanilla and location_data.name != "Frog Switch":
+                if world.options.portal.value == Portal.option_vanilla and location_data.type != LocationType.SWITCH:
                     add_rule(location, can_escape(level_name))
                 if world.options.restrict_self_locking_jewel_pieces.value and level_name == "Golden Passage":
                     add_item_rule(location, restrict_jewel_piece_in_golden_passage)
@@ -171,8 +174,8 @@ def connect_regions(world: WL4World):
 
     if world.options.open_doors.value != OpenDoors.option_open:
         add_rule(
-            world.get_entrance(f"Golden Pyramid Boss Door"),
-            has(f"Keyzer (Golden Passage)").apply_world(world)
+            world.get_entrance("Golden Pyramid Boss Door"),
+            has("Keyzer (Golden Passage)").apply_world(world),
         )
 
     add_rule(

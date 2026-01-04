@@ -5,7 +5,7 @@ from ..data import Passage
 from ..items import get_jewel_pieces_by_passage
 from ..locations import get_level_locations, location_table
 from ..options import Difficulty
-from ..region_data import level_table
+from ..region_data import LocationType, level_table
 
 
 main_levels = ["Palm Tree Paradise", "Wildflower Fields", "Mystic Lake", "Monsoon Jungle",
@@ -50,8 +50,8 @@ class TestLocationExistence(TestCase):
             f"{level_name} - {location.name}"
             for level_name, level in level_table.items()
             for region in level.regions
-            for location in itertools.chain(region.locations, region.diamonds)
-            if difficulty in location.difficulties and not location.event
+            for location in region.locations
+            if difficulty in location.difficulties and location.type not in (LocationType.KEYZER, LocationType.SWITCH)
         }
         self.assertEqual(locations_from_table, locations_from_tree)
 
