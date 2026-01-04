@@ -1,5 +1,5 @@
 import itertools
-from test.bases import TestBase
+from unittest import TestCase
 
 from ..data import Passage
 from ..items import get_jewel_pieces_by_passage
@@ -13,7 +13,7 @@ main_levels = ["Palm Tree Paradise", "Wildflower Fields", "Mystic Lake", "Monsoo
                "Toy Block Tower", "The Big Board", "Doodle Woods", "Domino Row",
                "Crescent Moon Village", "Arabian Night", "Fiery Cavern", "Hotel Horror"]
 
-class TestHelpers(TestBase):
+class TestHelpers(TestCase):
     def test_item_filter(self):
         """Ensure item filters and item names match."""
         for passage in Passage:
@@ -39,7 +39,7 @@ class TestHelpers(TestBase):
             assert all(map(lambda l: l.startswith("Golden Passage"), checks))
 
 
-class TestLocationExistence(TestBase):
+class TestLocationExistence(TestCase):
     def _test_locations_match(self, difficulty):
         locations_from_table = {
             name
