@@ -30,7 +30,7 @@ _HARDER = _HARD + _S_HARD
 _ALL = _NORMAL + _HARD + _S_HARD
 
 
-    # Location                                                          Passage       Level  Bit in level data       Difficulties
+    # Location                                                               Passage       Level  Bit in level data       Difficulties
 location_table = {
     # Entry Passage
     # Hall of Hieroglyphs
@@ -38,6 +38,7 @@ location_table = {
     "Hall of Hieroglyphs - Second Jewel Box":                   LocationData(Passage.ENTRY,    0, ItemFlag.JEWEL_SE,      _ALL),
     "Hall of Hieroglyphs - Third Jewel Box":                    LocationData(Passage.ENTRY,    0, ItemFlag.JEWEL_SW,      _ALL),
     "Hall of Hieroglyphs - Fourth Jewel Box":                   LocationData(Passage.ENTRY,    0, ItemFlag.JEWEL_NW,      _ALL),
+    "Hall of Hieroglyphs - Keyzer":                             LocationData(Passage.ENTRY,    0, ItemFlag.KEYZER,        _ALL),
     "Hall of Hieroglyphs - Full Health Item Box":               LocationData(Passage.ENTRY,    0, ItemFlag.FULL_HEALTH,   _ALL),
     "Hall of Hieroglyphs - Stone Block Diamond":                LocationData(Passage.ENTRY,    0, ItemFlag.DIAMOND_1,     _ALL),
     "Hall of Hieroglyphs - Grab Tutorial Diamond":              LocationData(Passage.ENTRY,    0, ItemFlag.DIAMOND_2,     _S_HARD),
@@ -55,6 +56,7 @@ location_table = {
     "Palm Tree Paradise - Platform Cave Jewel Box":             LocationData(Passage.EMERALD,  0, ItemFlag.JEWEL_SW,      _ALL),
     "Palm Tree Paradise - Ladder Cave Box":                     LocationData(Passage.EMERALD,  0, ItemFlag.JEWEL_NW,      _ALL),
     "Palm Tree Paradise - CD Box":                              LocationData(Passage.EMERALD,  0, ItemFlag.CD,            _ALL),
+    "Palm Tree Paradise - Keyzer":                              LocationData(Passage.EMERALD,  0, ItemFlag.KEYZER,        _ALL),
     "Palm Tree Paradise - Full Health Item Box":                LocationData(Passage.EMERALD,  0, ItemFlag.FULL_HEALTH,   _ALL),
 #   "Palm Tree Paradise - Unused Cave Diamond":                 LocationData(Passage.EMERALD,  0, ItemFlag.DIAMOND_1,     _ALL),  # Inaccessible, room door could be restored?
     "Palm Tree Paradise - Ledge Diamond":                       LocationData(Passage.EMERALD,  0, ItemFlag.DIAMOND_2,     _S_HARD),
@@ -72,6 +74,7 @@ location_table = {
     "Wildflower Fields - 8-Shaped Cave Box":                    LocationData(Passage.EMERALD,  1, ItemFlag.JEWEL_SW,      _HARDER),
     "Wildflower Fields - Beezley Box":                          LocationData(Passage.EMERALD,  1, ItemFlag.JEWEL_NW,      _ALL),
     "Wildflower Fields - CD Box":                               LocationData(Passage.EMERALD,  1, ItemFlag.CD,            _ALL),
+    "Wildflower Fields - Keyzer":                               LocationData(Passage.EMERALD,  1, ItemFlag.KEYZER,        _ALL),
     "Wildflower Fields - Full Health Item Box":                 LocationData(Passage.EMERALD,  1, ItemFlag.FULL_HEALTH,   _NORMAL),
     "Wildflower Fields - Hidden Tunnel Diamond":                LocationData(Passage.EMERALD,  1, ItemFlag.DIAMOND_1,     _ALL),
     "Wildflower Fields - Escape Detour Diamond":                LocationData(Passage.EMERALD,  1, ItemFlag.DIAMOND_2,     _ALL),
@@ -93,6 +96,7 @@ location_table = {
     "Mystic Lake - Box Before Bridge":                          LocationData(Passage.EMERALD,  2, ItemFlag.JEWEL_NW,      _NORMAL),
     "Mystic Lake - Lake Exit Bubble Box":                       LocationData(Passage.EMERALD,  2, ItemFlag.JEWEL_NW,      _HARDER),
     "Mystic Lake - CD Box":                                     LocationData(Passage.EMERALD,  2, ItemFlag.CD,            _ALL),
+    "Mystic Lake - Keyzer":                                     LocationData(Passage.EMERALD,  2, ItemFlag.KEYZER,        _ALL),
     "Mystic Lake - Full Health Item Box":                       LocationData(Passage.EMERALD,  2, ItemFlag.FULL_HEALTH,   _ALL),
     "Mystic Lake - Large Cave Diamond":                         LocationData(Passage.EMERALD,  2, ItemFlag.DIAMOND_1,     _NORMAL),
     "Mystic Lake - Air Pocket Diamond":                         LocationData(Passage.EMERALD,  2, ItemFlag.DIAMOND_2,     _HARDER),
@@ -111,6 +115,7 @@ location_table = {
     "Monsoon Jungle - Puffy Hallway Box":                       LocationData(Passage.EMERALD,  3, ItemFlag.JEWEL_SW,      _HARDER),
     "Monsoon Jungle - Buried Cave Box":                         LocationData(Passage.EMERALD,  3, ItemFlag.JEWEL_NW,      _ALL),
     "Monsoon Jungle - CD Box":                                  LocationData(Passage.EMERALD,  3, ItemFlag.CD,            _ALL),
+    "Monsoon Jungle - Keyzer":                                  LocationData(Passage.EMERALD,  3, ItemFlag.KEYZER,        _ALL),
     "Monsoon Jungle - Full Health Item Box":                    LocationData(Passage.EMERALD,  3, ItemFlag.FULL_HEALTH,   _ALL),
     "Monsoon Jungle - Fat Plummet Diamond":                     LocationData(Passage.EMERALD,  3, ItemFlag.DIAMOND_1,     _NORMAL),
     "Monsoon Jungle - Puffy Hallway Diamond":                   LocationData(Passage.EMERALD,  3, ItemFlag.DIAMOND_2,     _NORMAL),
@@ -133,6 +138,7 @@ location_table = {
     "The Curious Factory - Frog Switch Room Box":               LocationData(Passage.RUBY,     0, ItemFlag.JEWEL_NW,      _NORMAL),
     "The Curious Factory - Gear Elevator Box":                  LocationData(Passage.RUBY,     0, ItemFlag.JEWEL_NW,      _HARDER),
     "The Curious Factory - CD Box":                             LocationData(Passage.RUBY,     0, ItemFlag.CD,            _ALL),
+    "The Curious Factory - Keyzer":                             LocationData(Passage.RUBY,     0, ItemFlag.KEYZER,        _ALL),
     "The Curious Factory - T-Tunnel Diamond":                   LocationData(Passage.RUBY,     0, ItemFlag.DIAMOND_1,     _NORMAL),
     "The Curious Factory - Underground Chamber Diamond":        LocationData(Passage.RUBY,     0, ItemFlag.DIAMOND_2,     _NORMAL),
     "The Curious Factory - Gear Elevator Diamond":              LocationData(Passage.RUBY,     0, ItemFlag.DIAMOND_3,     _NORMAL),
@@ -148,6 +154,7 @@ location_table = {
     "The Toxic Landfill - Ledge Box":                           LocationData(Passage.RUBY,     1, ItemFlag.JEWEL_NW,      _NORMAL),
     "The Toxic Landfill - Transformation Puzzle Box":           LocationData(Passage.RUBY,     1, ItemFlag.JEWEL_NW,      _HARDER),
     "The Toxic Landfill - CD Box":                              LocationData(Passage.RUBY,     1, ItemFlag.CD,            _ALL),
+    "The Toxic Landfill - Keyzer":                              LocationData(Passage.RUBY,     1, ItemFlag.KEYZER,        _ALL),
     "The Toxic Landfill - Full Health Item Box":                LocationData(Passage.RUBY,     1, ItemFlag.FULL_HEALTH,   _NORMAL),
     "The Toxic Landfill - Trash Plummet Diamond":               LocationData(Passage.RUBY,     1, ItemFlag.DIAMOND_1,     _NORMAL),
     "The Toxic Landfill - Spike Ceiling Diamond":               LocationData(Passage.RUBY,     1, ItemFlag.DIAMOND_2,     _ALL),
@@ -166,6 +173,7 @@ location_table = {
     "40 Below Fridge - Snowman Puzzle Upper Right Box":         LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NW,      _NORMAL),
     "40 Below Fridge - Snowman Puzzle Lower Right Box":         LocationData(Passage.RUBY,     2, ItemFlag.JEWEL_NW,      _HARDER),
     "40 Below Fridge - CD Box":                                 LocationData(Passage.RUBY,     2, ItemFlag.CD,            _ALL),
+    "40 Below Fridge - Keyzer":                                 LocationData(Passage.RUBY,     2, ItemFlag.KEYZER,        _ALL),
     "40 Below Fridge - Conveyor Room Diamond":                  LocationData(Passage.RUBY,     2, ItemFlag.DIAMOND_1,     _ALL),
     "40 Below Fridge - Maze Cage Diamond":                      LocationData(Passage.RUBY,     2, ItemFlag.DIAMOND_2,     _NORMAL),
     "40 Below Fridge - Maze Pit Diamond":                       LocationData(Passage.RUBY,     2, ItemFlag.DIAMOND_3,     _ALL),
@@ -185,6 +193,7 @@ location_table = {
     "Pinball Zone - Jungle Room Box":                           LocationData(Passage.RUBY,     3, ItemFlag.JEWEL_SW,      _ALL),
     "Pinball Zone - Snow Room Box":                             LocationData(Passage.RUBY,     3, ItemFlag.JEWEL_NW,      _ALL),
     "Pinball Zone - CD Box":                                    LocationData(Passage.RUBY,     3, ItemFlag.CD,            _ALL),
+    "Pinball Zone - Keyzer":                                    LocationData(Passage.RUBY,     3, ItemFlag.KEYZER,        _ALL),
     "Pinball Zone - Full Health Item Box":                      LocationData(Passage.RUBY,     3, ItemFlag.FULL_HEALTH,   _EASIER),
     "Pinball Zone - Pink Room Full Health Item Box":            LocationData(Passage.RUBY,     3, ItemFlag.FULL_HEALTH,   _S_HARD),
     "Pinball Zone - Rolling Room Full Health Item Box":         LocationData(Passage.RUBY,     3, ItemFlag.FULL_HEALTH_2, _S_HARD),
@@ -210,6 +219,7 @@ location_table = {
     "Toy Block Tower - Red Pipe Box":                           LocationData(Passage.TOPAZ,    0, ItemFlag.JEWEL_NW,      _NORMAL),
     "Toy Block Tower - Escape Ledge Box":                       LocationData(Passage.TOPAZ,    0, ItemFlag.JEWEL_NW,      _HARDER),
     "Toy Block Tower - CD Box":                                 LocationData(Passage.TOPAZ,    0, ItemFlag.CD,            _ALL),
+    "Toy Block Tower - Keyzer":                                 LocationData(Passage.TOPAZ,    0, ItemFlag.KEYZER,        _ALL),
     "Toy Block Tower - Full Health Item Box":                   LocationData(Passage.TOPAZ,    0, ItemFlag.FULL_HEALTH,   _EASIER),
     "Toy Block Tower - Tower Diamond":                          LocationData(Passage.TOPAZ,    0, ItemFlag.DIAMOND_1,     _HARD),
     "Toy Block Tower - Digging Room Diamond":                   LocationData(Passage.TOPAZ,    0, ItemFlag.DIAMOND_2,     _ALL),
@@ -228,6 +238,7 @@ location_table = {
     "The Big Board - Toy Car Box":                              LocationData(Passage.TOPAZ,    1, ItemFlag.JEWEL_NW,      _NORMAL),
     "The Big Board - Flat Room Box":                            LocationData(Passage.TOPAZ,    1, ItemFlag.JEWEL_NW,      _HARDER),
     "The Big Board - CD Box":                                   LocationData(Passage.TOPAZ,    1, ItemFlag.CD,            _ALL),
+    "The Big Board - Keyzer":                                   LocationData(Passage.TOPAZ,    1, ItemFlag.KEYZER,        _ALL),
     "The Big Board - Full Health Item Box":                     LocationData(Passage.TOPAZ,    1, ItemFlag.FULL_HEALTH,   _EASIER),
     "The Big Board - Fire Room Diamond":                        LocationData(Passage.TOPAZ,    1, ItemFlag.DIAMOND_1,     _NORMAL),
     "The Big Board - Enemy Room Diamond":                       LocationData(Passage.TOPAZ,    1, ItemFlag.DIAMOND_2,     _NORMAL),
@@ -245,6 +256,7 @@ location_table = {
     "Doodle Woods - Blue Escape Box":                           LocationData(Passage.TOPAZ,    2, ItemFlag.JEWEL_NW,      _NORMAL),
     "Doodle Woods - Blue Circle Box":                           LocationData(Passage.TOPAZ,    2, ItemFlag.JEWEL_NW,      _HARDER),
     "Doodle Woods - CD Box":                                    LocationData(Passage.TOPAZ,    2, ItemFlag.CD,            _ALL),
+    "Doodle Woods - Keyzer":                                    LocationData(Passage.TOPAZ,    2, ItemFlag.KEYZER,        _ALL),
     "Doodle Woods - Platform Staircase Diamond":                LocationData(Passage.TOPAZ,    2, ItemFlag.DIAMOND_1,     _EASIER),
     "Doodle Woods - Pink Circle Diamond":                       LocationData(Passage.TOPAZ,    2, ItemFlag.DIAMOND_2,     _NORMAL),
     "Doodle Woods - Blue Circle Diamond":                       LocationData(Passage.TOPAZ,    2, ItemFlag.DIAMOND_3,     _NORMAL),
@@ -258,6 +270,7 @@ location_table = {
     "Domino Row - Swimming Room Escape Box":                    LocationData(Passage.TOPAZ,    3, ItemFlag.JEWEL_SW,      _S_HARD),
     "Domino Row - Keyzer Room Box":                             LocationData(Passage.TOPAZ,    3, ItemFlag.JEWEL_NW,      _ALL),
     "Domino Row - CD Box":                                      LocationData(Passage.TOPAZ,    3, ItemFlag.CD,            _ALL),
+    'Domino Row - Keyzer':                                      LocationData(Passage.TOPAZ,    3, ItemFlag.KEYZER,        _ALL),
     "Domino Row - Toy Car Tower Diamond":                       LocationData(Passage.TOPAZ,    3, ItemFlag.DIAMOND_1,     _EASIER),
     "Domino Row - Switch Ladder Diamond":                       LocationData(Passage.TOPAZ,    3, ItemFlag.DIAMOND_2,     _EASIER),
 
@@ -275,6 +288,7 @@ location_table = {
     "Crescent Moon Village - !-Switch Rolling Box":             LocationData(Passage.SAPPHIRE, 0, ItemFlag.JEWEL_SW,      _HARDER),
     "Crescent Moon Village - Sewer Box":                        LocationData(Passage.SAPPHIRE, 0, ItemFlag.JEWEL_NW,      _ALL),
     "Crescent Moon Village - CD Box":                           LocationData(Passage.SAPPHIRE, 0, ItemFlag.CD,            _ALL),
+    "Crescent Moon Village - Keyzer":                           LocationData(Passage.SAPPHIRE, 0, ItemFlag.KEYZER,        _ALL),
     "Crescent Moon Village - First Village Diamond":            LocationData(Passage.SAPPHIRE, 0, ItemFlag.DIAMOND_1,     _ALL),
     "Crescent Moon Village - Agile Bat Hidden Diamond":         LocationData(Passage.SAPPHIRE, 0, ItemFlag.DIAMOND_2,     _NORMAL),
     "Crescent Moon Village - Dropdown Diamond":                 LocationData(Passage.SAPPHIRE, 0, ItemFlag.DIAMOND_3,     _ALL),
@@ -290,6 +304,7 @@ location_table = {
     "Arabian Night - Kool-Aid Box":                             LocationData(Passage.SAPPHIRE, 1, ItemFlag.JEWEL_SW,      _HARDER),
     "Arabian Night - Sewer Box":                                LocationData(Passage.SAPPHIRE, 1, ItemFlag.JEWEL_NW,      _ALL),
     "Arabian Night - CD Box":                                   LocationData(Passage.SAPPHIRE, 1, ItemFlag.CD,            _ALL),
+    "Arabian Night - Keyzer":                                   LocationData(Passage.SAPPHIRE, 1, ItemFlag.KEYZER,        _ALL),
     "Arabian Night - City Ledge Diamond":                       LocationData(Passage.SAPPHIRE, 1, ItemFlag.DIAMOND_1,     _ALL),
     "Arabian Night - Onomi Diamond":                            LocationData(Passage.SAPPHIRE, 1, ItemFlag.DIAMOND_2,     _NORMAL),
     "Arabian Night - Flying Carpet Dash Attack Diamond":        LocationData(Passage.SAPPHIRE, 1, ItemFlag.DIAMOND_3,     _NORMAL),
@@ -307,6 +322,7 @@ location_table = {
     "Fiery Cavern - Ice Detour Box":                            LocationData(Passage.SAPPHIRE, 2, ItemFlag.JEWEL_SW,      _ALL),
     "Fiery Cavern - Snowman Box":                               LocationData(Passage.SAPPHIRE, 2, ItemFlag.JEWEL_NW,      _ALL),
     "Fiery Cavern - CD Box":                                    LocationData(Passage.SAPPHIRE, 2, ItemFlag.CD,            _ALL),
+    "Fiery Cavern - Keyzer":                                    LocationData(Passage.SAPPHIRE, 2, ItemFlag.KEYZER,        _ALL),
     "Fiery Cavern - Ice Jump Diamond":                          LocationData(Passage.SAPPHIRE, 2, ItemFlag.DIAMOND_1,     _EASIER),
     "Fiery Cavern - Corner Diamond":                            LocationData(Passage.SAPPHIRE, 2, ItemFlag.DIAMOND_2,     _EASIER),
     "Fiery Cavern - Hidden Ice Diamond":                        LocationData(Passage.SAPPHIRE, 2, ItemFlag.DIAMOND_3,     _NORMAL),
@@ -325,6 +341,7 @@ location_table = {
     "Hotel Horror - 4F Hallway Box":                            LocationData(Passage.SAPPHIRE, 3, ItemFlag.JEWEL_NW,      _NORMAL),
     "Hotel Horror - Exterior Box":                              LocationData(Passage.SAPPHIRE, 3, ItemFlag.JEWEL_NW,      _HARDER),
     "Hotel Horror - CD Box":                                    LocationData(Passage.SAPPHIRE, 3, ItemFlag.CD,            _ALL),
+    "Hotel Horror - Keyzer":                                    LocationData(Passage.SAPPHIRE, 3, ItemFlag.KEYZER,        _ALL),
     "Hotel Horror - Room 102 Diamond":                          LocationData(Passage.SAPPHIRE, 3, ItemFlag.DIAMOND_1,     _NORMAL),
     "Hotel Horror - Room 402 Diamond":                          LocationData(Passage.SAPPHIRE, 3, ItemFlag.DIAMOND_2,     _NORMAL),
     "Hotel Horror - Bonfire Block Diamond":                     LocationData(Passage.SAPPHIRE, 3, ItemFlag.DIAMOND_3,     _S_HARD),
@@ -342,6 +359,7 @@ location_table = {
     "Golden Passage - River Box":                               LocationData(Passage.GOLDEN,   0, ItemFlag.JEWEL_SE,      _ALL),
     "Golden Passage - Bat Room Box":                            LocationData(Passage.GOLDEN,   0, ItemFlag.JEWEL_SW,      _ALL),
     "Golden Passage - Mad Scienstein Box":                      LocationData(Passage.GOLDEN,   0, ItemFlag.JEWEL_NW,      _ALL),
+    "Golden Passage - Keyzer":                                  LocationData(Passage.GOLDEN,   0, ItemFlag.KEYZER,        _ALL),
     "Golden Passage - Long Hall Left Diamond":                  LocationData(Passage.GOLDEN,   0, ItemFlag.DIAMOND_1,     _ALL),
     "Golden Passage - Long Hall Right Diamond":                 LocationData(Passage.GOLDEN,   0, ItemFlag.DIAMOND_2,     _ALL),
     "Golden Passage - Current Puzzle Diamond":                  LocationData(Passage.GOLDEN,   0, ItemFlag.DIAMOND_3,     _ALL),
@@ -368,25 +386,26 @@ class WL4Location(WL4LocationBase):
     flag: int
     difficulty: Sequence[int]
 
-    def __init__(self, player: int, name: str, parent: Region | None = None):
-        super(WL4Location, self).__init__(player, name, location_name_to_id[name], parent)
+    def __init__(self, player: int, name: str, parent: Region | None = None, force_event: bool = False):
+        super(WL4Location, self).__init__(player, name, None if force_event else location_name_to_id[name], parent)
         self.passage, self.level, self.flag, self.difficulty = location_table[name]
 
     def entry_offset(self):
-        return self.flag.bit_length() - (1 if self.flag < ItemFlag.KEYZER else 2)
+        return self.flag.bit_length() - 1
 
     def level_offset(self):
-        return (self.passage * 5 + self.level) * (len(ItemFlag) - 1)
+        return (self.passage * 5 + self.level) * len(ItemFlag)
 
 
 class WL4EventLocation(WL4LocationBase):
     def __init__(self, player: int, name: str, parent: Region | None = None):
         super(WL4EventLocation, self).__init__(player, name, None, parent)
+        self.show_in_spoiler = False
 
 
 def get_level_locations(passage: Passage, level: int):
-    return map(lambda l: l[0], get_level_location_data(passage, level))
+    return map(lambda kvp: kvp[0], get_level_location_data(passage, level))
 
 
 def get_level_location_data(passage: Passage, level: int):
-    return filter(lambda l: l[1].level_id() == (passage, level), location_table.items())
+    return filter(lambda kvp: kvp[1].level_id() == (passage, level), location_table.items())

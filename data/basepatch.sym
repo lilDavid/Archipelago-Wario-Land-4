@@ -11,6 +11,7 @@
 03000104 gspritedata
 03000564 gpersistentspritedata
 03000A24 gcurrentsprite
+03000A51 ucthit2
 03000A68 w4itemstatus
 03000A73 warioabilities
 03000A76 receiveditemcount
@@ -75,15 +76,15 @@
 0878F9BC playerid
 0878F9BE seedname
 0878FA00 itemlocationtable
-0878FC1C multiworlddatatable
-0879048C startinginventoryitemstatus
-087904B0 startinginventoryjunkcounts
-087904B6 startinginventorywarioabilities
-087904B7 sendmultiworlditemsimmediately
-087904B8 goaltype
-087904B9 goldentreasuresneeded
-087904BA trapbehavior
-087904BB diamondshuffle
-08794310 minigamecointiles
-08795198 multiworldstringdump
+0878FC3C multiworlddatatable
+08790524 startinginventoryitemstatus
+08790548 startinginventoryjunkcounts
+0879054E startinginventorywarioabilities
+0879054F sendmultiworlditemsimmediately
+08790550 goaltype
+08790551 goldentreasuresneeded
+08790552 trapbehavior
+08790553 diamondshuffle
+08794570 minigamecointiles
+087953F8 multiworldstringdump
 

@@ -7,7 +7,11 @@ class TestEntrances(WL4TestBase):
 
 
 class TestEntrancesBasic(TestEntrances):
-    options = {"open_doors": options.OpenDoors.option_off, "required_jewels": 0}
+    options = {
+        "open_doors": options.OpenDoors.option_off,
+        "required_jewels": 0,
+        "keyzer_shuffle": False,
+    }
 
 #   def test_entry_levels(self):
 #       self.starting_regions = ["Hall of Hieroglyphs - Entrance"]
@@ -124,7 +128,12 @@ class TestEntrancesBasic(TestEntrances):
 
 
 class TestEntrancesAdvanced(TestEntrances):
-    options = {"logic": options.Logic.option_advanced, "open_doors": options.OpenDoors.option_off, "required_jewels": 0}
+    options = {
+        "logic": options.Logic.option_advanced,
+        "open_doors": options.OpenDoors.option_off,
+        "required_jewels": 0,
+        "keyzer_shuffle": False,
+    }
 
     def test_topaz_levels(self):
         self.starting_regions = ["Toy Block Tower - Entrance", "The Big Board - Entrance",
@@ -147,7 +156,12 @@ class TestEntrancesAdvanced(TestEntrances):
 
 
 class TestEntrancesOpenPortal(TestEntrances):
-    options = {"portal": options.Portal.option_open, "open_doors": options.OpenDoors.option_off, "required_jewels": 0}
+    options = {
+        "portal": options.Portal.option_open,
+        "open_doors": options.OpenDoors.option_off,
+        "required_jewels": 0,
+        "keyzer_shuffle": False,
+    }
 
     def test_sapphire_levels(self):
         self.starting_regions = ["Crescent Moon Village - Entrance", "Arabian Night - Entrance",
@@ -223,7 +237,11 @@ class TestEntrancesOpenDoors(TestEntrances):
 
 
 class TestEntrancesOpenDoorsExceptPyramid(TestEntrancesOpenDoors):
-    options = {"open_doors": options.OpenDoors.option_closed_diva, "required_jewels": 0}
+    options = {
+        "open_doors": options.OpenDoors.option_closed_diva,
+        "required_jewels": 0,
+        "keyzer_shuffle": False,
+    }
 
     def test_golden_pyramid(self):
         self.starting_regions = ["Golden Passage - Entrance"]
@@ -328,10 +346,8 @@ class TestBossAccess(TestEntrances):
 
 
 class TestBossAccessNoJewelsKeysy(TestEntrances):
-    options = {
-        "required_jewels": 0,
-        "open_doors": options.OpenDoors.option_open,
-    }
+    options = {"required_jewels": 0, "open_doors": options.OpenDoors.option_open}
+
     def test_bosses(self):
         self.starting_regions = ["Golden Pyramid"]
         self.run_entrance_tests([

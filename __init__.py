@@ -1,18 +1,32 @@
+import itertools
 import logging
 from pathlib import Path
-import settings
-from typing import Any, ClassVar
+from typing import Any, ClassVar, cast
 
-from BaseClasses import Tutorial
+import settings
+from BaseClasses import CollectionState, Item, Location, MultiWorld, Tutorial
+from Fill import fill_restrictive
 from Options import OptionError
 from worlds.AutoWorld import WebWorld, World
 
-from .client import WL4Client
+from .client import WL4Client as WL4Client  # Suppress unused import warning
 from .data import Passage, data_path
-from .items import WL4Item, get_jewel_pieces_by_passage, jewel_piece_table, cd_table, ability_table, golden_treasure_table, item_name_to_id
-from .locations import get_level_locations, location_name_to_id
-from .options import Goal, WL4Options, wl4_option_groups
-from .regions import connect_regions, create_regions
+from .items import (
+    KeyzerItemData,
+    WL4EventItem,
+    WL4Item,
+    ability_table,
+    cd_table,
+    get_jewel_pieces_by_passage,
+    golden_treasure_table,
+    item_name_to_id,
+    jewel_piece_table,
+    keyzer_table,
+)
+from .locations import WL4Location, get_level_locations, location_name_to_id
+from .options import Goal, OpenDoors, WL4Options, wl4_option_groups
+from .region_data import passage_levels
+from .regions import WL4Level, connect_regions, create_regions
 from .rom import MD5_JP, MD5_US_EU, WL4ProcedurePatch, write_tokens
 
 
@@ -122,6 +136,8 @@ class WL4World(World):
         super(WL4World, self).__init__(*args, **kwargs)
         self.filler_item_weights = None
 
+    levels: dict[str, WL4Level]
+
     def generate_early(self):
         if self.options.goal in (Goal.option_local_golden_treasure_hunt, Goal.option_local_golden_diva_treasure_hunt):
             self.options.local_items.value.update(self.item_name_groups["Golden Treasure"])
@@ -148,6 +164,10 @@ class WL4World(World):
             not self.options.diamond_shuffle.value):
             raise OptionError(f"Not enough locations to place abilities for {self.player_name}. "
                               'Set the "Pool Jewels" or "Golden Jewels" option to a lower value and try again.')
+
+        self.filler_item_weights = self.options.prize_weight.value, self.options.junk_weight.value, self.options.trap_weight.value
+
+        self.levels = {}
 
     def create_regions(self):
         create_regions(self)
@@ -210,10 +230,89 @@ class WL4World(World):
         if diamond_shuffle:
             itempool += [self.create_item("Diamond") for _ in range(diamonds)]
 
+        if self.options.keyzer_shuffle.value:
+            keyzers = dict(keyzer_table)
+            if self.options.open_doors.value == OpenDoors.option_closed_diva:
+                gp_keyzer = 'Keyzer (Golden Pyramid Boss)'
+                del keyzers[gp_keyzer]
+                self.levels['Golden Passage'].items.append(self.create_item(gp_keyzer))
+            if self.options.open_doors.value == OpenDoors.option_off:
+                for name, data in keyzers.items():
+                    self.levels[passage_levels[data.passage][data.level]].items.append(self.create_item(name))
+            else:
+                for name in keyzers.keys():
+                    self.multiworld.push_precollected(self.create_item(name))
+                total_required_locations += len(keyzers)
+
         junk_count = total_required_locations - len(itempool)
         itempool += [self.create_item(self.get_filler_item_name()) for _ in range(junk_count)]
 
         self.multiworld.itempool += itempool
+
+    def get_pre_fill_items(self):
+        return list(itertools.chain.from_iterable(level.items for level in self.levels.values()))
+
+    @classmethod
+    def stage_pre_fill(cls, multiworld: MultiWorld):
+        keyzers = set()
+        items: list[WL4Item] = []
+        locations: list[WL4Location] = []
+
+        for world in multiworld.get_game_worlds(cls.game):
+            player = world.player
+            if player in multiworld.groups:
+                continue
+            assert type(world) is WL4World
+
+            if world.options.keyzer_shuffle.value:
+                for level in world.levels.values():
+                    keyzers.update((player, item.name) for item in level.items if type(item.data) is KeyzerItemData)
+                    items.extend(item for item in level.items if type(item.data) is KeyzerItemData)
+                    locations.extend(location for location in level.locations if not location.item)
+
+        if items:
+            def add_level_item_rule(location: WL4Location):
+                old_rule = location.item_rule
+                location.item_rule = lambda item: (
+                    old_rule(item)
+                    and (
+                        (item.player, item.name) not in keyzers
+                        or type(item) is WL4Item and type(item.data) is KeyzerItemData
+                        and (item.data.passage, item.data.level) == (location.passage, location.level)
+                    )
+                )
+
+            for location in locations:
+                add_level_item_rule(location)
+
+            multiworld.random.shuffle(locations)
+
+            shuffled_player_ids = {item.player for item in items}
+            all_state = CollectionState(multiworld)
+            for item in multiworld.itempool:
+                multiworld.worlds[item.player].collect(all_state, item)
+            prefill_items: list[Item] = []
+            for player in shuffled_player_ids:
+                prefill_items.extend(multiworld.worlds[player].get_pre_fill_items())
+            for item in items:
+                prefill_items.remove(item)
+            for item in prefill_items:
+                multiworld.worlds[item.player].collect(all_state, item)
+            all_state.sweep_for_advancements()
+
+            for player in shuffled_player_ids:
+                if all_state.has("Escape the Pyramid", player):
+                    all_state.remove(WL4EventItem('Escape the Pyramid', player))
+
+            fill_restrictive(
+                multiworld,
+                all_state,
+                cast(list[Location], locations),
+                cast(list[Item], items),
+                lock=True,
+                allow_excluded=True,
+                name="WL4 Keyzers",
+            )
 
     def generate_output(self, output_directory: str):
         output_path = Path(output_directory)
@@ -237,6 +336,7 @@ class WL4World(World):
             "logic",
             "required_jewels",
             "open_doors",
+            "keyzer_shuffle",
             "portal",
             "diamond_shuffle",
             "death_link",

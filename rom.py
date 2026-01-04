@@ -2,17 +2,33 @@ from __future__ import annotations
 
 import itertools
 import random
-from pathlib import Path
 import struct
-from typing import Any, NamedTuple, TYPE_CHECKING, cast
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, NamedTuple, cast
 
 import Utils
 from worlds.Files import APPatchExtension, APProcedurePatch, APTokenMixin, APTokenTypes
 
-from .data import Passage, ap_id_offset, encode_str, get_symbol
-from .items import AbilityItemData, CdItemData, GoldenTreasureItemData, ItemData, JewelPieceItemData, OtherItemData, WL4Item, jewel_piece_table
-from .locations import WL4Location
-from .options import Difficulty, Goal, MusicShuffle, OpenDoors, Portal, SmashThroughHardBlocks
+from .data import ItemFlag, Passage, ap_id_offset, encode_str, get_symbol
+from .items import (
+    AbilityItemData,
+    CdItemData,
+    GoldenTreasureItemData,
+    ItemData,
+    JewelPieceItemData,
+    KeyzerItemData,
+    OtherItemData,
+    WL4Item,
+    jewel_piece_table,
+)
+from .locations import WL4Location, WL4LocationBase
+from .options import (
+    Difficulty,
+    Goal,
+    MusicShuffle,
+    Portal,
+    SmashThroughHardBlocks,
+)
 
 if TYPE_CHECKING:
     from . import WL4World
@@ -223,13 +239,14 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
     # Place item IDs and collect multiworld entries
     multiworld_items = {}
     for location in world.multiworld.get_locations(world.player):
+        assert isinstance(location, WL4LocationBase)
+        if type(location) is not WL4Location:
+            continue
         assert location.item is not None
         item_id = location.item.code
-        location_id = location.address
-        player_id = location.item.player
-        if item_id is None or location_id is None:
+        if item_id is None:
             continue
-        assert type(location) is WL4Location
+        player_id = location.item.player
 
         if location.native_item:
             item_id -= ap_id_offset
@@ -243,12 +260,12 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
             else:
                 classification = 0
             item_id = 0xF0 | classification
-        itemname = location.item.name
+        item_name = location.item.name
 
         if player_id == world.player:
-            playername = None
+            player_name = None
         else:
-            playername = world.multiworld.player_name[player_id]
+            player_name = world.multiworld.player_name[player_id]
 
         location_offset = location.level_offset() + location.entry_offset()
         patch.write_token(
@@ -258,8 +275,8 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
         )
 
         multiworld_data_location = get_rom_address("MultiworldDataTable", 4 * location_offset)
-        if playername is not None:
-            multiworld_items[multiworld_data_location] = MultiworldData(playername, itemname)
+        if player_name is not None:
+            multiworld_items[multiworld_data_location] = MultiworldData(player_name, item_name)
         else:
             multiworld_items[multiworld_data_location] = None
 
@@ -286,7 +303,9 @@ class StartInventory:
                     self.level_table[item.passage][level] |= item.flag()
                     break
         elif type(item) is CdItemData:
-            self.level_table[item.passage][item.level] |= item.flag()
+            self.level_table[item.passage][item.level] |= ItemFlag.CD
+        elif type(item) is KeyzerItemData:
+            self.level_table[item.passage][item.level] |= ItemFlag.KEYZER
         elif type(item) is AbilityItemData:
             ability = item.ability
             flag = 1 << ability
@@ -353,18 +372,6 @@ def create_starting_inventory(world: WL4World, patch: WL4ProcedurePatch):
 
         for _ in range(copies):
             start_inventory.add(item)
-
-    # Free Keyzer
-    def set_keyzer(passage, level):
-        start_inventory.level_table[passage][level] |= 0x20
-
-    if world.options.open_doors != OpenDoors.option_off:
-        set_keyzer(Passage.ENTRY, 0)
-        for passage, level in itertools.product(range(1, 5), range(4)):
-            set_keyzer(passage, level)
-
-    if world.options.open_doors.value == OpenDoors.option_open:
-        set_keyzer(Passage.GOLDEN, 0)
 
     start_inventory.write(patch)
 

@@ -25,7 +25,18 @@ class WL4Region(Region):
         super().__init__(name, world.player, world.multiworld)
 
 
-def filter_out_locations(locations: Iterable[LocationData], location_type: LocationType) -> Iterable[LocationData]:
+class WL4Level:
+    world: WL4World
+    items: list[WL4Item]
+    locations: list[WL4Location]
+
+    def __init__(self, world: WL4World):
+        self.world = world
+        self.items = []
+        self.locations = []
+
+
+def filter_out_locations(locations: Iterable[LocationData], location_type: LocationType):
     return filter(lambda location: location.type != location_type, locations)
 
 
@@ -42,7 +53,6 @@ def create_event(region: Region, location_name: str, item_name: str | None = Non
         item_name = location_name
     location = WL4EventLocation(region.player, location_name, region)
     location.place_locked_item(WL4EventItem(item_name, region.player))
-    location.show_in_spoiler = False
     return location
 
 
@@ -75,6 +85,9 @@ def create_regions(world: WL4World):
         regions.append(WL4Region(passage.long_name(), world))
 
     for level_name, level_data in level_table.items():
+        level = WL4Level(world)
+        world.levels[level_name] = level
+
         for region_data in level_data.regions:
             region_name = get_region_name(level_name, region_data.name)
             region = WL4Region(region_name, world)
@@ -86,18 +99,25 @@ def create_regions(world: WL4World):
                 locations = filter_out_locations(locations, LocationType.SWITCH)
 
             for location_data in locations:
-                if location_data.type == LocationType.KEYZER and world.options.open_doors.value != OpenDoors.option_off:
+                if (
+                    location_data.type == LocationType.KEYZER
+                    and world.options.open_doors.value != OpenDoors.option_off
+                    and not world.options.keyzer_shuffle.value
+                ):
                     if world.options.open_doors.value == OpenDoors.option_open:
                         continue
                     if level_name != "Golden Passage":
                         continue
 
                 location_name = f"{level_name} - {location_data.name}"
-                if location_data.type in (LocationType.KEYZER, LocationType.SWITCH):
+                if location_data.type == LocationType.SWITCH:
                     item_name = f"{location_data.name} ({level_name})"
                     location = create_event(region, location_name, item_name)
+                elif location_data.type == LocationType.KEYZER and not world.options.keyzer_shuffle.value:
+                    location = WL4Location(world.player, location_name, region, force_event=True)
                 else:
                     location = WL4Location(world.player, location_name, region)
+                    level.locations.append(location)
 
                 if location_data.access_rule is not None:
                     add_rule(location, location_data.access_rule.apply_world(world))
@@ -147,6 +167,15 @@ def make_boss_access_rule(passage: Passage, jewels_needed: int):
     return has_all(jewel_list)
 
 
+def place_keyzer(world: WL4World, level: str, keyzer: str):
+    try:
+        location = world.get_location(f"{level} - Keyzer")
+    except KeyError:
+        pass
+    else:
+        location.place_locked_item(WL4Item(keyzer, world.player))
+
+
 def connect_regions(world: WL4World):
     required_jewels = world.options.required_jewels.value
     required_jewels_entry = min(1, required_jewels)
@@ -154,14 +183,20 @@ def connect_regions(world: WL4World):
     for passage, levels in passage_levels.items():
         connect_entrance(world, f"{passage.long_name()} Entrance", "Pyramid", passage.long_name())
         connect_entrance(world, f"{levels[0]} Entrance", passage.long_name(), get_level_entrance_name(levels[0]))
-        for source, destination in itertools.pairwise(levels):
+        for i, (source, destination) in enumerate(itertools.pairwise(levels), 1):
+            keyzer_name = f"Keyzer ({passage.long_name()} {i})"
+            if not world.options.keyzer_shuffle:
+                place_keyzer(world, source, keyzer_name)
             connect_entrance(
                 world,
                 f"{destination} Entrance",
                 get_level_entrance_name(source),
                 get_level_entrance_name(destination),
-                has(f"Keyzer ({source})") if world.options.open_doors.value == OpenDoors.option_off else None
+                has(keyzer_name) if world.options.open_doors.value == OpenDoors.option_off else None
             )
+        keyzer_name = f"Keyzer ({passage.long_name()} Boss)"
+        if not world.options.keyzer_shuffle:
+            place_keyzer(world, levels[-1], keyzer_name)
         if passage != Passage.ENTRY:
             boss_access = make_boss_access_rule(passage, required_jewels_entry if passage == Passage.GOLDEN else required_jewels)
             connect_entrance(
@@ -169,18 +204,25 @@ def connect_regions(world: WL4World):
                 f"{passage.long_name()} Boss Door",
                 get_level_entrance_name(levels[-1]),
                 f"{passage.long_name()} Boss",
-                boss_access & has(f"Keyzer ({levels[-1]})") if world.options.open_doors.value == OpenDoors.option_off else boss_access
+                boss_access & has(keyzer_name)
+                    if world.options.open_doors.value == OpenDoors.option_off
+                    else boss_access
             )
 
     if world.options.open_doors.value != OpenDoors.option_open:
-        add_rule(
-            world.get_entrance("Golden Pyramid Boss Door"),
-            has("Keyzer (Golden Passage)").apply_world(world),
-        )
+        add_rule(world.get_entrance("Golden Pyramid Boss Door"), has("Keyzer (Golden Pyramid Boss)").apply_world(world))
 
     add_rule(
         world.get_entrance("Golden Pyramid Entrance"),
-        lambda state: state.has_all(["Emerald Passage Clear", "Ruby Passage Clear", "Topaz Passage Clear", "Sapphire Passage Clear"], world.player)
+        lambda state: state.has_all(
+            [
+                "Emerald Passage Clear",
+                "Ruby Passage Clear",
+                "Topaz Passage Clear",
+                "Sapphire Passage Clear",
+            ],
+            world.player,
+        ),
     )
 
     for level_name, level_data in level_table.items():

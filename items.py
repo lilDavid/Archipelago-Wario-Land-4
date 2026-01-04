@@ -12,6 +12,7 @@ from .data import ap_id_offset, Passage
 #                   | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
 # Jewel pieces:     | 0   0   0 |  passage  | qdrnt |
 # CD:               | 0   0   1 |  passage  | level |
+# Keyzer:           | 1   1   0 |  passage  | level |
 # Wario abilities:  | 0   1   0   0   0 |  ability  |
 # Golden treasures: | 0   1   1   1 |   treasure    |
 #
@@ -53,8 +54,6 @@ class Box(IntEnum):
     JEWEL_SE = 1
     JEWEL_SW = 2
     JEWEL_NW = 3
-    CD = 4
-    FULL_HEALTH = 5
 
 
 class JewelPieceItemData(NamedTuple):
@@ -77,9 +76,14 @@ class CdItemData(NamedTuple):
     def item_id(self):
         return (1 << 5) | (self.passage << 2) | self.level
 
-    @staticmethod
-    def flag():
-        return 1 << Box.CD
+
+class KeyzerItemData(NamedTuple):
+    passage: Passage
+    level: int
+    classification: IC
+
+    def item_id(self):
+        return (6 << 5) | (self.passage << 2) | self.level
 
 
 class AbilityItemData(NamedTuple):
@@ -109,7 +113,7 @@ class OtherItemData(NamedTuple):
         return (1 << 7) | self.item
 
 
-ItemData = JewelPieceItemData | CdItemData | AbilityItemData | GoldenTreasureItemData | OtherItemData
+ItemData = JewelPieceItemData | CdItemData | KeyzerItemData | AbilityItemData | GoldenTreasureItemData | OtherItemData
 
 
 jewel_piece_table = {
@@ -158,6 +162,27 @@ cd_table = {
     "Mr. Ether & Planaria CD":          CdItemData(Passage.SAPPHIRE, 3, IC.filler),
 }
 
+keyzer_table = {
+    "Keyzer (Entry Passage Boss)":      KeyzerItemData(Passage.ENTRY,    0, IC.filler),
+    "Keyzer (Emerald Passage 1)":       KeyzerItemData(Passage.EMERALD,  0, IC.progression),
+    "Keyzer (Emerald Passage 2)":       KeyzerItemData(Passage.EMERALD,  1, IC.progression),
+    "Keyzer (Emerald Passage 3)":       KeyzerItemData(Passage.EMERALD,  2, IC.progression),
+    "Keyzer (Emerald Passage Boss)":    KeyzerItemData(Passage.EMERALD,  3, IC.progression),
+    "Keyzer (Ruby Passage 1)":          KeyzerItemData(Passage.RUBY,     0, IC.progression),
+    "Keyzer (Ruby Passage 2)":          KeyzerItemData(Passage.RUBY,     1, IC.progression),
+    "Keyzer (Ruby Passage 3)":          KeyzerItemData(Passage.RUBY,     2, IC.progression),
+    "Keyzer (Ruby Passage Boss)":       KeyzerItemData(Passage.RUBY,     3, IC.progression),
+    "Keyzer (Topaz Passage 1)":         KeyzerItemData(Passage.TOPAZ,    0, IC.progression),
+    "Keyzer (Topaz Passage 2)":         KeyzerItemData(Passage.TOPAZ,    1, IC.progression),
+    "Keyzer (Topaz Passage 3)":         KeyzerItemData(Passage.TOPAZ,    2, IC.progression),
+    "Keyzer (Topaz Passage Boss)":      KeyzerItemData(Passage.TOPAZ,    3, IC.progression),
+    "Keyzer (Sapphire Passage 1)":      KeyzerItemData(Passage.SAPPHIRE, 0, IC.progression),
+    "Keyzer (Sapphire Passage 2)":      KeyzerItemData(Passage.SAPPHIRE, 1, IC.progression),
+    "Keyzer (Sapphire Passage 3)":      KeyzerItemData(Passage.SAPPHIRE, 2, IC.progression),
+    "Keyzer (Sapphire Passage Boss)":   KeyzerItemData(Passage.SAPPHIRE, 3, IC.progression),
+    "Keyzer (Golden Pyramid Boss)":     KeyzerItemData(Passage.GOLDEN,   0, IC.progression),
+}
+
 ability_table = {
     "Progressive Ground Pound":         AbilityItemData(0, IC.progression),
     "Swim":                             AbilityItemData(1, IC.progression),
@@ -194,6 +219,7 @@ other_item_table = {
 item_table: dict[str, ItemData] = {
     **jewel_piece_table,
     **cd_table,
+    **keyzer_table,
     **ability_table,
     **golden_treasure_table,
     **other_item_table,
@@ -209,16 +235,23 @@ def get_jewel_pieces_by_passage(passage: Passage) -> Iterable[str]:
 
 class WL4ItemBase(Item):
     game: str = "Wario Land 4"
+    data: ItemData | None
 
 
 class WL4Item(WL4ItemBase):
-    data: ItemData
+    data: ItemData  # Promise this field is always filled
 
-    def __init__(self, name: str, player: int, force_non_progression: bool = False):
+    def __init__(self, name: str, player: int, force_non_progression: bool = False, force_event: bool = False):
         self.data = item_table[name]
-        super(WL4Item, self).__init__(name, IC.filler if force_non_progression else self.data.classification, item_name_to_id[name], player)
+        super(WL4Item, self).__init__(
+            name,
+            IC.filler if force_non_progression else self.data.classification,
+            None if force_event else item_name_to_id[name],
+            player,
+        )
 
 
 class WL4EventItem(WL4ItemBase):
     def __init__(self, name: str, player: int):
+        self.data = item_table.get(name)
         super(WL4EventItem, self).__init__(name, IC.progression, None, player)

@@ -1,6 +1,15 @@
 from dataclasses import dataclass
 
-from Options import Choice, PerGameCommonOptions, Toggle, DeathLink, Range, OptionGroup, StartInventoryPool
+from Options import (
+    Choice,
+    DeathLink,
+    DefaultOnToggle,
+    OptionGroup,
+    PerGameCommonOptions,
+    Range,
+    StartInventoryPool,
+    Toggle,
+)
 
 
 class Goal(Choice):
@@ -121,6 +130,13 @@ class OpenDoors(Choice):
     default = option_closed_diva
 
 
+class KeyzerShuffle(DefaultOnToggle):
+    """
+    Randomize Keyzer's location in each level.
+    In Open Doors, random items will be placed where Keyzer used to be.
+    """
+    display_name = 'Keyzer Shuffle'
+
 class Portal(Choice):
     """
     Behavior of the portal and item collection.
@@ -240,6 +256,7 @@ wl4_option_groups = [
         Difficulty,
         RequiredJewels,
         OpenDoors,
+        KeyzerShuffle,
         Portal,
     ]),
     OptionGroup("Item Pool", [
@@ -272,6 +289,7 @@ class WL4Options(PerGameCommonOptions):
     difficulty: Difficulty
     required_jewels: RequiredJewels
     open_doors: OpenDoors
+    keyzer_shuffle: KeyzerShuffle
     portal: Portal
     pool_jewels: PoolJewels
     golden_jewels: GoldenJewels

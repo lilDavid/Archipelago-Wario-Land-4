@@ -51,7 +51,7 @@ class TestLocationExistence(TestCase):
             for level_name, level in level_table.items()
             for region in level.regions
             for location in region.locations
-            if difficulty in location.difficulties and location.type not in (LocationType.KEYZER, LocationType.SWITCH)
+            if difficulty in location.difficulties and location.type != LocationType.SWITCH
         }
         self.assertEqual(locations_from_table, locations_from_tree)
 
