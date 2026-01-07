@@ -238,7 +238,8 @@ class MultiworldData(NamedTuple):
 def fill_items(world: WL4World, patch: WL4ProcedurePatch):
     # Place item IDs and collect multiworld entries
     multiworld_items = {}
-    for location in world.multiworld.get_locations(world.player):
+    location_count = 0
+    for location in world.get_locations():
         assert isinstance(location, WL4LocationBase)
         if type(location) is not WL4Location:
             continue
@@ -279,6 +280,14 @@ def fill_items(world: WL4World, patch: WL4ProcedurePatch):
             multiworld_items[multiworld_data_location] = MultiworldData(player_name, item_name)
         else:
             multiworld_items[multiworld_data_location] = None
+
+        location_count += 1
+
+    patch.write_token(
+        APTokenTypes.WRITE,
+        get_rom_address("sLocationCount"),
+        location_count.to_bytes(2, "little"),
+    )
 
     create_starting_inventory(world, patch)
 

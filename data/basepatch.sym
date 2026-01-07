@@ -4,6 +4,7 @@
 03000008 gmedalcount
 03000010 ucworldnumbak
 03000013 ucsaveflg
+03000018 gresetsavefile
 03000024 currentroomid
 03000044 ucflashloop
 03000047 uctimeup
@@ -15,6 +16,7 @@
 03000A68 w4itemstatus
 03000A73 warioabilities
 03000A76 receiveditemcount
+03000AE8 gingametime
 03000BE0 gcurrentsecondarysprite
 03000BF4 igmtotalscore
 03000BF8 igmstagescore
@@ -80,11 +82,12 @@
 08790524 startinginventoryitemstatus
 08790548 startinginventoryjunkcounts
 0879054E startinginventorywarioabilities
-0879054F sendmultiworlditemsimmediately
-08790550 goaltype
-08790551 goldentreasuresneeded
-08790552 trapbehavior
-08790553 diamondshuffle
-08794570 minigamecointiles
-087953F8 multiworldstringdump
+08790550 slocationcount
+08790552 sendmultiworlditemsimmediately
+08790553 goaltype
+08790554 goldentreasuresneeded
+08790555 trapbehavior
+08790556 diamondshuffle
+087947BC minigamecointiles
+087956A8 multiworldstringdump
 
