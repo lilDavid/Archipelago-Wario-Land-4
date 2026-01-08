@@ -683,7 +683,7 @@ level_table = {
                         "Switch Ladder Diamond",
                         LocationType.DIAMOND,
                         difficulties=[normal, hard],
-                        access_rule=has("Super Ground Pound")
+                        access_rule=has_all(["Dash Attack", "Super Ground Pound"])
                     ),
                 ]
             ),
@@ -766,6 +766,7 @@ level_table = {
                     LocationData("Zombie Plummet Box", difficulties=[normal]),
                     LocationData("Keyzer", LocationType.KEYZER),
                     LocationData("City Ledge Diamond", LocationType.DIAMOND),
+                    LocationData("Scienstein Puzzle Diamond", LocationType.DIAMOND, access_rule=has("Grab")),
                 ]
             ),
             RegionData(
@@ -782,7 +783,6 @@ level_table = {
                 [
                     LocationData("Flying Carpet Dash Attack Box", difficulties=[hard, s_hard]),
                     LocationData("Flying Carpet Dash Attack Diamond", LocationType.DIAMOND, difficulties=[normal]),
-                    LocationData("Scienstein Puzzle Diamond", LocationType.DIAMOND, access_rule=has("Grab")),
                 ]
             ),
             RegionData(
