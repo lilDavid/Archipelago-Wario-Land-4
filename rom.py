@@ -626,6 +626,12 @@ def shuffle_music(rom: LocalRom, music_shuffle: int):
     rom.write_halfword(mystic_lake_doors[25] + 10, 0x28F)
     rom.write_halfword(mystic_lake_doors[26] + 10, 0x2A2)
 
+    # The game tries to fade the music between the level theme and the bonus
+    # room theme on the beat, but that only works for the level themes, so if
+    # anything else is shuffled just fade the music immediately.
+    if music_shuffle > MusicShuffle.option_levels_only:
+        rom.write_halfword(0x06C1B4, 0x46C0)  # nop  ; MapBgmChangeMain()
+
 
 def shuffle_wario_voice_sets(rom: LocalRom, shuffle: int):
     if not shuffle:
