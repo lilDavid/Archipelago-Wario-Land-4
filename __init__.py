@@ -277,8 +277,11 @@ class WL4World(World):
                     old_rule(item)
                     and (
                         (item.player, item.name) not in keyzers
-                        or type(item) is WL4Item and type(item.data) is KeyzerItemData
-                        and (item.data.passage, item.data.level) == (location.passage, location.level)
+                        or (
+                            type(item) is WL4Item
+                            and type(item.data) is KeyzerItemData
+                            and (item.data.passage, item.data.level) == (location.passage, location.level)
+                        )
                     )
                 )
 
@@ -302,17 +305,23 @@ class WL4World(World):
 
             for player in shuffled_player_ids:
                 if all_state.has("Escape the Pyramid", player):
-                    all_state.remove(WL4EventItem('Escape the Pyramid', player))
+                    all_state.remove(WL4EventItem("Escape the Pyramid", player))
 
-            fill_restrictive(
-                multiworld,
-                all_state,
-                cast(list[Location], locations),
-                cast(list[Item], items),
-                lock=True,
-                allow_excluded=True,
-                name="WL4 Keyzers",
-            )
+            for player in shuffled_player_ids:
+                local_items = [cast(Item, item) for item in items if item.player == player]
+                local_locations = [cast(Location, loc) for loc in locations if loc.player == player]
+                multiworld.random.shuffle(local_locations)
+                fill_restrictive(
+                    multiworld,
+                    all_state,
+                    local_locations,
+                    local_items,
+                    lock=True,
+                    single_player_placement=True,
+                    allow_excluded=True,
+                    allow_partial=False,
+                    name="WL4 Keyzers",
+                )
 
     def generate_output(self, output_directory: str):
         output_path = Path(output_directory)
