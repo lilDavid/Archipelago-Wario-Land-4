@@ -683,7 +683,8 @@ level_table = {
                         "Switch Ladder Diamond",
                         LocationType.DIAMOND,
                         difficulties=[normal, hard],
-                        access_rule=has_all(["Dash Attack", "Super Ground Pound"])
+                        access_rule=has("Super Ground Pound") & (
+                            has("Dash Attack") | trick("DR switch room block no dash attack"))
                     ),
                 ]
             ),

@@ -53,6 +53,9 @@ trick_table = {
     # Break the blocks with shoulder bashes, using invulnerability frames to hit the second one through the spikes.
     "DR escape with only swim": TrickData(None),
 
+    # Drop off the top of the ladder and immediately start a ground pound
+    "DR switch room block no dash attack": TrickData(has("Super Ground Pound")),
+
     # Break the wooden boxes by throwing the mummy enemies.
     "AN Onomi room with grab": TrickData(has("Grab")),
 
