@@ -230,19 +230,26 @@ class WL4World(World):
         if diamond_shuffle:
             itempool += [self.create_item("Diamond") for _ in range(diamonds)]
 
+        keyzers_in_levels: dict[str, KeyzerItemData]
+        starting_keyzers: list[str]
+        match self.options.open_doors.value:
+            case OpenDoors.option_off:
+                keyzers_in_levels = dict(keyzer_table)
+                starting_keyzers = []
+            case OpenDoors.option_closed_diva:
+                gp_keyzer = "Keyzer (Golden Pyramid Boss)"
+                keyzers_in_levels = {gp_keyzer: keyzer_table[gp_keyzer]}
+                starting_keyzers = [keyzer for keyzer in keyzer_table.keys() if keyzer != gp_keyzer]
+            case OpenDoors.option_open:
+                keyzers_in_levels = {}
+                starting_keyzers = list(keyzer_table.keys())
+        assert keyzers_in_levels or starting_keyzers  # This assertion was written in blood
+        for name, data in keyzers_in_levels.items():
+            self.levels[passage_levels[data.passage][data.level]].items.append(self.create_item(name))
+        for name in starting_keyzers:
+            self.multiworld.push_precollected(self.create_item(name))
         if self.options.keyzer_shuffle.value:
-            keyzers = dict(keyzer_table)
-            if self.options.open_doors.value == OpenDoors.option_closed_diva:
-                gp_keyzer = 'Keyzer (Golden Pyramid Boss)'
-                del keyzers[gp_keyzer]
-                self.levels['Golden Passage'].items.append(self.create_item(gp_keyzer))
-            if self.options.open_doors.value == OpenDoors.option_off:
-                for name, data in keyzers.items():
-                    self.levels[passage_levels[data.passage][data.level]].items.append(self.create_item(name))
-            else:
-                for name in keyzers.keys():
-                    self.multiworld.push_precollected(self.create_item(name))
-                total_required_locations += len(keyzers)
+            total_required_locations += len(starting_keyzers)
 
         junk_count = total_required_locations - len(itempool)
         itempool += [self.create_item(self.get_filler_item_name()) for _ in range(junk_count)]
