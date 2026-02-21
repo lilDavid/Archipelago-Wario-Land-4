@@ -84,6 +84,7 @@ class WL4World(World):
         "Sapphire Pieces": set(get_jewel_pieces_by_passage(Passage.SAPPHIRE)),
         "Golden Jewel Pieces": set(get_jewel_pieces_by_passage(Passage.GOLDEN)),
         "CDs": set(cd_table.keys()),
+        "Keyzers": set(keyzer_table.keys()),
         "Abilities": set(ability_table.keys()),
         "Golden Treasure": set(golden_treasure_table.keys()),
         "Traps": {"Wario Form Trap", "Lightning Trap"},
