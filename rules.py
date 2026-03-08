@@ -90,4 +90,9 @@ def not_difficulty(_difficulty: int):
     return Requirement(lambda w, s: not difficulty(_difficulty).inner(w, s))
 
 def advanced_logic():
-    return option("logic", Logic.option_advanced)
+    def can_sequence_break(world: WL4World, state):
+        if not world.is_universal_tracker():
+            return False
+        return has(world.glitches_item_name).inner(world, state)
+
+    return option("logic", Logic.option_advanced) | Requirement(can_sequence_break)

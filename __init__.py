@@ -246,7 +246,7 @@ class WL4World(World):
                 starting_keyzers = list(keyzer_table.keys())
         assert keyzers_in_levels or starting_keyzers  # This assertion was written in blood
         for name, data in keyzers_in_levels.items():
-            self.levels[passage_levels[data.passage][data.level]].items.append(self.create_item(name))
+            self.levels[passage_levels[data.passage][data.level]].items.append(cast(WL4Item, self.create_item(name)))
         for name in starting_keyzers:
             self.multiworld.push_precollected(self.create_item(name))
         if self.options.keyzer_shuffle.value:
@@ -366,6 +366,8 @@ class WL4World(World):
         return self.random.choice(pool)
 
     def create_item(self, name: str, force_non_progression=False):
+        if name == self.glitches_item_name:
+            return WL4EventItem(name, self.player)
         return WL4Item(name, self.player, force_non_progression)
 
     def set_rules(self):
@@ -375,6 +377,7 @@ class WL4World(World):
     # UT integration
 
     ut_can_gen_without_yaml = True
+    glitches_item_name = "SEQUENCE BREAKS"
 
     def is_universal_tracker(self):
         return hasattr(self.multiworld, "generation_is_fake")
