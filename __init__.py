@@ -6,7 +6,7 @@ from typing import Any, ClassVar, cast
 import settings
 from BaseClasses import CollectionState, Item, Location, MultiWorld, Tutorial
 from Fill import fill_restrictive
-from Options import OptionError
+from Options import Option, OptionError
 from worlds.AutoWorld import WebWorld, World
 
 from .client import WL4Client as WL4Client  # Suppress unused import warning
@@ -371,3 +371,27 @@ class WL4World(World):
     def set_rules(self):
         self.multiworld.completion_condition[self.player] = (
             lambda state: state.has("Escape the Pyramid", self.player))
+
+    # UT integration
+
+    ut_can_gen_without_yaml = True
+
+    def is_universal_tracker(self):
+        return hasattr(self.multiworld, "generation_is_fake")
+
+    def interpret_slot_data(self, slot_data: dict[str, Any]):
+        def set_option(option_name: str):
+            option: Option | None = getattr(self.options, option_name, None)
+            value = slot_data.get(option_name)
+            if option is not None and value is not None:
+                setattr(self.options, option_name, option.from_any(value))
+
+        set_option("goal")
+        set_option("golden_treasure_count")
+        set_option("difficulty")
+        set_option("logic")
+        set_option("required_jewels")
+        set_option("open_doors")
+        set_option("keyzer_shuffle")
+        set_option("portal")
+        set_option("diamond_shuffle")
