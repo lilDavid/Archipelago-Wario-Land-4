@@ -318,8 +318,8 @@ class StartInventory:
         elif type(item) is AbilityItemData:
             ability = item.ability
             flag = 1 << ability
-            if ability in (1, 3) and self.abilities & flag:
-                if ability == 1:
+            if ability in (0, 3) and self.abilities & flag:
+                if ability == 0:
                     ability = 6
                 else:
                     ability = 7
