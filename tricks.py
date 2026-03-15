@@ -20,6 +20,9 @@ def trick(name: str):
 
 
 trick_table = {
+    # Throw an enemy into the ceiling and enter with Puffy Wario
+    "MJ CD box with grab": TrickData(has("Grab")),
+
     # Throw the Yeti at the block.
     "40BF CD box with heavy grab": TrickData(has("Heavy Grab")),
 

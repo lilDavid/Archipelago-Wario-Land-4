@@ -266,7 +266,7 @@ level_table = {
                 ],
                 [
                     LocationData("Fat Plummet Box"),
-                    LocationData("CD Box", access_rule=has("Ground Pound")),
+                    LocationData("CD Box", access_rule=has("Ground Pound") | trick("MJ CD box with grab")),
                     LocationData("Full Health Item Box", access_rule=has("Swim")),
                     LocationData("Fat Plummet Diamond", LocationType.DIAMOND, difficulties=[normal]),
                     LocationData("Archer Pink Room Diamond", LocationType.DIAMOND),

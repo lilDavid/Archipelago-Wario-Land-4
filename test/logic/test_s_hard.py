@@ -191,7 +191,6 @@ class TestSHard(WL4TestBase):
         ])
 
     def _test_monsoon_jungle(self):
-
         self.run_location_tests([
             ["Monsoon Jungle - Brown Pipe Cave Box", False, []],
             ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound"]],

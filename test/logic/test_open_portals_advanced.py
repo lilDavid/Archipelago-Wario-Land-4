@@ -8,6 +8,35 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
                "logic": Logic.option_advanced,
                "portal": Portal.option_open}
 
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Spiky Box", False, []],
+            ["Monsoon Jungle - Spiky Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Spiky Box", True,
+             ["Progressive Ground Pound"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", True, []],
+
+            ["Monsoon Jungle - Descent Box", False, []],
+            ["Monsoon Jungle - Descent Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Descent Box", True,
+             ["Progressive Ground Pound"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", True,
+             ["Progressive Ground Pound"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Swim"]],
+        ])
+
     def _test_pinball_zone(self):
         self.run_location_tests([
             ["Pinball Zone - Rolling Room Box", False, []],
@@ -72,6 +101,36 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
     options = {"difficulty": Difficulty.option_hard,
                "logic": Logic.option_advanced,
                "portal": Portal.option_open}
+
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Escape Climb Box", False, []],
+            ["Monsoon Jungle - Escape Climb Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Ground Pound"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", True, []],
+
+            ["Monsoon Jungle - Puffy Hallway Box", False, []],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True,
+             ["Progressive Ground Pound", "Dash Attack"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True,
+             ["Progressive Ground Pound", "Progressive Grab"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Swim"]],
+        ])
 
     def _test_pinball_zone(self):
         self.run_location_tests([
@@ -185,6 +244,36 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
     options = {"difficulty": Difficulty.option_s_hard,
                "logic": Logic.option_advanced,
                "portal": Portal.option_open}
+
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Brown Pipe Cave Box", False, []],
+            ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Ground Pound"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", True, []],
+
+            ["Monsoon Jungle - Puffy Hallway Box", False, []],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True,
+             ["Progressive Ground Pound", "Dash Attack"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True,
+             ["Progressive Ground Pound", "Progressive Grab"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Swim"]],
+        ])
 
     def _test_pinball_zone(self):
         self.run_location_tests([
