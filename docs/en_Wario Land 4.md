@@ -85,35 +85,45 @@ expect you to use those strategies.
 
 A full list of these strategies is as follows:
 
-- In Monsoon Jungle, you can reach the CD box by throwing an enemy into the brown block and floating
-in as Puffy Wario.
-- In 40 Below Fridge, you can ground pound the switches in the maze puzzle room by getting a running
-start and stomp jumping on the glass ball right after the glass bird spits it out.
-- In The Toxic Landfill, you can lure the Ringosuki toward the water and grab the apple in midair to
-get the Transformation Puzzle Lower Diamond without using Heavy Grab to throw it across the pool.
-- In Pinball Zone, you can get through the fruit room with only grab by throwing one of the lower
-pinballs at the ones on the ledges.
-- Also in Pinball Zone, you can use Heavy Grab in place of Ground Pound in the jungle room by
-carrying a Ringosuki to the top of the room and using Fat Wario.
-- In Doodle Woods, you can reach the Gray Square Box on Hard and S-Hard by throwing a Toy Car at the
-gray blocks. The Normal version of that room doesn't have any enemies you can throw.
-- In Domino Row, you can open the way down the red tower by either breaking the blocks with Head
-Smash or by throwing a Toy Car from the top of the room. You need to do one of these things to
-escape without Ground Pound.
-- Also in Domino Row's red tower, you can get the diamond at the top by going up the left path and
-using invulnerability frames to break one of the blocks and collect it from above.
-- In the switch room in Domino Row, you can ground pound the hard block without dash attacking the
-block above the ladder if you ground pound immediately after dropping off.
-- In Arabian Night, you can reach the bottom of the room full of mummy enemies by throwing them at
-the wooden boxes if you have Grab.
-- In Hotel Horror, you can access the frog switch on Hard without carrying the Ringosuki by throwing
-the Marumen upward and bouncing on it in midair to start a Super Ground Pound.
-- To fight Catbat, you're normally expected to use Stomp Jump as the behavior when jumping off of
-the waves is strange without it. To ground pound his head without Stomp Jump, you need to start
-walking before you jump; jumps from a standstill won't work. When the waves start oscillating, jump
-at the apex or else you will be bounced off.
-- In Golden Passage, you can skip the current puzzle room by repeatedly jumping out of the river
-with good timing.
+- Monsoon Jungle:
+  - You can reach the switch by throwing a Spear-Mask down into the blocks.
+  - You can reach the CD box by throwing an enemy into the brown block and floating in as Puffy
+  Wario.
+- 40 Below Fridge:
+  - You can ground pound the switches in the maze puzzle room by getting a running start and stomp
+  jumping on the glass ball right after the glass bird spits it out.
+- The Toxic Landfill:
+  - You can lure the Ringosuki toward the water and grab the apple in midair to get the
+  Transformation Puzzle Lower Diamond without using Heavy Grab to throw it across the pool.
+- Pinball Zone:
+  - You can get through the fruit room with only grab by throwing one of the lower pinballs at the
+  ones on the ledges.
+  - You can use Heavy Grab in place of Ground Pound in the jungle room by carrying a Ringosuki to
+  the top of the room and using Fat Wario.
+- Doodle Woods:
+  - You can reach the Gray Square Box on Hard and S-Hard by throwing a Toy Car at the gray blocks.
+  The Normal version of that room doesn't have any enemies you can throw.
+- Domino Row:
+  - You can open the way down the red tower by either breaking the blocks with Head Smash or by
+  throwing a Toy Car from the top of the room. You need to do one of these things to escape without
+  Ground Pound.
+  - Also in the red tower, you can get the diamond at the top by going up the left path and using
+  invulnerability frames to break one of the blocks and collect it from above.
+  - In the switch room, you can ground pound the hard block without dash attacking the block above
+  the ladder if you ground pound immediately after dropping off.
+- Arabian Night:
+  - You can reach the bottom of the room full of mummy enemies by throwing them at the wooden boxes
+  if you have Grab.
+- Hotel Horror:
+  - You can access the frog switch on Hard without carrying the Ringosuki by throwing the Marumen
+  upward and bouncing on it in midair to start a Super Ground Pound.
+- Catbat:
+  - You're normally expected to use Stomp Jump as the behavior when jumping off of the waves is
+  strange without it. To ground pound his head without Stomp Jump, you need to start walking before
+  you jump; jumps from a standstill won't work. When the waves start oscillating, jump at the apex
+  or else you will be bounced off.
+- Golden Passage:
+  - You can skip the current puzzle room by repeatedly jumping out of the river with good timing.
 
 Videos of some of these strategies can be found at this YouTube playlist: [Wario Land 4 Archipelago
 Tricks](https://www.youtube.com/playlist?list=PL9fyDZ3k7Qw0WclTCDDImKQDjNi2Sy0Gp)

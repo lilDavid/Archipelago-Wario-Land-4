@@ -11,21 +11,21 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
     def _test_monsoon_jungle(self):
         self.run_location_tests([
             ["Monsoon Jungle - Spiky Box", False, []],
-            ["Monsoon Jungle - Spiky Box", False, [], ["Progressive Ground Pound"]],
-            ["Monsoon Jungle - Spiky Box", True,
-             ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Spiky Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Spiky Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Spiky Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - Fat Plummet Box", True, []],
 
             ["Monsoon Jungle - Descent Box", False, []],
-            ["Monsoon Jungle - Descent Box", False, [], ["Progressive Ground Pound"]],
-            ["Monsoon Jungle - Descent Box", True,
-             ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Descent Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Descent Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Descent Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - Buried Cave Box", False, []],
-            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
-            ["Monsoon Jungle - Buried Cave Box", True,
-             ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - CD Box", False, []],
             ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
@@ -105,22 +105,21 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
     def _test_monsoon_jungle(self):
         self.run_location_tests([
             ["Monsoon Jungle - Escape Climb Box", False, []],
-            ["Monsoon Jungle - Escape Climb Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Escape Climb Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
             ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - Fat Plummet Box", True, []],
 
             ["Monsoon Jungle - Puffy Hallway Box", False, []],
-            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
             ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
-            ["Monsoon Jungle - Puffy Hallway Box", True,
-             ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Grab", "Dash Attack"]],
 
             ["Monsoon Jungle - Buried Cave Box", False, []],
-            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
             ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
-            ["Monsoon Jungle - Buried Cave Box", True,
-             ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - CD Box", False, []],
             ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
@@ -248,22 +247,21 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
     def _test_monsoon_jungle(self):
         self.run_location_tests([
             ["Monsoon Jungle - Brown Pipe Cave Box", False, []],
-            ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
             ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - Fat Plummet Box", True, []],
 
             ["Monsoon Jungle - Puffy Hallway Box", False, []],
-            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
             ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
-            ["Monsoon Jungle - Puffy Hallway Box", True,
-             ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Grab", "Dash Attack"]],
 
             ["Monsoon Jungle - Buried Cave Box", False, []],
-            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound"]],
             ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
-            ["Monsoon Jungle - Buried Cave Box", True,
-             ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
 
             ["Monsoon Jungle - CD Box", False, []],
             ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],

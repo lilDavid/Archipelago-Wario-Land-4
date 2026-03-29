@@ -6,6 +6,40 @@ from .test_s_hard import TestSHard
 class TestAdvancedNormal(TestNormal):
     options = {"difficulty": 0, "logic": 1}
 
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Spiky Box", False, []],
+            ["Monsoon Jungle - Spiky Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Spiky Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Spiky Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", False, []],
+            ["Monsoon Jungle - Fat Plummet Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Descent Box", False, []],
+            ["Monsoon Jungle - Descent Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Descent Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Descent Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Ground Pound", "Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Grab", "Swim"]],
+        ])
+
     def _test_40_below_fridge(self):
         self.run_location_tests([
             ["40 Below Fridge - Looping Room Box", False, []],
@@ -103,6 +137,40 @@ class TestAdvancedNormal(TestNormal):
 
 class TestAdvancedHard(TestHard):
     options = {"difficulty": 1, "logic": 1}
+
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Escape Climb Box", False, []],
+            ["Monsoon Jungle - Escape Climb Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Escape Climb Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", False, []],
+            ["Monsoon Jungle - Fat Plummet Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Puffy Hallway Box", False, []],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Grab", "Dash Attack"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Ground Pound", "Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Grab", "Swim"]],
+        ])
 
     def _test_40_below_fridge(self):
         self.run_location_tests([
@@ -294,6 +362,40 @@ class TestAdvancedHard(TestHard):
 
 class TestAdvancedSHard(TestSHard):
     options = {"difficulty": 2, "logic": 1}
+
+    def _test_monsoon_jungle(self):
+        self.run_location_tests([
+            ["Monsoon Jungle - Brown Pipe Cave Box", False, []],
+            ["Monsoon Jungle - Brown Pipe Cave Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Brown Pipe Cave Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Fat Plummet Box", False, []],
+            ["Monsoon Jungle - Fat Plummet Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - Fat Plummet Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Puffy Hallway Box", False, []],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Puffy Hallway Box", False, [], ["Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Ground Pound", "Dash Attack"]],
+            ["Monsoon Jungle - Puffy Hallway Box", True, ["Progressive Grab", "Dash Attack"]],
+
+            ["Monsoon Jungle - Buried Cave Box", False, []],
+            ["Monsoon Jungle - Buried Cave Box", False, [], ["Progressive Grab"]],
+            ["Monsoon Jungle - Buried Cave Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - CD Box", False, []],
+            ["Monsoon Jungle - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Ground Pound"]],
+            ["Monsoon Jungle - CD Box", True, ["Progressive Grab"]],
+
+            ["Monsoon Jungle - Full Health Item Box", False, []],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Monsoon Jungle - Full Health Item Box", False, [], ["Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Ground Pound", "Swim"]],
+            ["Monsoon Jungle - Full Health Item Box", True, ["Progressive Grab", "Swim"]],
+        ])
 
     def _test_40_below_fridge(self):
         self.run_location_tests([

@@ -262,7 +262,7 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData("Deeps", access_rule=has("Ground Pound")),
+                    ExitData("Deeps", access_rule=has("Ground Pound") | trick("MJ with grab")),
                 ],
                 [
                     LocationData("Fat Plummet Box"),
