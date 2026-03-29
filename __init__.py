@@ -140,6 +140,9 @@ class WL4World(World):
     levels: dict[str, WL4Level]
 
     def generate_early(self):
+        if self.is_universal_tracker():
+            self.set_options_from_slot_data()
+
         if self.options.goal in (Goal.option_local_golden_treasure_hunt, Goal.option_local_golden_diva_treasure_hunt):
             self.options.local_items.value.update(self.item_name_groups["Golden Treasure"])
         if self.options.required_jewels > self.options.pool_jewels:
@@ -171,6 +174,8 @@ class WL4World(World):
         self.levels = {}
 
     def create_regions(self):
+        import logging
+        logging.info(self.options)
         create_regions(self)
         connect_regions(self)
 
@@ -382,7 +387,17 @@ class WL4World(World):
     def is_universal_tracker(self):
         return hasattr(self.multiworld, "generation_is_fake")
 
-    def interpret_slot_data(self, slot_data: dict[str, Any]):
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]):
+        # Trigger a re-gen
+        return slot_data
+
+    def set_options_from_slot_data(self):
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if not re_gen_passthrough or self.game not in re_gen_passthrough:
+            return
+        slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
         def set_option(option_name: str):
             option: Option | None = getattr(self.options, option_name, None)
             value = slot_data.get(option_name)
