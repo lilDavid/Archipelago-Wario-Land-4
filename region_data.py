@@ -648,24 +648,10 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData("Lake Entrance", has("Ground Pound") | trick("DR escape with only swim")),
+                    ExitData("Lake Area", (has("Ground Pound") | trick("DR escape with only swim")) & has("Swim")),
                 ],
                 [
                     LocationData("Racing Box"),
-                ]
-            ),
-            RegionData(
-                "Lake Entrance",
-                [
-                    ExitData("Lake Area", has("Swim")),
-                ],
-                [
-                    LocationData(
-                        "Toy Car Tower Diamond",
-                        LocationType.DIAMOND,
-                        access_rule=has_all(["Grab", "Stomp Jump"]) | trick("DR toy car tower diamond damage boost"),
-                        difficulties=[normal, hard]
-                    ),
                 ]
             ),
             RegionData(
@@ -679,6 +665,12 @@ level_table = {
                     LocationData("CD Box"),
                     LocationData("Keyzer", LocationType.KEYZER),
                     LocationData("Frog Switch", LocationType.SWITCH),
+                    LocationData(
+                        "Toy Car Tower Diamond",
+                        LocationType.DIAMOND,
+                        access_rule=has_all(["Grab", "Stomp Jump"]) | trick("DR toy car tower diamond damage boost"),
+                        difficulties=[normal, hard]
+                    ),
                     LocationData(
                         "Switch Ladder Diamond",
                         LocationType.DIAMOND,
