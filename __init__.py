@@ -174,8 +174,6 @@ class WL4World(World):
         self.levels = {}
 
     def create_regions(self):
-        import logging
-        logging.info(self.options)
         create_regions(self)
         connect_regions(self)
 
