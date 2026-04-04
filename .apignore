@@ -1,0 +1,14 @@
+.idea
+.vscode
+
+.venv*
+.code-workspace
+
+/build/
+
+/test/
+/build.py
+README.md
+
+*.gba
+*.apwl4
