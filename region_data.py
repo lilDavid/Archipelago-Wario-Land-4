@@ -464,7 +464,10 @@ level_table = {
             RegionData(
                 "Jungle Room",
                 [
-                    ExitData("Late Rooms", has("Ground Pound") | trick("PZ jungle room with Fat Wario")),
+                    ExitData(
+                        "Late Rooms",
+                        has("Ground Pound") | not_difficulty(normal) | trick("PZ Normal jungle room with Fat Wario")
+                    ),
                 ],
                 [
                     LocationData("Jungle Room Box"),

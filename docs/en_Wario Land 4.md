@@ -98,8 +98,8 @@ A full list of these strategies is as follows:
 - Pinball Zone:
   - You can get through the fruit room with only grab by throwing one of the lower pinballs at the
   ones on the ledges.
-  - You can use Heavy Grab in place of Ground Pound in the jungle room by carrying a Ringosuki to
-  the top of the room and using Fat Wario.
+  - You can use Heavy Grab in place of Ground Pound in the jungle room on Normal difficulty by
+  carrying a Ringosuki to the top of the room and using Fat Wario.
 - Doodle Woods:
   - You can reach the Gray Square Box on Hard and S-Hard by throwing a Toy Car at the gray blocks.
   The Normal version of that room doesn't have any enemies you can throw.

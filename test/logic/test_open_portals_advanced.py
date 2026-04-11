@@ -147,17 +147,11 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
 
             ["Pinball Zone - Snow Room Box", False, []],
             ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - Snow Room Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
-            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
-            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab"]],
 
             ["Pinball Zone - CD Box", False, []],
             ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - CD Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
-            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
-            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab"]],
 
             ["Pinball Zone - Full Health Item Box", False, []],
             ["Pinball Zone - Full Health Item Box", False, [], ["Progressive Grab"]],
@@ -277,10 +271,7 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
         self.run_location_tests([
             ["Pinball Zone - Switch Room Box", False, []],
             ["Pinball Zone - Switch Room Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - Switch Room Box", False,
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
-            ["Pinball Zone - Switch Room Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
-            ["Pinball Zone - Switch Room Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - Switch Room Box", True, ["Progressive Grab"]],
 
             ["Pinball Zone - Fruit Room Box", False, []],
             ["Pinball Zone - Fruit Room Box", False, [], ["Progressive Grab"]],
@@ -292,17 +283,11 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
 
             ["Pinball Zone - Snow Room Box", False, []],
             ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - Snow Room Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
-            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
-            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab"]],
 
             ["Pinball Zone - CD Box", False, []],
             ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - CD Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
-            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
-            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab"]],
 
             ["Pinball Zone - Pink Room Full Health Item Box", False, []],
             ["Pinball Zone - Pink Room Full Health Item Box", False, [], ["Progressive Grab"]],

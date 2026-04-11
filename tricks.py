@@ -39,8 +39,9 @@ trick_table = {
     # Throw one of the lower pinballs at the ones on the ledges.
     "PZ fruit room without ground pound": TrickData(None),
 
-    # Carry a Ringosuki to the top of the room to move the pinballs using Fat Wario jumps.
-    "PZ jungle room with Fat Wario": TrickData(has("Heavy Grab")),
+    # Carry a Ringosuki to the top of the room to move the pinballs using Fat Wario jumps. There are Ringosukis already
+    # there on Hard and S-Hard, so this trick only affects Normal.
+    "PZ Normal jungle room with Fat Wario": TrickData(has("Heavy Grab")),
 
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
