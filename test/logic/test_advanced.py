@@ -73,6 +73,63 @@ class TestAdvancedNormal(TestNormal):
              ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
         ])
 
+    def _test_pinball_zone(self):
+        self.run_location_tests([
+            ["Pinball Zone - Rolling Room Box", False, []],
+            ["Pinball Zone - Rolling Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Rolling Room Box", False, ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
+            ["Pinball Zone - Rolling Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Rolling Room Box", True, ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Rolling Room Box", True, ["Progressive Grab", "Progressive Grab", "Head Smash"]],
+            ["Pinball Zone - Rolling Room Box", True, ["Progressive Grab", "Stomp Jump", "Head Smash"]],
+
+            ["Pinball Zone - Fruit Room Box", False, []],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Fruit Room Box", False, ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Fruit Room Box", True, ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Fruit Room Box", True, ["Progressive Grab", "Progressive Grab", "Head Smash"]],
+            ["Pinball Zone - Fruit Room Box", True, ["Progressive Grab", "Stomp Jump", "Head Smash"]],
+
+            ["Pinball Zone - Jungle Room Box", False, []],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Jungle Room Box", False, ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Jungle Room Box", True, ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Jungle Room Box", True, ["Progressive Grab", "Progressive Grab", "Head Smash"]],
+            ["Pinball Zone - Jungle Room Box", True, ["Progressive Grab", "Stomp Jump", "Head Smash"]],
+
+            ["Pinball Zone - Snow Room Box", False, []],
+            ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", False, ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
+            ["Pinball Zone - Snow Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Grab", "Head Smash"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Stomp Jump", "Head Smash"]],
+
+            ["Pinball Zone - CD Box", False, []],
+            ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - CD Box", False, ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
+            ["Pinball Zone - CD Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Grab", "Head Smash"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Stomp Jump", "Head Smash"]],
+
+            ["Pinball Zone - Full Health Item Box", False, []],
+            ["Pinball Zone - Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Full Health Item Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["Pinball Zone - Full Health Item Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Full Health Item Box", False,
+             ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Full Health Item Box", True,
+             ["Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
+        ])
+
     def _test_doodle_woods(self):
         self.run_location_tests([
             ["Doodle Woods - Box Behind Wall", True, []],
@@ -203,6 +260,43 @@ class TestAdvancedHard(TestHard):
              ["Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
             ["40 Below Fridge - CD Box", True,
              ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
+        ])
+
+    def _test_pinball_zone(self):
+        self.run_location_tests([
+            ["Pinball Zone - Rolling Room Box", False, []],
+            ["Pinball Zone - Rolling Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Rolling Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Rolling Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Fruit Room Box", False, []],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Fruit Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Jungle Room Box", False, []],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Jungle Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Snow Room Box", False, []],
+            ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - CD Box", False, []],
+            ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - CD Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Full Health Item Box", False, []],
+            ["Pinball Zone - Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Full Health Item Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["Pinball Zone - Full Health Item Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Full Health Item Box", False,
+             ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Full Health Item Box", True,
+             ["Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
         ])
 
     def _test_doodle_woods(self):
@@ -428,6 +522,48 @@ class TestAdvancedSHard(TestSHard):
              ["Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
             ["40 Below Fridge - CD Box", True,
              ["Progressive Ground Pound", "Progressive Ground Pound", "Progressive Grab", "Progressive Grab"]],
+        ])
+
+    def _test_pinball_zone(self):
+        self.run_location_tests([
+            ["Pinball Zone - Switch Room Box", False, []],
+            ["Pinball Zone - Switch Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Switch Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Switch Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Fruit Room Box", False, []],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Fruit Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Fruit Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Jungle Room Box", False, []],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Jungle Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Jungle Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Snow Room Box", False, []],
+            ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - CD Box", False, []],
+            ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - CD Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Head Smash"]],
+
+            ["Pinball Zone - Pink Room Full Health Item Box", False, []],
+            ["Pinball Zone - Pink Room Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Pink Room Full Health Item Box", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["Pinball Zone - Pink Room Full Health Item Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Pink Room Full Health Item Box", False,
+             ["Progressive Grab", "Progressive Ground Pound", "Head Smash"]],
+            ["Pinball Zone - Pink Room Full Health Item Box", True,
+             ["Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound", "Head Smash"]],
+
+            ["Pinball Zone - Rolling Room Full Health Item Box", False, []],
+            ["Pinball Zone - Rolling Room Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["Pinball Zone - Rolling Room Full Health Item Box", False, [], ["Head Smash"]],
+            ["Pinball Zone - Rolling Room Full Health Item Box", True, ["Progressive Grab", "Head Smash"]],
         ])
 
     def _test_doodle_woods(self):

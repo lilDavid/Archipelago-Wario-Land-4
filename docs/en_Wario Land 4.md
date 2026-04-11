@@ -101,6 +101,9 @@ A full list of these strategies is as follows:
   - You can use Heavy Grab in place of Ground Pound in the jungle room on Normal difficulty by
   carrying a Ringosuki to the top of the room and using Fat Wario. Alternatively, you can reach the
   top pinballs by carrying another pinball up, throwing it upward, and stomp-jumping it in midair.
+  - You can do the escape without Ground Pound by throwing a ball upward in the right spot to break
+  the blocks leading to the caged ball. Be careful not to jump into the hole because you will be
+  stuck in there.
 - Doodle Woods:
   - You can reach the Gray Square Box on Hard and S-Hard by throwing a Toy Car at the gray blocks.
   The Normal version of that room doesn't have any enemies you can throw.

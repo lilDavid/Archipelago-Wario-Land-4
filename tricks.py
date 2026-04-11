@@ -44,7 +44,11 @@ trick_table = {
     "PZ Normal jungle room with Fat Wario": TrickData(has("Heavy Grab")),
 
     # Carry a pinball to the top of a room, throw it upward, and stomp-jump it in midair.
-    "PZ Normal jungle room with minion jump": TrickData(has_all(["Grab", "Stomp Jump"])),
+    "PZ Normal jungle room with minion jump": TrickData(has("Stomp Jump")),
+
+    # Throw a pinball up in the right spot to break the blocks leading to the ball in the cage. Beware of getting stuck
+    # in the hole because you won't be able to throw the ball at the blocks below you.
+    "PZ escape without ground pound": TrickData(None),
 
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),

@@ -479,7 +479,10 @@ level_table = {
                 "Late Rooms",
                 [
                     ExitData("Scienstein Puzzle Pink Room", has("Super Ground Pound")),
-                    ExitData("Escape", has_all(["Ground Pound", "Head Smash"])),
+                    ExitData(
+                        "Escape",
+                        has("Head Smash") & (has("Ground Pound") | trick("PZ escape without ground pound"))
+                    ),
                 ],
                 [
                     LocationData("Switch Room Box", difficulties=[s_hard]),
