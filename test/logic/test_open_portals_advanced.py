@@ -53,17 +53,19 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
 
             ["Pinball Zone - Snow Room Box", False, []],
             ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - Snow Room Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", False, [], ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
             ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
             ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - Snow Room Box", True, ["Progressive Grab", "Stomp Jump"]],
 
             ["Pinball Zone - CD Box", False, []],
             ["Pinball Zone - CD Box", False, [], ["Progressive Grab"]],
-            ["Pinball Zone - CD Box", False, [],
-             ["Progressive Grab"], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["Pinball Zone - CD Box", False, [], ["Progressive Grab"],
+             ["Progressive Ground Pound", "Progressive Grab", "Stomp Jump"]],
             ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Ground Pound"]],
             ["Pinball Zone - CD Box", True, ["Progressive Grab", "Progressive Grab"]],
+            ["Pinball Zone - CD Box", True, ["Progressive Grab", "Stomp Jump"]],
 
             ["Pinball Zone - Full Health Item Box", False, []],
             ["Pinball Zone - Full Health Item Box", False, [], ["Progressive Grab"]],

@@ -43,6 +43,9 @@ trick_table = {
     # there on Hard and S-Hard, so this trick only affects Normal.
     "PZ Normal jungle room with Fat Wario": TrickData(has("Heavy Grab")),
 
+    # Carry a pinball to the top of a room, throw it upward, and stomp-jump it in midair.
+    "PZ Normal jungle room with minion jump": TrickData(has_all(["Grab", "Stomp Jump"])),
+
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
 

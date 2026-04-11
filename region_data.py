@@ -466,7 +466,9 @@ level_table = {
                 [
                     ExitData(
                         "Late Rooms",
-                        has("Ground Pound") | not_difficulty(normal) | trick("PZ Normal jungle room with Fat Wario")
+                        not_difficulty(normal) | has("Ground Pound")
+                        | trick("PZ Normal jungle room with Fat Wario")
+                        | trick("PZ Normal jungle room with minion jump")
                     ),
                 ],
                 [
