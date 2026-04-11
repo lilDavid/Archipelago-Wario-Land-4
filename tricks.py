@@ -50,6 +50,14 @@ trick_table = {
     # in the hole because you won't be able to throw the ball at the blocks below you.
     "PZ escape without ground pound": TrickData(None),
 
+    # In open portals, you can grab a toy car and throw it at the blocks you'd normally ground pound at the beginning of
+    # the level. Ground pound is still required for the escape.
+    "TBB front with grab": TrickData(has("Grab")),
+
+    # You can minion-jump on toy cars in several parts of the Bouncy Wario room to access the diamond or CD box before
+    # starting the escape and break blocks you'd otherwise need to ground pound.
+    "TBB bouncy room alcove with minion jumps": TrickData(has_all(["Grab", "Stomp Jump"])),
+
     # Throw a Toy Car at the gray blocks.
     "DW gray square room with grab": TrickData(not_difficulty(Difficulty.option_normal) & has("Grab")),
 

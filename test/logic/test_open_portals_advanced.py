@@ -75,6 +75,39 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
              ["Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound"]],
         ])
 
+    def _test_the_big_board(self):
+        self.run_location_tests([
+            ["The Big Board - First Box", False, []],
+            ["The Big Board - First Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - First Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - First Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Normal Fire Room Box", False, []],
+            ["The Big Board - Normal Fire Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Normal Fire Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Normal Fire Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Normal Enemy Room Box", False, []],
+            ["The Big Board - Normal Enemy Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Normal Enemy Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Normal Enemy Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Toy Car Box", False, []],
+            ["The Big Board - Toy Car Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Toy Car Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Toy Car Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - CD Box", False, []],
+            ["The Big Board - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - CD Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - CD Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Full Health Item Box", False, []],
+            ["The Big Board - Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["The Big Board - Full Health Item Box", False, [], ["Stomp Jump"]],
+            ["The Big Board - Full Health Item Box", True, ["Progressive Grab", "Stomp Jump"]],
+        ])
+
     def _test_domino_row(self):
         self.run_location_tests([
             ["Domino Row - Racing Box", True, []],
@@ -161,6 +194,39 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
             ["Pinball Zone - Full Health Item Box", False, ["Progressive Grab", "Progressive Ground Pound"]],
             ["Pinball Zone - Full Health Item Box", True,
              ["Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound"]],
+        ])
+
+    def _test_the_big_board(self):
+        self.run_location_tests([
+            ["The Big Board - Hard Fire Room Box", False, []],
+            ["The Big Board - Hard Fire Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Hard Fire Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Hard Fire Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Hard Enemy Room Box", False, []],
+            ["The Big Board - Hard Enemy Room Box", False, [], ["Progressive Grab"]],
+            ["The Big Board - Hard Enemy Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Fat Room Box", False, []],
+            ["The Big Board - Fat Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Fat Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Fat Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Flat Room Box", False, []],
+            ["The Big Board - Flat Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Flat Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Flat Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - CD Box", False, []],
+            ["The Big Board - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - CD Box", False, [], ["Progressive Ground Pound", "Stomp Jump"]],
+            ["The Big Board - CD Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - CD Box", True, ["Progressive Grab", "Stomp Jump"]],
+
+            ["The Big Board - Full Health Item Box", False, []],
+            ["The Big Board - Full Health Item Box", False, [], ["Progressive Grab"]],
+            ["The Big Board - Full Health Item Box", False, [], ["Stomp Jump"]],
+            ["The Big Board - Full Health Item Box", True, ["Progressive Grab", "Stomp Jump"]],
         ])
 
     def _test_domino_row(self):
@@ -301,6 +367,34 @@ class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
             ["Pinball Zone - Rolling Room Full Health Item Box", False, []],
             ["Pinball Zone - Rolling Room Full Health Item Box", False, [], ["Progressive Grab"]],
             ["Pinball Zone - Rolling Room Full Health Item Box", True, ["Progressive Grab"]],
+        ])
+
+    def _test_the_big_board(self):
+        self.run_location_tests([
+            ["The Big Board - Hard Fire Room Box", False, []],
+            ["The Big Board - Hard Fire Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Hard Fire Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Hard Fire Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Hard Enemy Room Box", False, []],
+            ["The Big Board - Hard Enemy Room Box", False, [], ["Progressive Grab"]],
+            ["The Big Board - Hard Enemy Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Fat Room Box", False, []],
+            ["The Big Board - Fat Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Fat Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Fat Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - Flat Room Box", False, []],
+            ["The Big Board - Flat Room Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - Flat Room Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - Flat Room Box", True, ["Progressive Grab"]],
+
+            ["The Big Board - CD Box", False, []],
+            ["The Big Board - CD Box", False, [], ["Progressive Ground Pound", "Progressive Grab"]],
+            ["The Big Board - CD Box", False, [], ["Progressive Ground Pound", "Stomp Jump"]],
+            ["The Big Board - CD Box", True, ["Progressive Ground Pound"]],
+            ["The Big Board - CD Box", True, ["Progressive Grab", "Stomp Jump"]],
         ])
 
     def _test_domino_row(self):

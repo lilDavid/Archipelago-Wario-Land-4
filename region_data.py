@@ -564,12 +564,18 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData(None, access_rule=has("Ground Pound")),
+                    ExitData("Front", access_rule=has("Ground Pound") | trick("TBB front with grab")),
                 ]
             ),
             RegionData(
-                None,
-                [],
+                "Front",
+                [
+                    ExitData("Escape", access_rule=has("Ground Pound")),
+                    ExitData(
+                        "Bouncy Alcove",
+                        access_rule=has("Ground Pound") | trick("TBB bouncy room alcove with minion jumps")
+                    ),
+                ],
                 [
                     LocationData("First Box", difficulties=[normal]),
                     LocationData("Hard Fire Room Box", difficulties=[hard, s_hard]),
@@ -579,14 +585,12 @@ level_table = {
                     LocationData("Fat Room Box", difficulties=[hard, s_hard]),
                     LocationData("Toy Car Box", difficulties=[normal]),
                     LocationData("Flat Room Box", difficulties=[hard, s_hard]),
-                    LocationData("CD Box"),
+                    LocationData("CD Box", difficulties=[normal]),
                     LocationData(
                         "Full Health Item Box",
                         access_rule=has_all(["Grab", "Stomp Jump"]),
                         difficulties=[normal, hard]
                     ),
-                    LocationData("Keyzer", LocationType.KEYZER),
-                    LocationData("Frog Switch", LocationType.SWITCH),
                     LocationData("Fire Room Diamond", LocationType.DIAMOND, difficulties=[normal]),
                     LocationData(
                         "Enemy Room Diamond",
@@ -595,7 +599,22 @@ level_table = {
                         difficulties=[normal]
                     ),
                     LocationData("Fat Room Diamond", LocationType.DIAMOND, difficulties=[normal]),
+                ]
+            ),
+            RegionData(
+                "Bouncy Alcove",
+                [],
+                [
+                    LocationData("CD Box", difficulties=[hard, s_hard]),
                     LocationData("Bouncy Room Diamond", LocationType.DIAMOND, difficulties=[normal]),
+                ]
+            ),
+            RegionData(
+                "Escape",
+                [],
+                [
+                    LocationData("Keyzer", LocationType.KEYZER),
+                    LocationData("Frog Switch", LocationType.SWITCH),
                     LocationData("Scienstein Puzzle Diamond", LocationType.DIAMOND, access_rule=has("Grab")),
                 ]
             ),

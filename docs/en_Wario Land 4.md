@@ -107,6 +107,12 @@ A full list of these strategies is as follows:
 - Doodle Woods:
   - You can reach the Gray Square Box on Hard and S-Hard by throwing a Toy Car at the gray blocks.
   The Normal version of that room doesn't have any enemies you can throw.
+- The Big Board:
+  - On Open Portals, you can break the blocks at the beginning of the level by throwing a Toy Car
+  at them instead of ground pounding them. Doing the escape sequence still requires ground pound.
+  - You can use minion jumps to even get the diamond (on normal) or CD box (on hard or S-hard) by
+  breaking blocks with the Toy Cars in the room. Only relevant if you skip ground pound for the rest
+  of the level.
 - Domino Row:
   - You can open the way down the red tower by either breaking the blocks with Head Smash or by
   throwing a Toy Car from the top of the room. You need to do one of these things to escape without
