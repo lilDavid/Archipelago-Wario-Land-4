@@ -146,15 +146,11 @@ class WL4World(World):
         if self.options.goal in (Goal.option_local_golden_treasure_hunt, Goal.option_local_golden_diva_treasure_hunt):
             self.options.local_items.value.update(self.item_name_groups["Golden Treasure"])
         if self.options.required_jewels > self.options.pool_jewels:
-            logging.warning(f"{self.player_name} has Required Jewels set to "
-                            f"{self.options.required_jewels.value} but Pool Jewels set to "
-                            f"{self.options.pool_jewels.value}. Setting Pool Jewels to "
-                            f"{self.options.required_jewels.value}")
+            # Adjust requirement down to amount that exists
             self.options.pool_jewels.value = self.options.required_jewels.value
         if self.options.required_jewels >= 1 and self.options.golden_jewels == 0:
             logging.warning(f"{self.player_name} has Required Jewels set to at least 1 but "
-                            f"Golden Jewels set to {self.options.golden_jewels}. Setting Golden "
-                            "Jewels to 1.")
+                            f"Golden Jewels set to 0. Setting Golden Jewels to 1.")
             self.options.golden_jewels.value = 1
 
         # TODO: Make this more tolerant when start inventory from pool is involved?
