@@ -169,6 +169,8 @@ class WL4World(World):
             raise OptionError(f"Not enough locations to place abilities for {self.player_name}. "
                               'Set the "Pool Jewels" or "Golden Jewels" option to a lower value and try again.')
 
+        self.options.non_local_items.value.difference_update(keyzer_table.keys())
+
         self.filler_item_weights = self.options.prize_weight.value, self.options.junk_weight.value, self.options.trap_weight.value
 
         self.levels = {}
