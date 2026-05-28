@@ -6,13 +6,12 @@ from typing import Callable, Iterable, NamedTuple, TYPE_CHECKING
 from BaseClasses import CollectionState
 
 from .items import golden_treasure_table
-from .options import Logic
 
 if TYPE_CHECKING:
     from . import WL4World
 
 
-__all__ = ["Requirement", "has", "has_all", "has_any", "has_treasures", "option", "difficulty", "not_difficulty", "advanced_logic"]
+__all__ = ["Requirement", "has", "has_all", "has_any", "has_treasures", "option", "difficulty", "not_difficulty", "logic_mode"]
 
 
 RequiredItem = str | tuple[str, int]
@@ -89,10 +88,11 @@ def difficulty(difficulty: int):
 def not_difficulty(_difficulty: int):
     return Requirement(lambda w, s: not difficulty(_difficulty).inner(w, s))
 
-def advanced_logic():
-    def can_sequence_break(world: WL4World, state):
+def logic_mode(logic: int):
+    def using_logic_mode(world: WL4World, state: CollectionState):
+        in_logic = world.options.logic.value >= logic
         if not world.is_universal_tracker():
-            return False
-        return has(world.glitches_item_name).inner(world, state)
+            return in_logic
+        return in_logic or state.has(world.glitches_item_name, world.player)
 
-    return option("logic", Logic.option_advanced) | Requirement(can_sequence_break)
+    return Requirement(using_logic_mode)
