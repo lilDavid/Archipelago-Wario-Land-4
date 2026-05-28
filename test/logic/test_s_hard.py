@@ -1,7 +1,8 @@
+from ...options import Difficulty
 from ..bases import WL4TestBase
 
 class TestSHard(WL4TestBase):
-    options = {"difficulty": 2}
+    options = {"difficulty": Difficulty.option_s_hard}
 
     def test_entry_passage(self):
         self.starting_regions = ["Hall of Hieroglyphs - Entrance"]

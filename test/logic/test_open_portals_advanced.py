@@ -4,9 +4,11 @@ from .test_open_portals import TestNormalOpenPortal, TestHardOpenPortal, TestSHa
 
 
 class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
-    options = {"difficulty": Difficulty.option_normal,
-               "logic": Logic.option_advanced,
-               "portal": Portal.option_open}
+    options = {
+        "difficulty": Difficulty.option_normal,
+        "logic": Logic.option_advanced,
+        "portal": Portal.option_open
+    }
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([
@@ -133,9 +135,11 @@ class TestAdvancedNormalOpenPortal(TestAdvancedNormal, TestNormalOpenPortal):
 
 
 class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
-    options = {"difficulty": Difficulty.option_hard,
-               "logic": Logic.option_advanced,
-               "portal": Portal.option_open}
+    options = {
+        "difficulty": Difficulty.option_hard,
+        "logic": Logic.option_advanced,
+        "portal": Portal.option_open
+    }
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([
@@ -302,9 +306,11 @@ class TestAdvancedHardOpenPortal(TestAdvancedHard, TestHardOpenPortal):
 
 
 class TestAdvancedSHardOpenPortal(TestAdvancedSHard, TestSHardOpenPortal):
-    options = {"difficulty": Difficulty.option_s_hard,
-               "logic": Logic.option_advanced,
-               "portal": Portal.option_open}
+    options = {
+        "difficulty": Difficulty.option_s_hard,
+        "logic": Logic.option_advanced,
+        "portal": Portal.option_open
+    }
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([

@@ -1,10 +1,11 @@
+from ...options import Difficulty, Logic
 from .test_normal import TestNormal
 from .test_hard import TestHard
 from .test_s_hard import TestSHard
 
 
 class TestAdvancedNormal(TestNormal):
-    options = {"difficulty": 0, "logic": 1}
+    options = {"difficulty": Difficulty.option_normal, "logic": Logic.option_advanced}
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([
@@ -193,7 +194,7 @@ class TestAdvancedNormal(TestNormal):
         ])
 
 class TestAdvancedHard(TestHard):
-    options = {"difficulty": 1, "logic": 1}
+    options = {"difficulty": Difficulty.option_hard, "logic": Logic.option_advanced}
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([
@@ -455,7 +456,7 @@ class TestAdvancedHard(TestHard):
         ])
 
 class TestAdvancedSHard(TestSHard):
-    options = {"difficulty": 2, "logic": 1}
+    options = {"difficulty": Difficulty.option_s_hard, "logic": Logic.option_advanced}
 
     def _test_monsoon_jungle(self):
         self.run_location_tests([

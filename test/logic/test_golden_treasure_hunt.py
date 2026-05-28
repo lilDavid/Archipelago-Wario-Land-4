@@ -1,10 +1,9 @@
-from ..bases import WL4TestBase
 from ...options import Difficulty, Goal, Logic
+from ..bases import WL4TestBase
 
 
 class TestNormalTreasureHunt(WL4TestBase):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_normal}
+    options = {"goal": Goal.option_golden_treasure_hunt, "difficulty": Difficulty.option_normal}
 
     def test_treasure_hunt(self):
         self.starting_regions = ["Emerald Passage Boss", "Ruby Passage Boss",
@@ -79,13 +78,11 @@ class TestNormalTreasureHunt(WL4TestBase):
 
 
 class TestHardTreasureHunt(TestNormalTreasureHunt):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_hard}
+    options = {"goal": Goal.option_golden_treasure_hunt, "difficulty": Difficulty.option_hard}
 
 
 class TestSHardTreasureHunt(TestNormalTreasureHunt):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_s_hard}
+    options = {"goal": Goal.option_golden_treasure_hunt, "difficulty": Difficulty.option_s_hard}
 
     def _test_cractus(self):
         self.run_location_tests([
@@ -125,9 +122,11 @@ class TestSHardTreasureHunt(TestNormalTreasureHunt):
 
 
 class TestNormalTreasureHuntAdvanced(TestNormalTreasureHunt):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_normal,
-               "logic": Logic.option_advanced}
+    options = {
+        "goal": Goal.option_golden_treasure_hunt,
+        "difficulty": Difficulty.option_normal,
+        "logic": Logic.option_advanced
+    }
 
     def _test_catbat(self):
         self.run_location_tests([
@@ -146,15 +145,19 @@ class TestNormalTreasureHuntAdvanced(TestNormalTreasureHunt):
 
 
 class TestHardTreasureHuntAdvanced(TestNormalTreasureHuntAdvanced):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_hard,
-               "logic": Logic.option_advanced}
+    options = {
+        "goal": Goal.option_golden_treasure_hunt,
+        "difficulty": Difficulty.option_hard,
+        "logic": Logic.option_advanced
+    }
 
 
 class TestSHardTreasureHuntAdvanced(TestNormalTreasureHuntAdvanced):
-    options = {"goal": Goal.option_golden_treasure_hunt,
-               "difficulty": Difficulty.option_s_hard,
-               "logic": Logic.option_advanced}
+    options = {
+        "goal": Goal.option_golden_treasure_hunt,
+       "difficulty": Difficulty.option_s_hard,
+       "logic": Logic.option_advanced
+    }
 
     def _test_catbat(self):
         self.run_location_tests([

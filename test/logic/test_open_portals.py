@@ -1,9 +1,10 @@
+from ...options import Difficulty, Portal
 from .test_normal import TestNormal
 from .test_hard import TestHard
 from .test_s_hard import TestSHard
 
 class TestNormalOpenPortal(TestNormal):
-    options = {"difficulty": 0, "portal": 1}
+    options = {"difficulty": Difficulty.option_normal, "portal": Portal.option_open}
 
     def _test_wildflower_fields(self):
         self.run_location_tests([
@@ -251,7 +252,7 @@ class TestNormalOpenPortal(TestNormal):
         ])
 
 class TestHardOpenPortal(TestHard):
-    options = {"difficulty": 1, "portal": 1}
+    options = {"difficulty": Difficulty.option_hard, "portal": Portal.option_open}
 
     def _test_wildflower_fields(self):
         self.run_location_tests([
@@ -506,7 +507,7 @@ class TestHardOpenPortal(TestHard):
         ])
 
 class TestSHardOpenPortal(TestSHard):
-    options = {"difficulty": 2, "portal": 1}
+    options = {"difficulty": Difficulty.option_s_hard, "portal": Portal.option_open}
 
     def _test_wildflower_fields(self):
         self.run_location_tests([
