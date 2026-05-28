@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 from .options import Difficulty
-from .rules import *
+from .rules import Requirement, advanced_logic, difficulty, has, has_all, not_difficulty
 
 
 # Eventually, the goal is to allow opting in and out of certain tricks rather than the all-or-nothing system we have now
