@@ -38,7 +38,6 @@ class WL4Settings(settings.Group):
         md5s = [MD5_US_EU, MD5_JP]
 
     rom_file: RomFile = RomFile(RomFile.copy_to)
-    rom_start: bool = True
 
 
 class WL4Web(WebWorld):
