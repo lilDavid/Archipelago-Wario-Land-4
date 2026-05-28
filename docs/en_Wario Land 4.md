@@ -85,6 +85,9 @@ expect you to use those strategies.
 
 A full list of these strategies is as follows:
 
+- Palm Tree Paradise:
+  - You can reach the Switch Staircase Diamond by pushing the professor onto the pipe and jumping
+  off of him when he jumps up to flip himself back over.
 - Monsoon Jungle:
   - You can reach the switch by throwing a Spear-Mask down into the blocks.
   - You can reach the CD box by throwing an enemy into the brown block and floating in as Puffy

@@ -20,6 +20,9 @@ def trick(name: str):
 
 
 trick_table = {
+    # Push the professor onto the pipe and jump off of him as he jumps up to flip himself over
+    "PTP switch staircase stomp jump": TrickData(has("Stomp Jump")),
+
     # Throw an enemy down at the blocks in the switch room
     "MJ with grab": TrickData(has("Grab")),
 

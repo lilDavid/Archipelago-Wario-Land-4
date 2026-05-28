@@ -118,7 +118,7 @@ level_table = {
                     LocationData(
                         "Switch Staircase Diamond",
                         LocationType.DIAMOND,
-                        access_rule=has("Grab") | advanced_logic() & has("Stomp Jump")
+                        access_rule=has("Grab") | trick("PTP switch staircase stomp jump")
                     ),
                     LocationData("Scienstein Throw Diamond", LocationType.DIAMOND, access_rule=has("Grab")),
                 ]
