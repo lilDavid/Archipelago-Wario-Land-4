@@ -92,6 +92,9 @@ A full list of these strategies is as follows:
   - You can reach the switch by throwing a Spear-Mask down into the blocks.
   - You can reach the CD box by throwing an enemy into the brown block and floating in as Puffy
   Wario.
+- Cractus:
+  - The timing to get all treasures on S-Hard without Stomp Jump is actually pretty lenient. You
+  can even regrab the vines if you hit him close enough to them.
 - 40 Below Fridge:
   - You can ground pound the switches in the maze puzzle room by getting a running start and stomp
   jumping on the glass ball right after the glass bird spits it out.

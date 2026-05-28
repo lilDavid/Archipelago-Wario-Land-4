@@ -5,7 +5,7 @@ from typing import NamedTuple
 
 from .data import Passage
 from .options import Difficulty, Goal
-from .rules import Requirement, has, has_all, has_any, has_treasures, option, difficulty, not_difficulty, advanced_logic
+from .rules import Requirement, has, has_all, has_any, has_treasures, option, difficulty, not_difficulty
 from .tricks import trick
 
 
@@ -981,14 +981,14 @@ passage_boss_table = {
     Passage.EMERALD: BossData(
         "Cractus",
         has("Ground Pound"),
-        not_difficulty(s_hard) | has("Stomp Jump") | advanced_logic()
+        not_difficulty(s_hard) | has("Stomp Jump") | trick("Fast Cractus without stomp jump")
     ),
     Passage.RUBY: BossData("Cuckoo Condor", has("Grab")),
     Passage.TOPAZ: BossData("Aerodent", has("Grab")),
     Passage.SAPPHIRE: BossData(
         "Catbat",
         has("Ground Pound") & (has("Stomp Jump") | trick("Catbat without stomp jump")),
-        has("Stomp Jump") | advanced_logic() & not_difficulty(s_hard)
+        has("Stomp Jump") | trick("Catbat without stomp jump") & not_difficulty(s_hard)
     ),
 }
 

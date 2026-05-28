@@ -29,6 +29,9 @@ trick_table = {
     # Throw an enemy into the ceiling and enter with Puffy Wario
     "MJ CD box with grab": TrickData(has("Grab")),
 
+    # It's easier to hit him quickly the closer he is to the vines when you hit him
+    "Fast Cractus without stomp jump": TrickData(None),
+
     # Throw the Yeti at the block.
     "40BF CD box with heavy grab": TrickData(has("Heavy Grab")),
 
