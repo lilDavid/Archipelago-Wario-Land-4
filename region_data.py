@@ -348,7 +348,11 @@ level_table = {
             RegionData(
                 "Entrance",
                 [
-                    ExitData(None, has_all(["Dash Attack", "Super Ground Pound", "Head Smash"])),
+                    ExitData(
+                        None,
+                        access_rule=has_all(["Dash Attack", "Head Smash"])
+                            & (has("Super Ground Pound") | trick("TTL without super ground pound"))
+                    ),
                 ]
             ),
             RegionData(

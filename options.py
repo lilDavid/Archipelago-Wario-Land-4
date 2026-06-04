@@ -74,6 +74,7 @@ class Logic(Choice):
     option_basic = 0
     option_intermediate = 1
     option_advanced = 2
+    option_anything_goes = 3
     default = option_basic
 
 

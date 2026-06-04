@@ -8,6 +8,7 @@ from .rules import Requirement, logic_mode, difficulty, has, has_all, has_any, n
 class TrickLevel(IntEnum):
     INTERMEDIATE = Logic.option_intermediate
     ADVANCED = Logic.option_advanced
+    ANYTHING_GOES = Logic.option_anything_goes
 
 
 class TrickData(NamedTuple):
@@ -45,6 +46,10 @@ trick_table = {
 
     # Lure the Ringosuki toward the water and grab the apple in midair.
     "TTL transformation puzzle without heavy grab": TrickData(TrickLevel.ADVANCED),
+
+    # Carry the Ringosuki down the left tunnel by ground pounding the blocks, then throw it onto the ledge at just the
+    # right time. Then break the hard block as Fat Wario.
+    "TTL without super ground pound": TrickData(TrickLevel.ANYTHING_GOES, has_all(["Ground Pound", "Heavy Grab"])),
 
     # Throw one of the lower pinballs at the ones on the ledges.
     "PZ fruit room without ground pound": TrickData(TrickLevel.INTERMEDIATE),

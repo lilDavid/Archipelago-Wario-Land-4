@@ -155,6 +155,11 @@ A full list of these strategies, grouped by difficulty, is as follows:
     the apex or else you will be bounced off.
   - Golden Passage:
     - You can skip the current puzzle room by repeatedly jumping out of the river with good timing.
+- Anything Goes:
+  - The Toxic Landfill:
+    - You can skip the super ground pound requirement by carrying the Ringosuki in the switch room
+    down as you ground pound the first set of blocks out, then throw it onto the ledge at just the
+    right time to break the hard block as Fat Wario.
 
 Videos of some of these strategies can be found at this YouTube playlist: [Wario Land 4 Archipelago
 Tricks](https://www.youtube.com/playlist?list=PL9fyDZ3k7Qw0WclTCDDImKQDjNi2Sy0Gp)
