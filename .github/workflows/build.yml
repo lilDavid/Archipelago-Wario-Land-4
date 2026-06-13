@@ -1,0 +1,55 @@
+name: "Build AP World"
+
+on:
+  - "push"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Archipelago
+        uses: actions/checkout@v6
+        with:
+          repository: ArchipelagoMW/Archipelago
+          fetch-depth: 0
+          path: .
+
+      - name: Checkout AP world
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          path: Archipelago-Wario-Land-4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.11
+          cache: pip
+
+      - name: Install AP world
+        run: ln -s "$PWD/Archipelago-Wario-Land-4/src/wl4" worlds
+        shell: bash
+
+      - name: Install Python Deps
+        run: |
+          python -m pip install --upgrade pip
+          python ModuleUpdate.py --yes --force
+          python Launcher.py --update_settings
+        shell: bash
+
+      - name: Build AP world
+        run: python Archipelago-Wario-Land-4/build.py -p .
+        shell: bash
+
+      - name: Upload AP world
+        uses: actions/upload-artifact@v7
+        with:
+          path: Archipelago-Wario-Land-4/build/*.apworld
+          archive: false
+
+      - name: Upload YAML template
+        uses: actions/upload-artifact@v7
+        with:
+          path: Archipelago-Wario-Land-4/build/*.yaml
+          archive: false

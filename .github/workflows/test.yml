@@ -1,0 +1,83 @@
+name: "Test and Fuzz AP World"
+
+on:
+  - "push"
+  - "pull_request"
+
+jobs:
+  setup:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: "ubuntu-latest"
+            name: "Linux"
+            pyversion: "3.12"
+          - os: "macos-latest"
+            name: "macOS"
+            pyversion: "3.11"
+          - os: "windows-latest"
+            name: "Windows"
+            pyversion: "3.12"
+
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
+
+    steps:
+      - name: Checkout Archipelago
+        uses: actions/checkout@v6
+        with:
+          repository: ArchipelagoMW/Archipelago
+          ref: "0.6.7"
+          fetch-depth: 0
+          path: .
+
+      - name: Checkout AP world
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          path: Archipelago-Wario-Land-4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.pyversion }}
+          cache: pip
+
+      - name: Install AP world
+        run: ln -s "$PWD/Archipelago-Wario-Land-4/src/wl4" worlds
+        shell: bash
+
+      - name: Install Fuzzer
+        run: curl -L -o fuzz.py https://raw.githubusercontent.com/Eijebong/Archipelago-fuzzer/refs/heads/main/fuzz.py
+        shell: bash
+
+      - name: Install Python Deps
+        id: install-deps
+        run: |
+          python -m pip install --upgrade pip
+          python ModuleUpdate.py --yes --force --append "WebHostLib/requirements.txt"
+          python Launcher.py --update_settings
+          python -m pip install -r ci-requirements.txt
+        shell: bash
+
+      - name: Run AP tests
+        uses: dariocurr/pytest-summary@v2.6
+        with:
+          extensions: pytest-subtests pytest-xdist
+          options: -n auto
+          paths: test worlds/wl4
+        if: steps.install-deps.outcome == 'success'
+
+      - name: Fuzz AP World
+        run: python fuzz.py -r 100 -g wl4 -n 1
+        if: steps.install-deps.outcome == 'success'
+
+      - name: Upload fuzz output
+        uses: actions/upload-artifact@v7
+        with:
+          name: fuzz-output
+          path: fuzz-output
+          archive: true
+          if-no-files-found: ignore
+        if: always()
