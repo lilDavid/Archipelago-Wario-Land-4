@@ -10,11 +10,13 @@ import sys
 
 
 WORLD_NAME = "wl4"
-WORLD_PATH = Path(__file__).parents[0]
-with open(WORLD_PATH / "archipelago.json", "r", encoding="utf-8") as file:
+REPO_PATH = Path(__file__).parents[0]
+
+WORLD_PATH = REPO_PATH.joinpath("src", WORLD_NAME)
+with open(WORLD_PATH.joinpath("archipelago.json"), "r", encoding="utf-8") as file:
     GAME_NAME: str = json.load(file)["game"]
 
-BUILD_PATH = WORLD_PATH / "build"
+BUILD_PATH = REPO_PATH.joinpath("build")
 ap_path: Path
 
 

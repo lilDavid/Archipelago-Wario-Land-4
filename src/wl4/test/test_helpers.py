@@ -1,4 +1,3 @@
-import itertools
 from unittest import TestCase
 
 from ..data import Passage
