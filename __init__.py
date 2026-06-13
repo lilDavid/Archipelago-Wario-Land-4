@@ -26,7 +26,7 @@ from .items import (
 from .locations import WL4Location, get_level_locations, location_name_to_id
 from .options import Goal, OpenDoors, WL4Options, wl4_option_groups
 from .region_data import passage_levels
-from .regions import WL4Level, connect_regions, create_regions
+from .regions import WL4Level, connect_regions, create_regions, set_rules
 from .rom import MD5_JP, MD5_US_EU, WL4ProcedurePatch, write_tokens
 
 
@@ -72,7 +72,6 @@ class WL4World(World):
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
-    required_client_version = (0, 6, 0)
     origin_region_name = "Pyramid"
 
     item_name_groups = {
@@ -172,7 +171,6 @@ class WL4World(World):
 
     def create_regions(self):
         create_regions(self)
-        connect_regions(self)
 
     def create_items(self):
         difficulty = self.options.difficulty.value
@@ -256,6 +254,12 @@ class WL4World(World):
         itempool += [self.create_item(self.get_filler_item_name()) for _ in range(junk_count)]
 
         self.multiworld.itempool += itempool
+
+    def set_rules(self):
+        set_rules(self)
+
+    def connect_entrances(self):
+        connect_regions(self)
 
     def get_pre_fill_items(self):
         return list(itertools.chain.from_iterable(level.items for level in self.levels.values()))
@@ -369,10 +373,6 @@ class WL4World(World):
         if name == self.glitches_item_name:
             return WL4EventItem(name, self.player)
         return WL4Item(name, self.player, force_non_progression)
-
-    def set_rules(self):
-        self.multiworld.completion_condition[self.player] = (
-            lambda state: state.has("Escape the Pyramid", self.player))
 
     # UT integration
 
