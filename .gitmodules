@@ -1,0 +1,4 @@
+[submodule "basepatch"]
+	path = basepatch
+	url = https://github.com/lilDavid/WL4-Archipelago-Patch.git
+	branch = main

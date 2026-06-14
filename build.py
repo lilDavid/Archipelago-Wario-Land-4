@@ -10,7 +10,7 @@ import sys
 
 
 WORLD_NAME = "wl4"
-REPO_PATH = Path(__file__).parents[0]
+REPO_PATH = Path(sys.argv[0]).parents[0]
 
 WORLD_PATH = REPO_PATH.joinpath("src", WORLD_NAME)
 with open(WORLD_PATH.joinpath("archipelago.json"), "r", encoding="utf-8") as file:
@@ -18,6 +18,17 @@ with open(WORLD_PATH.joinpath("archipelago.json"), "r", encoding="utf-8") as fil
 
 BUILD_PATH = REPO_PATH.joinpath("build")
 ap_path: Path
+
+
+def build_basepatch():
+    import os.path
+
+    basepatch_path = os.path.join(REPO_PATH, "basepatch") # For a good error message
+    subprocess.check_call("make", cwd=basepatch_path)
+
+    build = Path(basepatch_path).joinpath("build")
+    shutil.copy(build / "basepatch.bsdiff", WORLD_PATH.joinpath("data"))
+    shutil.copy(build / "basepatch.sym", WORLD_PATH.joinpath("data"))
 
 
 def clean_build_path():
@@ -51,11 +62,21 @@ def generate_template():
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("-p", "--path", default=None, help="Path to your Archipelago source code")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-p", "--path", default=None, help="Path to your Archipelago source code")
+    group.add_argument("-bp", "--basepatch", action="store_true", help="Only build the basepatch")
     args = parser.parse_args()
 
-    ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
+    try:
+        build_basepatch()
+        if args.basepatch:
+            sys.exit(0)
+    except Exception as e:
+        print("Could not build basepatch:", e)
+        if args.basepatch:
+            sys.exit(1)
 
+    ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
     clean_build_path()
     build_apworld()
     generate_template()
