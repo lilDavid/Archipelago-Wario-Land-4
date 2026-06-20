@@ -26,7 +26,7 @@ from .items import (
 from .locations import WL4Location, get_level_locations, location_name_to_id
 from .options import Goal, OpenDoors, WL4Options, wl4_option_groups
 from .region_data import passage_levels
-from .regions import WL4Level, connect_regions, create_regions, set_rules
+from .regions import WL4Level, connect_regions, create_regions, set_rules, should_create_passage_boss
 from .rom import MD5_JP, MD5_US_EU, WL4ProcedurePatch, write_tokens
 
 
@@ -131,11 +131,11 @@ class WL4World(World):
 
     filler_item_weights: tuple[int, int, int] | None
 
+    levels: dict[str, WL4Level]
+
     def __init__(self, *args, **kwargs):
         super(WL4World, self).__init__(*args, **kwargs)
         self.filler_item_weights = None
-
-    levels: dict[str, WL4Level]
 
     def generate_early(self):
         if self.is_universal_tracker():
@@ -189,7 +189,7 @@ class WL4World(World):
         required_jewels = self.options.required_jewels.value
         pool_jewels = self.options.pool_jewels.value
         for name, item in jewel_piece_table.items():
-            force_non_progression = required_jewels == 0
+            force_non_progression = required_jewels == 0 or not should_create_passage_boss(self, item.passage)
             if item.passage == Passage.ENTRY:
                 copies = min(pool_jewels, 1)
             elif item.passage == Passage.GOLDEN:
