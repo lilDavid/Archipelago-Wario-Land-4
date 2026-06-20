@@ -3,7 +3,8 @@ from __future__ import annotations
 import itertools
 from typing import Iterable, TYPE_CHECKING
 
-from rule_builder.rules import CanReachLocation, Has, HasAll, HasAllCounts, OptionFilter, Rule, True_
+from rule_builder.rules import CanReachLocation, Has, HasFromList, HasAllCounts, OptionFilter, Rule, True_
+from rule_builder.field_resolvers import FromOption
 from worlds.generic.Rules import CollectionRule, add_item_rule
 from BaseClasses import Item, Region
 
@@ -12,7 +13,7 @@ from .items import JewelPieceItemData, WL4EventItem, WL4Item, get_jewel_pieces_b
 from .locations import WL4EventLocation, WL4Location
 from .region_data import LocationData, LocationType, RegionData, passage_levels, level_table, passage_boss_table, golden_diva
 from .rules import has_treasures
-from .options import OpenDoors, Portal
+from .options import OpenDoors, Portal, RequiredBosses
 
 if TYPE_CHECKING:
     from . import WL4World
@@ -205,14 +206,17 @@ def connect_regions(world: WL4World):
     required_jewels_entry = min(1, required_jewels)
 
     for passage, levels in passage_levels.items():
-        connect_entrance(
-            world,
-            f"{passage.long_name()} Entrance",
-            "Pyramid",
-            passage.long_name(),
-            HasAll("Emerald Passage Clear", "Ruby Passage Clear", "Topaz Passage Clear", "Sapphire Passage Clear")
-                if passage == Passage.GOLDEN else True_()
-        )
+        if passage == Passage.GOLDEN:
+            rule = HasFromList(
+                "Emerald Passage Clear",
+                "Ruby Passage Clear",
+                "Topaz Passage Clear",
+                "Sapphire Passage Clear",
+                count=FromOption(RequiredBosses)
+            )
+        else:
+            rule = True_()
+        connect_entrance(world, f"{passage.long_name()} Entrance", "Pyramid", passage.long_name(), rule)
 
         connect_entrance(world, f"{levels[0]} Entrance", passage.long_name(), get_level_entrance_name(levels[0]))
         for i, (source, destination) in enumerate(itertools.pairwise(levels), 1):

@@ -155,6 +155,9 @@ A full list of these strategies, grouped by difficulty, is as follows:
     the apex or else you will be bounced off.
   - Golden Passage:
     - You can skip the current puzzle room by repeatedly jumping out of the river with good timing.
+    - You can do the Keyzer puzzle without ground pound by using the box as a platform to escape
+    the area with the blue block. You can safely collect the item after breaking the blocks under
+    the blue block.
 - Anything Goes:
   - The Toxic Landfill:
     - You can skip the super ground pound requirement by carrying the Ringosuki in the switch room

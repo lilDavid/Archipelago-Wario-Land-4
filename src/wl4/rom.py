@@ -171,6 +171,12 @@ def write_tokens(world: WL4World, patch: WL4ProcedurePatch):
     )
     set_difficulty_level(patch, world.options.difficulty)
 
+    patch.write_token(
+        APTokenTypes.WRITE,
+        get_rom_address("BossesRequired"),
+        world.options.required_bosses.value.to_bytes(1, "little")
+    )
+
     if (world.options.portal == Portal.option_open):
         # SpriteAI_Vortex()
         patch_instructions(patch, 0x02ABA6, 0x2080)  # mov r0, #0x80  ; Pose 0 - Wait 128 frames

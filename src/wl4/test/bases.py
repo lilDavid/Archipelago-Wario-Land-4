@@ -102,7 +102,7 @@ class WL4TestBase(WorldTestBase):
         if isinstance(items, str):
             items = [items]
             singleton = True
-        ret = [self.multiworld.worlds[player].create_item(item) for item in items]
+        ret = [self.multiworld.worlds[player].create_item_or_event(item) for item in items]
         if singleton:
             return ret[0]
         return ret

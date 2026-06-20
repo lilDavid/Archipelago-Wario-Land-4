@@ -110,6 +110,14 @@ class RequiredJewels(Range):
     default = 2
     display_name = "Required Jewels"
 
+class RequiredBosses(Range):
+    """
+    Number of passage bosses that must be defeated to unlock the Golden Pyramid.
+    """
+    range_start = 0
+    range_end = 5
+    default = 4
+    display_name = "Required Bosses"
 
 class RestrictSelfLockingJewelPieces(Toggle):
     """
@@ -257,6 +265,7 @@ wl4_option_groups = [
     OptionGroup("World", [
         Difficulty,
         RequiredJewels,
+        RequiredBosses,
         OpenDoors,
         KeyzerShuffle,
         Portal,
@@ -290,6 +299,7 @@ class WL4Options(PerGameCommonOptions):
     golden_treasure_count: GoldenTreasureCount
     difficulty: Difficulty
     required_jewels: RequiredJewels
+    required_bosses: RequiredBosses
     open_doors: OpenDoors
     keyzer_shuffle: KeyzerShuffle
     portal: Portal

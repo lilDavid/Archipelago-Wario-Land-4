@@ -374,6 +374,12 @@ class WL4World(World):
             return WL4EventItem(name, self.player)
         return WL4Item(name, self.player, force_non_progression)
 
+    def create_item_or_event(self, name: str):
+        try:
+            return WL4Item(name, self.player)
+        except KeyError:
+            return WL4EventItem(name, self.player)
+
     # UT integration
 
     ut_can_gen_without_yaml = True

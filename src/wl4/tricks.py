@@ -161,7 +161,5 @@ trick_table = {
 
     # Use the jewel piece box as a platform to escape the area with the blue block. You can safely collect the item
     # after breaking the blocks below the blue block.
-    # NOTE: This trick isn't documented because it isn't relevant in practice yet: reaching Golden Passage always
-    # requires ground pound because of Cractus and Catbat
     "GP Keyzer puzzle without ground pound": TrickData(TrickLevel.ADVANCED, can_grab),
 }
