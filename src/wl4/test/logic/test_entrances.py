@@ -1,5 +1,5 @@
-from .. import options
-from .bases import WL4TestBase
+from ... import options
+from ..bases import WL4TestBase
 
 
 class TestEntrances(WL4TestBase):
@@ -11,18 +11,19 @@ class TestEntrancesBasic(TestEntrances):
         "open_doors": options.OpenDoors.option_off,
         "required_jewels": 0,
         "keyzer_shuffle": False,
+        "include_entry_passage": True,
     }
 
-#   def test_entry_levels(self):
-#       self.starting_regions = ["Hall of Hieroglyphs - Entrance"]
-#       self.run_entrance_tests([
-#           ["Entry Passage Boss Door", False, []],
-#           ["Entry Passage Boss Door", False, [], ["Dash Attack"]],
-#           ["Entry Passage Boss Door", False, [], ["Progressive Grab"]],
-#           ["Entry Passage Boss Door", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
-#           ["Entry Passage Boss Door", True,
-#            ["Dash Attack", "Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound"]],
-#       ])
+    def test_entry_levels(self):
+        self.starting_regions = ["Hall of Hieroglyphs - Entrance"]
+        self.run_entrance_tests([
+            ["Entry Passage Boss Door", False, []],
+            ["Entry Passage Boss Door", False, [], ["Dash Attack"]],
+            ["Entry Passage Boss Door", False, [], ["Progressive Grab"]],
+            ["Entry Passage Boss Door", False, ["Progressive Ground Pound"], ["Progressive Ground Pound"]],
+            ["Entry Passage Boss Door", True,
+             ["Dash Attack", "Progressive Grab", "Progressive Ground Pound", "Progressive Ground Pound"]],
+        ])
 
     def test_emerald_levels(self):
         self.starting_regions = ["Palm Tree Paradise", "Wildflower Fields - Entrance",

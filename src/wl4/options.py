@@ -92,6 +92,7 @@ class PoolJewels(Range):
 class GoldenJewels(Range):
     """
     Number of copies of the golden pyramid jewel in the item pool.
+    If "Include Entry Passage" is enabled, this also affects the entry passage jewel.
     """
     range_start = 0
     range_end = 2
@@ -118,6 +119,14 @@ class RequiredBosses(Range):
     range_end = 5
     default = 4
     display_name = "Required Bosses"
+
+
+class IncludeEntryPassage(Toggle):
+    """
+    Counts the Entry Passage toward access to the Golden Pyramid.
+    """
+    display_name = "Include Entry Passage"
+
 
 class RestrictSelfLockingJewelPieces(Toggle):
     """
@@ -146,6 +155,7 @@ class KeyzerShuffle(DefaultOnToggle):
     In Open Doors, random items will be placed where Keyzer used to be.
     """
     display_name = 'Keyzer Shuffle'
+
 
 class Portal(Choice):
     """
@@ -266,6 +276,7 @@ wl4_option_groups = [
         Difficulty,
         RequiredJewels,
         RequiredBosses,
+        IncludeEntryPassage,
         OpenDoors,
         KeyzerShuffle,
         Portal,
@@ -300,6 +311,7 @@ class WL4Options(PerGameCommonOptions):
     difficulty: Difficulty
     required_jewels: RequiredJewels
     required_bosses: RequiredBosses
+    include_entry_passage: IncludeEntryPassage
     open_doors: OpenDoors
     keyzer_shuffle: KeyzerShuffle
     portal: Portal

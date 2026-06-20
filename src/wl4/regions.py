@@ -77,11 +77,11 @@ def create_event(region: Region, location_name: str, item_name: str | None = Non
     location.place_locked_item(WL4EventItem(item_name, region.player))
     return location
 
-def should_create_passage_boss(world: WL4World, passage: Passage | None = None):
+def should_create_boss(world: WL4World, passage: Passage):
     if passage == Passage.GOLDEN:
         return world.options.goal.needs_diva()
     if passage == Passage.ENTRY:
-        return False
+        return world.options.required_bosses.value > 0 and world.options.include_entry_passage.value
     return world.options.required_bosses.value > 0 or world.options.goal.needs_treasure_hunt()
 
 def connect_entrance(world: WL4World, name: str, source: str, target: str, rule: Rule[WL4World] = True_()):
@@ -119,8 +119,8 @@ def create_regions(world: WL4World):
                 region.locations.append(location)
             regions.append(region)
 
-    if should_create_passage_boss(world):
-        for passage, boss_data in passage_boss_table.items():
+    for passage, boss_data in passage_boss_table.items():
+        if should_create_boss(world, passage):
             boss_region = WL4Region(f"{passage.long_name()} Boss", world)
             location = create_event(boss_region, boss_data.name, f"{passage.long_name()} Clear")
             boss_region.locations.append(location)
@@ -173,11 +173,11 @@ def set_rules(world: WL4World):
                 if world.options.restrict_self_locking_jewel_pieces.value and level_name == "Golden Passage":
                     add_item_rule(location, restrict_jewel_piece_in_golden_passage)
 
-    if should_create_passage_boss(world):
-        for passage, boss_data in passage_boss_table.items():
+    for passage, boss_data in passage_boss_table.items():
+        if should_create_boss(world, passage):
             world.set_rule(world.get_location(boss_data.name), boss_data.kill_rule)
 
-            if world.options.goal.needs_treasure_hunt():
+            if world.options.goal.needs_treasure_hunt() and not passage.is_small():
                 for time in ("15", "35", "55"):
                     location = world.get_location(f"{boss_data.name} - 0:{time}")
                     if world.options.restrict_self_locking_jewel_pieces.value:
@@ -215,13 +215,10 @@ def connect_regions(world: WL4World):
 
     for passage, levels in passage_levels.items():
         if passage == Passage.GOLDEN:
-            rule = HasFromList(
-                "Emerald Passage Clear",
-                "Ruby Passage Clear",
-                "Topaz Passage Clear",
-                "Sapphire Passage Clear",
-                count=FromOption(RequiredBosses)
-            )
+            clears = ["Emerald Passage Clear", "Ruby Passage Clear", "Topaz Passage Clear", "Sapphire Passage Clear"]
+            if world.options.include_entry_passage.value:
+                clears.append("Entry Passage Clear")
+            rule = HasFromList(*clears, count=FromOption(RequiredBosses))
         else:
             rule = True_()
         connect_entrance(world, f"{passage.long_name()} Entrance", "Pyramid", passage.long_name(), rule)
@@ -242,8 +239,8 @@ def connect_regions(world: WL4World):
         keyzer_name = f"Keyzer ({passage.long_name()} Boss)"
         if not world.options.keyzer_shuffle:
             place_keyzer(world, levels[-1], keyzer_name)
-        if should_create_passage_boss(world, passage):
-            boss_access = make_boss_access_rule(passage, required_jewels_entry if passage == Passage.GOLDEN else required_jewels)
+        if should_create_boss(world, passage):
+            boss_access = make_boss_access_rule(passage, required_jewels_entry if passage.is_small() else required_jewels)
             if passage == Passage.GOLDEN:
                 boss_access &= Has(keyzer_name) | OptionFilter(OpenDoors, OpenDoors.option_open)
             else:
@@ -270,8 +267,10 @@ def connect_regions(world: WL4World):
                     exit_data.access_rule
                 )
 
-    if (world.options.goal.needs_treasure_hunt()):
+    if world.options.goal.needs_treasure_hunt():
         for passage, boss_data in passage_boss_table.items():
+            if passage.is_small():
+                continue
             connect_entrance(
                 world,
                 f"{passage.long_name()} Quick Kill",

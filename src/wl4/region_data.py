@@ -1011,6 +1011,7 @@ level_table = {
 
 
 passage_boss_table = {
+    Passage.ENTRY: BossData("Spoiled Rotten", True_()),
     Passage.EMERALD: BossData(
         "Cractus",
         can_ground_pound,

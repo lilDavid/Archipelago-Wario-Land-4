@@ -176,6 +176,11 @@ def write_tokens(world: WL4World, patch: WL4ProcedurePatch):
         get_rom_address("BossesRequired"),
         world.options.required_bosses.value.to_bytes(1, "little")
     )
+    patch.write_token(
+        APTokenTypes.WRITE,
+        get_rom_address("CountSpoiledRotten"),
+        world.options.include_entry_passage.value.to_bytes(1, "little")
+    )
 
     if (world.options.portal == Portal.option_open):
         # SpriteAI_Vortex()
@@ -380,7 +385,7 @@ def create_starting_inventory(world: WL4World, patch: WL4ProcedurePatch):
     required_jewels = world.options.required_jewels.value
     required_jewels_entry = min(1, required_jewels)
     for item in jewel_piece_table.values():
-        if item.passage in (Passage.ENTRY, Passage.GOLDEN):
+        if item.passage.is_small():
             copies = 1 - required_jewels_entry
         else:
             copies = 4 - required_jewels
