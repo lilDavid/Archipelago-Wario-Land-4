@@ -76,8 +76,8 @@ jobs:
       - name: Upload fuzz output
         uses: actions/upload-artifact@v7
         with:
-          name: fuzz-output
-          path: fuzz-output
+          name: fuzz_output
+          path: fuzz_output
           archive: true
           if-no-files-found: ignore
         if: always()
