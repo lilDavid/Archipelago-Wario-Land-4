@@ -126,7 +126,7 @@ def create_regions(world: WL4World):
             boss_region.locations.append(location)
             regions.append(boss_region)
 
-            if world.options.goal.needs_treasure_hunt():
+            if world.options.goal.needs_treasure_hunt() and not passage.is_small():
                 prize_region = WL4Region(f"{boss_data.name} - Prizes", world)
                 for time in ("15", "35", "55"):
                     location = WL4Location(world.player, f"{boss_data.name} - 0:{time}", prize_region)
