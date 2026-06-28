@@ -64,19 +64,13 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-p", "--path", default=None, help="Path to your Archipelago source code")
-    group.add_argument("-bp", "--basepatch", action="store_true", help="Only build the basepatch")
+    group.add_argument("-bp", "--basepatch", action="store_true", help="Build the basepatch")
     args = parser.parse_args()
 
-    try:
+    if args.basepatch:
         build_basepatch()
-        if args.basepatch:
-            sys.exit(0)
-    except Exception as e:
-        print("Could not build basepatch:", e)
-        if args.basepatch:
-            sys.exit(1)
-
-    ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
-    clean_build_path()
-    build_apworld()
-    generate_template()
+    else:
+        ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
+        clean_build_path()
+        build_apworld()
+        generate_template()
