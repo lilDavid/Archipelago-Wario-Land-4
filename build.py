@@ -61,16 +61,25 @@ def generate_template():
 
 
 if __name__ == "__main__":
+    def error(message):
+        print(f"{parser.prog}: error: {message}", file=sys.stderr)
+        sys.exit(2)
+
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-p", "--path", default=None, help="Path to your Archipelago source code")
     group.add_argument("-bp", "--basepatch", action="store_true", help="Build the basepatch")
     args = parser.parse_args()
 
-    if args.basepatch:
-        build_basepatch()
-    else:
-        ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
-        clean_build_path()
-        build_apworld()
-        generate_template()
+    try:
+        if args.basepatch:
+            build_basepatch()
+        else:
+            ap_path = Path(args.path or os.getenv("AP_SOURCE_PATH") or os.getenv("AP_PATH") or os.getcwd())
+            clean_build_path()
+            build_apworld()
+            generate_template()
+    except KeyboardInterrupt:
+        error("interrupted")
+    except (OSError, subprocess.SubprocessError) as e:
+        error(e)
