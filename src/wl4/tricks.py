@@ -3,23 +3,22 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
-from typing_extensions import override
 
 from BaseClasses import CollectionState
 from NetUtils import JSONMessagePart
-
-from rule_builder.rules import Has, OptionFilter, Rule, WrapperRule, True_, And
+from rule_builder.rules import And, Has, OptionFilter, Rule, True_, WrapperRule
+from typing_extensions import override
 
 from .options import Logic
 from .rules import (
+    can_grab,
+    can_ground_pound,
+    can_head_smash,
+    can_heavy_grab,
+    can_stomp_jump,
+    can_super_ground_pound,
     hard_mode,
     s_hard_mode,
-    can_grab,
-    can_heavy_grab,
-    can_ground_pound,
-    can_super_ground_pound,
-    can_head_smash,
-    can_stomp_jump,
 )
 
 if TYPE_CHECKING:
@@ -143,6 +142,9 @@ trick_table = {
 
     # Drop off the top of the ladder and immediately start a ground pound
     "DR switch room block no dash attack": TrickData(TrickLevel.ADVANCED, can_super_ground_pound),
+
+    # Line yourself up on a specific pixel of the ramp
+    "CMV agile bat precise throw": TrickData(TrickLevel.ADVANCED, can_grab & can_head_smash),
 
     # Break the wooden boxes by throwing the mummy enemies.
     "AN Onomi room with grab": TrickData(TrickLevel.INTERMEDIATE, can_grab),

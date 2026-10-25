@@ -346,6 +346,36 @@ class TestAdvancedHard(TestHard):
             ["Domino Row - CD Box", True, ["Swim"]],
         ])
 
+    def _test_crescent_moon_village(self):
+        self.run_location_tests([
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, []],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Progressive Grab"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", True, ["Head Smash", "Dash Attack", "Progressive Grab"]],
+
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, []],
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Metal Platform Rolling Box", True, ["Head Smash", "Dash Attack"]],
+
+            ["Crescent Moon Village - !-Switch Rolling Box", False, []],
+            ["Crescent Moon Village - !-Switch Rolling Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - !-Switch Rolling Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - !-Switch Rolling Box", True, ["Head Smash", "Dash Attack"]],
+
+            ["Crescent Moon Village - Sewer Box", False, []],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Swim"]],
+            ["Crescent Moon Village - Sewer Box", True, ["Head Smash", "Dash Attack", "Swim"]],
+
+            ["Crescent Moon Village - CD Box", False, []],
+            ["Crescent Moon Village - CD Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - CD Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - CD Box", True, ["Head Smash", "Dash Attack"]],
+        ])
+
     def _test_arabian_night(self):
         self.run_location_tests([
             ["Arabian Night - Onomi Box", False, []],
@@ -611,6 +641,36 @@ class TestAdvancedSHard(TestSHard):
             ["Domino Row - CD Box", False, []],
             ["Domino Row - CD Box", False, [], ["Swim"]],
             ["Domino Row - CD Box", True, ["Swim"]],
+        ])
+
+    def _test_crescent_moon_village(self):
+        self.run_location_tests([
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, []],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", False, [], ["Progressive Grab"]],
+            ["Crescent Moon Village - Agile Bat Hidden Box", True, ["Head Smash", "Dash Attack", "Progressive Grab"]],
+
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, []],
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Metal Platform Rolling Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Metal Platform Rolling Box", True, ["Head Smash", "Dash Attack"]],
+
+            ["Crescent Moon Village - !-Switch Rolling Box", False, []],
+            ["Crescent Moon Village - !-Switch Rolling Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - !-Switch Rolling Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - !-Switch Rolling Box", True, ["Head Smash", "Dash Attack"]],
+
+            ["Crescent Moon Village - Sewer Box", False, []],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - Sewer Box", False, [], ["Swim"]],
+            ["Crescent Moon Village - Sewer Box", True, ["Head Smash", "Dash Attack", "Swim"]],
+
+            ["Crescent Moon Village - CD Box", False, []],
+            ["Crescent Moon Village - CD Box", False, [], ["Head Smash"]],
+            ["Crescent Moon Village - CD Box", False, [], ["Dash Attack"]],
+            ["Crescent Moon Village - CD Box", True, ["Head Smash", "Dash Attack"]],
         ])
 
     def _test_arabian_night(self):

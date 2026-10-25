@@ -760,7 +760,7 @@ level_table = {
             RegionData(
                 "Upper",
                 [
-                    ExitData("Agile Bat Rock Puzzle", access_rule=can_ground_pound & can_grab),
+                    ExitData("Agile Bat Rock Puzzle", access_rule=can_grab & (can_ground_pound | trick("CMV agile bat precise throw"))),
                     ExitData("Lower", access_rule=can_dash_attack),
                 ],
                 [
