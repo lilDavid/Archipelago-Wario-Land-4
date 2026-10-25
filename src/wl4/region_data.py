@@ -8,17 +8,17 @@ from rule_builder.rules import And, Or, Rule, True_
 from .data import Passage
 from .options import Difficulty
 from .rules import (
-    normal_mode,
-    hard_mode,
-    s_hard_mode,
     can_dash_attack,
     can_grab,
-    can_heavy_grab,
     can_ground_pound,
-    can_super_ground_pound,
     can_head_smash,
+    can_heavy_grab,
     can_stomp_jump,
+    can_super_ground_pound,
     can_swim,
+    hard_mode,
+    normal_mode,
+    s_hard_mode,
 )
 from .tricks import trick
 
@@ -375,7 +375,7 @@ level_table = {
             RegionData(
                 None,
                 [
-                    ExitData("Current Circle Room", access_rule=can_swim),
+                    ExitData("Current Circle Room", access_rule=can_swim & can_super_ground_pound),
                     ExitData("Transformation Puzzle", access_rule=can_heavy_grab | can_stomp_jump)
                 ],
                 [
