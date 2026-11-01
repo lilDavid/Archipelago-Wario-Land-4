@@ -359,6 +359,8 @@ class WL4World(World):
             "difficulty",
             "logic",
             "required_jewels",
+            "required_bosses",
+            "include_entry_passage",
             "open_doors",
             "keyzer_shuffle",
             "portal",
@@ -413,6 +415,8 @@ class WL4World(World):
         set_option("difficulty")
         set_option("logic")
         set_option("required_jewels")
+        set_option("required_bosses")
+        set_option("include_entry_passage")
         set_option("open_doors")
         set_option("keyzer_shuffle")
         set_option("portal")
