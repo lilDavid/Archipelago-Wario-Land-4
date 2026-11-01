@@ -1,8 +1,11 @@
 {
     "game": "Wario Land 4",
-    "authors": [
-        "lil David"
-    ],
+    "authors": [ "lil David" ],
     "world_version": "3.5.0",
-    "minimum_ap_version": "0.6.7"
+    "minimum_ap_version": "0.6.7",
+    "flags": [ "supports_deathlink" ],
+    "license": "MIT",
+    "ai_disclosure": "none",
+    "repo_url": "https://github.com/lilDavid/Archipelago-Wario-Land-4",
+    "tracker": "https://github.com/JackTHerbert/wl4_jth/releases/latest"
 }
