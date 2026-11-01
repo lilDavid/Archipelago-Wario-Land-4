@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-from argparse import ArgumentParser
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
-
+from argparse import ArgumentParser
+from pathlib import Path
 
 WORLD_NAME = "wl4"
 REPO_PATH = Path(sys.argv[0]).parents[0]
@@ -45,7 +44,7 @@ def call_ap_component(component: str, *args: str):
 
 
 def build_apworld():
-    call_ap_component("Build APWorlds", GAME_NAME)
+    call_ap_component("Build APWorlds", GAME_NAME, "--skip_open_folder")
     apworld_name = f"{WORLD_NAME}.apworld"
     shutil.copy(ap_path.joinpath("build", "apworlds", apworld_name), BUILD_PATH / apworld_name)
 
